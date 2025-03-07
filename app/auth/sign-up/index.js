@@ -34,6 +34,7 @@ createUserWithEmailAndPassword(auth, email, password)
     // Signed up 
     const user = userCredential.user;
     console.log(user);
+    router.replace('/mytrip')
     // ...
   })
   .catch((error) => {
