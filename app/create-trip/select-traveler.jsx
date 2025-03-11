@@ -1,5 +1,5 @@
 import { View, Text, FlatList,TouchableOpacity } from 'react-native'
-import React, { useEffect, useContext }  from 'react'
+import React, { useEffect, useContext ,useState}  from 'react'
 import { useNavigation ,useRouter} from 'expo-router';
 import { SelectTravelesList } from '../../constants/Options';
 import OptionCard from '../../components/CreateTrip/OptionCard';
@@ -7,6 +7,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function SelectTraveler() {
   const navigation=useNavigation(); 
+  const [ selectedTraveler, setSelectedTraveler ] = useState(null);
   const router = useRouter(); 
 
     useEffect (()=>{ 
@@ -22,12 +23,11 @@ export default function SelectTraveler() {
       backgroundColor:"white",
       height:'100%'  }}>
 
-        <TouchableOpacity
-                    onPress={() => router.push('/create-trip/search-place')}
-                    style={{ padding: 10 }}>
-                
-                    <Ionicons name="arrow-back" size={28} color="black" />
-                </TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => router.push('/create-trip/search-place')}
+      style={{ padding: 10 }}>
+      <Ionicons name="arrow-back" size={28} color="black" />
+    </TouchableOpacity>
 
     <Text  style={{ 
      fontSize: 35, 
@@ -46,11 +46,13 @@ export default function SelectTraveler() {
     <FlatList
      data={SelectTravelesList}
      renderItem={({item,index})=>(
-     <View style={{
-        marginVerticle:10 }}> 
-     <OptionCard option={item}/>
-      </View>
-      )} />
+      <TouchableOpacity
+      onPress={() => setSelectedTraveler(item.title)}
+      style={{ marginVertical: 10 }}> 
+     <OptionCard option={item} selectedTraveler={selectedTraveler}/>
+     </TouchableOpacity> )}
+     
+       />
 
      </View>
 
