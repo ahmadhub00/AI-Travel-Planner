@@ -69,6 +69,20 @@ export default function SelectTraveler() {
 
      </View>
 
+     <TouchableOpacity style={{
+      padding:15,
+      backgroundColor:"black",
+      borderRadius:15,
+      marginTop:20
+     }}>
+      <Text style={{
+        color:"white",
+        textAlign:"center",
+        fontSize:20,
+        fontFamily:'outfit-medium'
+      }}>Continue</Text>
+     </TouchableOpacity>
+
        </View>
   )
 }
