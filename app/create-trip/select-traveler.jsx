@@ -2,18 +2,23 @@ import { View, Text, FlatList,TouchableOpacity } from 'react-native'
 import React, { useEffect, useContext ,useState}  from 'react'
 import { useNavigation ,useRouter} from 'expo-router';
 import { SelectTravelesList } from '../../constants/Options';
+import {CreateTripContext} from '../../context/CreateTripContext';
 import OptionCard from '../../components/CreateTrip/OptionCard';
 import Ionicons from '@expo/vector-icons/Ionicons';
-
 export default function SelectTraveler() {
-  const navigation=useNavigation(); 
-  const [ selectedTraveler, setSelectedTraveler ] = useState(null);
   const router = useRouter(); 
 
+  const navigation=useNavigation(); 
+  const [ selectedTraveler, setSelectedTraveler ] = useState(null);
+  const {tripData,setTripData}=useContext(CreateTripContext
+
+  )
+  
+
     useEffect (()=>{ 
-    navigation.setOptions({
-    headerShown:false 
-    })
+      navigation.setOptions({
+        headerShown:false 
+      })
      },[])
   
   return (
