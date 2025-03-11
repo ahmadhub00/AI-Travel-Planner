@@ -63,12 +63,14 @@ export default function SearchPlace() {
             coordinates:details?.geometry.location,
             photoRef:details?.photos[0]?.photo_reference,
             url:deatils?.url
+            
           }
         });
         router.push('/create-trip/select-traveler')
       }}
       query={{
-        key: process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY,
+
+        key: process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY,     
         language: 'en',
       }}
       styles={{
