@@ -20,7 +20,15 @@ export default function SelectTraveler() {
         headerShown:false 
       })
      },[])
-  
+
+     useEffect (()=>{ 
+      setTripData({...tripData,traveler:selectedTraveler})
+     },[selectedTraveler])
+    
+     useEffect (()=>{ 
+      console.log(tripData);
+      },[tripData])
+
   return (
     <View   style={{ 
       padding: 25, 
@@ -52,7 +60,7 @@ export default function SelectTraveler() {
      data={SelectTravelesList}
      renderItem={({item,index})=>(
       <TouchableOpacity
-      onPress={() => setSelectedTraveler(item.title)}
+      onPress={() => setSelectedTraveler(item)}
       style={{ marginVertical: 10 }}> 
      <OptionCard option={item} selectedTraveler={selectedTraveler}/>
      </TouchableOpacity> )}

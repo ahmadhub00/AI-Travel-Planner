@@ -10,7 +10,7 @@ export default function OptionCard({option,selectedTraveler}) {
         justifyContent:'space-between',
         backgroundColor:"#F5F5F5" ,
         borderRadius:15
-    },selectedTraveler==option.title&&{borderWidth:2,borderColor: 'black'}]}>
+    },selectedTraveler?.id==option?.id&&{borderWidth:2,borderColor: 'black'}]}>
         <View>
             <Text style={{
                 fontSize:20,
