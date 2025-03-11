@@ -68,7 +68,7 @@ export default function SearchPlace() {
         router.push('/create-trip/select-traveler')
       }}
       query={{
-        key: 'AIzaSyDQAsmKuueRscCMcp2Kkj_ry3CSQbRwPQM',
+        key: process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY,
         language: 'en',
       }}
       styles={{
