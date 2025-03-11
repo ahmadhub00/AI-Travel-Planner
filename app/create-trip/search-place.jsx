@@ -62,7 +62,7 @@ export default function SearchPlace() {
             name:data.description,
             coordinates:details?.geometry.location,
             photoRef:details?.photos[0]?.photo_reference,
-            url:deatils?.url
+            url:details?.url
             
           }
         });

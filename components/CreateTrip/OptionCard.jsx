@@ -8,23 +8,23 @@ export default function OptionCard({option}) {
         display:'flex',
         flexDirection:'row',
         justifyContent:'space-between',
-        backgroungColor:"grey",
+        backgroundColor:"#F5F5F5" ,
         borderRadius:15
     }}>
         <View>
             <Text style={{
-                fontSixe:20,
+                fontSize:20,
                 fontFamily:'outfit-bold'
-            }}>{options?.title}</Text>
+            }}>{option?.title}</Text>
 
             <Text style={{
-                fontSixe:17,
+                fontSize:17,
                 fontFamily:'outfit',
                 color:"grey"
             }}>{option?.desc}</Text>
         </View>
         <Text style={{
-                fontSixe:35
+                fontSize:35
             }}>{option?.icon}</Text>
      
     </View>
