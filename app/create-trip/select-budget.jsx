@@ -10,11 +10,18 @@ export default function SelectBudget() {
           headerShown:false 
         })
        },[])
-       
+
   return (
-    <View>
-      <Text>SelectBudget
-    </Text>
+    <View style={{
+        padding: 25,
+        paddingTop: 75}}>
+      
+      <Text
+      style={{
+        fontSize: 35, 
+        fontFamily: 'outfit-bold', 
+        marginTop: 20, 
+      }}>Budget</Text>
     </View>
   )
 }
