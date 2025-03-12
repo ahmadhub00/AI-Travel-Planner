@@ -4,6 +4,8 @@ import { Link, useNavigation ,useRouter} from 'expo-router';
 import { SelectTravelesList } from '../../constants/Options';
 import {CreateTripContext} from '../../context/CreateTripContext';
 import OptionCard from '../../components/CreateTrip/OptionCard';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 export default function SelectTraveler() {
   const router = useRouter(); 
 
