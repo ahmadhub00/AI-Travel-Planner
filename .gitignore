@@ -3,9 +3,28 @@
 # dependencies
 node_modules/
 
+# Ignore node_modules
+node_modules/
+
+# Ignore environment variables
+.env
+
+# Ignore API keys and secrets
+api-keys.json
+secrets.json
+
+# Ignore build files
+build/
+dist/
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore log files
+*.log
+
 # Expo
 .expo/
-dist/
 web-build/
 expo-env.d.ts
 

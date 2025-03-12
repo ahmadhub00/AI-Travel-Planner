@@ -10,8 +10,9 @@ export default function RootLayout() {
     'outfit-bold' : require ('./../assets/fonts/Outfit-Bold.ttf'),
   })
 
-  const[tripData,setTripData]=useState([]);
+  const[tripData,setTripData]=useState({});
 
+  
   return (
     <CreateTripContext.Provider value={{tripData,setTripData}}>
   <Stack screenOptions={{

@@ -2,7 +2,6 @@ import { View, Text,TouchableOpacity } from 'react-native'
 import React , { useEffect, useContext ,useState}from 'react'
 import { Link, useNavigation ,useRouter} from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import CalendarPicker from 'react-native-calendar-picker';
 export default function SelectDates() {
   
     const router = useRouter(); 
@@ -48,14 +47,14 @@ const [ endDate, setEndDate ] = useState();
           fontSize: 23, 
           fontFamily: 'outfit-bold'
         }}>Choose your travel dates</Text>*/}
-      <CalendarPicker onDateChange={onDateChange}
+      {/*<CalendarPicker onDateChange={onDateChange}
       allowRangeSelection={true} 
       minDate={new Date()}
       maxRangeDuration={5}
       selectedRangeStyle={{
         backgroundColor:"black"}}
         selectedDayTextStyle={{
-            color:"white"}}/>     
+            color:"white"}}/>     */}
     </View>
     <TouchableOpacity
       style={{ padding: 15,
