@@ -29,7 +29,8 @@ useEffect (()=>{
                    return; }
                    setTripData({ ...tripData, budget: selectedOption });
                    
-       
+                   router.push('/create-trip/review-trip');
+
                };
 
   return (
