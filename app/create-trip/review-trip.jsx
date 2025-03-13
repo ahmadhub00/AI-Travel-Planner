@@ -15,8 +15,23 @@ export default function ReviewTrip() {
             });
         }, []);
   return (
-    <View>
-      <Text>ReviewTrip</Text>
+    <View style={{ 
+        padding: 25, 
+        paddingTop: 75, 
+        backgroundColor:"white",
+        height:'100%'  }}>
+     
+    <TouchableOpacity
+      onPress={() => router.push('/create-trip/select-budget')}
+      style={{ padding: 10 }}>
+      <Ionicons name="arrow-back" size={28} color="black" />
+    </TouchableOpacity>
+    
+   <Text style={{ 
+     fontSize: 35, 
+      fontFamily: 'outfit-bold', 
+      marginTop: 20
+      }}>ReviewTrip</Text> 
     </View>
   )
 }

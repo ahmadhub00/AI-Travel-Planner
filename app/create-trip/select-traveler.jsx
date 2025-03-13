@@ -45,7 +45,7 @@ export default function SelectTraveler() {
     <Text  style={{ 
      fontSize: 35, 
       fontFamily: 'outfit-bold', 
-      marginTop: 20, 
+      marginTop: 20
       }}> Who's Traveling</Text>
   
     <View  style={{ 
