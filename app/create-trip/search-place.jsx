@@ -58,7 +58,7 @@ export default function SearchPlace() {
         // 'details' is provided when fetchDetails = true
         
         setTripData({
-          locataionInfo:{
+          locationInfo:{
             name:data.description,
             coordinates:details?.geometry.location,
             photoRef:details?.photos[0]?.photo_reference,

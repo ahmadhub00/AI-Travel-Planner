@@ -19,7 +19,12 @@ useEffect (()=>{
         })
        },[])
 
-       
+        useEffect (()=>{ 
+          selectedOption&&setTripData({ 
+            ...tripData,
+             budget: selectedOption?.title });
+            },[selectedOption])
+
          const onClickContinue = () => {
                if (!selectedOption) {
                    const message = 'Select your Budget';
@@ -27,7 +32,6 @@ useEffect (()=>{
                        ToastAndroid.show(message, ToastAndroid.LONG);
                      } else { Alert.alert( message); }
                    return; }
-                   setTripData({ ...tripData, budget: selectedOption });
                    
                    router.push('/create-trip/review-trip');
 
