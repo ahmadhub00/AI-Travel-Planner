@@ -4,16 +4,21 @@ import { useNavigation ,useRouter} from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { CreateTripContext } from '../../context/CreateTripContext';
 import { AI_PROMPT } from '../../constants/Options';
+import { chatSession } from '../../configs/AiModel';
+import { set } from 'date-fns';
 
 
 export default function GenerateTrip () {
   const {tripData,setTripData} = useContext(CreateTripContext);  
-    
+    const[loading,setLoading]=useState(false);
   useEffect(()=>{
     tripData&&GenerateAiTrip()
   },[tripData])
 
-  const GenerateAiTrip=()=>{
+  const GenerateAiTrip=async()=>{
+    try { 
+    setLoading(true);
+    console.warn('Generating Trip');
          const FINAL_PROMPT=AI_PROMPT
          .replace('{location}',tripData?.locationInfo?.name)
          .replace('{totalDays}',tripData.totalNoOfDays)
@@ -24,7 +29,21 @@ export default function GenerateTrip () {
          .replace('{totalNights}',tripData.totalNoOfDays-1);
        
          console.warn(FINAL_PROMPT);
+
+         const result = await chatSession.sendMessage(FINAL_PROMPT);
+         //console.log(result.response.text());
+         if (result.response) {
+          const responseText = await result.response.text();
+          console.log(responseText);
+        } else {
+          console.warn("No response received from AI.");
         }
+      } catch (error) {
+        console.error("Error generating AI trip:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
   return (
     <View style={{
