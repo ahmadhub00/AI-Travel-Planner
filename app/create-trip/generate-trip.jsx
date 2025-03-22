@@ -3,11 +3,30 @@ import React, { useEffect, useContext ,useState}  from 'react'
 import { useNavigation ,useRouter} from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { CreateTripContext } from '../../context/CreateTripContext';
+import { AI_PROMPT } from '../../constants/Options';
 
 
 export default function GenerateTrip () {
   const {tripData,setTripData} = useContext(CreateTripContext);  
-    return (
+    
+  useEffect(()=>{
+    tripData&&GenerateAiTrip()
+  },[tripData])
+
+  const GenerateAiTrip=()=>{
+         const FINAL_PROMPT=AI_PROMPT
+         .replace('{location}',tripData?.locationInfo?.name)
+         .replace('{totalDays}',tripData.totalNoOfDays)
+         .replace('{totalNights}',tripData.totalNoOfDays-1)
+         .replace('{traveler}',tripData.traveler?.title)
+         .replace('{budget}',tripData.budget)
+         .replace('{totalDays}',tripData.totalNoOfDays)
+         .replace('{totalNights}',tripData.totalNoOfDays-1);
+       
+         console.warn(FINAL_PROMPT);
+        }
+
+  return (
     <View style={{
         padding :25,
         paddingTop: 75, 
