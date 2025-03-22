@@ -6,7 +6,7 @@ node_modules/
 # Ignore node_modules
 node_modules/
 
-echo ".env"
+
 # Ignore environment variables
 .env
 
