@@ -25,9 +25,9 @@ export default function SelectTraveler() {
       setTripData({...tripData,traveler:selectedTraveler})
      },[selectedTraveler])
     
-     useEffect (()=>{ 
+    {/*useEffect (()=>{ 
       console.log(tripData);
-      },[tripData])
+      },[tripData])*/}
 
   return (
     <View   style={{ 

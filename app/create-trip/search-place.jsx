@@ -17,10 +17,11 @@ export default function SearchPlace() {
     ({ headerShown:false})
  },[])
      
- useEffect(()=>{
+ {/*useEffect(()=>{
   console.log(tripData);
  }),[tripData]
-
+ */}
+ 
   return (
     <View style={{
       padding:25,
@@ -63,7 +64,6 @@ export default function SearchPlace() {
             coordinates:details?.geometry.location,
             photoRef:details?.photos[0]?.photo_reference,
             url:details?.url
-            
           }
         });
         router.push('/create-trip/select-traveler')

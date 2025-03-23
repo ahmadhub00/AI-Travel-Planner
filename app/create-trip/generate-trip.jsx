@@ -6,19 +6,26 @@ import { CreateTripContext } from '../../context/CreateTripContext';
 import { AI_PROMPT } from '../../constants/Options';
 import { chatSession } from '../../configs/AiModel';
 import { set } from 'date-fns';
+import { db ,auth} from '../../configs/FirebaseConfig';
+import { doc, setDoc } from 'firebase/firestore';
 
 
 export default function GenerateTrip () {
   const {tripData,setTripData} = useContext(CreateTripContext);  
     const[loading,setLoading]=useState(false);
+    const router=useRouter();
+    const user=auth.currentUser;
+
   useEffect(()=>{
-    tripData&&GenerateAiTrip()
-  },[tripData])
+    GenerateAiTrip()
+  },[])
 
   const GenerateAiTrip=async()=>{
+    //Using try catch for error handling
     try { 
     setLoading(true);
     console.warn('Generating Trip');
+    //Sending our Data by replacing the placeholders in AI_PROMPT
          const FINAL_PROMPT=AI_PROMPT
          .replace('{location}',tripData?.locationInfo?.name)
          .replace('{totalDays}',tripData.totalNoOfDays)
@@ -28,16 +35,40 @@ export default function GenerateTrip () {
          .replace('{totalDays}',tripData.totalNoOfDays)
          .replace('{totalNights}',tripData.totalNoOfDays-1);
        
+         //Showing Genarated Final Prompt
          console.warn(FINAL_PROMPT);
-
+        //Sending Data to AI
          const result = await chatSession.sendMessage(FINAL_PROMPT);
-         //console.log(result.response.text());
+         
+         let tripResp = null;
+
+         //Showing Response
          if (result.response) {
           const responseText = await result.response.text();
           console.log(responseText);
+          // converting response into JSON
+        //const tripResp = JSON.parse(result.response.text()); 
+        tripResp = JSON.parse(responseText);
         } else {
           console.warn("No response received from AI.");
-        }
+        } 
+
+      // Saving Data in DataBase
+      if (tripResp) {
+      const docId= (Date.now()).toString();
+      const result_=await setDoc(doc(db,"UserTrips",docId),{
+        userEmail:user.email,
+        tripPlan:tripResp, // AI result
+        tripData:JSON.stringify(tripData),// user selection data
+        dpcId:docId
+      });
+        console.warn('Data Saved in Database');
+        router.push('(tabs)/mytrip');
+      } else {
+        console.warn("Trip response is empty, skipping database save.");
+      }
+
+            //Catch
       } catch (error) {
         console.error("Error generating AI trip:", error);
       } finally {
