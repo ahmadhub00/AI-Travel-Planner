@@ -3,14 +3,19 @@ import React from 'react'
 import moment from 'moment'
 
 export default function UserTripCard({trip}) {
-   /*  const formatData=(data)=>{
+     const formatData=(data)=>{
      return JSON.parse(data);
-    } */
-    const formatData = (data) => {
+    } ;
+    /* const formatData = (data) => {
         if (!data) return {}; // Return an empty object to prevent crashes
         return typeof data === 'string' ? JSON.parse(data) : data;
-    };
-  return (
+          };*/
+    
+    const formattedTrip = formatData(trip.tripData); 
+    const photoRef = formattedTrip.locationInfo?.photoRef;
+    const googleApiKey = process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY;
+
+    return (
     <View style={{
         marginTop:20,
         display:'flex',
@@ -18,18 +23,16 @@ export default function UserTripCard({trip}) {
         gap:10,
         alignItems:'center'
         }}>
-      {/* <Image source={require('../../assets/images/login.jpeg')}
-           style={{ 
-        width:100,
-        height:100,
-        borderRadius:15}}/> */}
-       < Image source={{uri:'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='
-                    +formatData(trip.tripdata).locationInfo?.photoRef
-                    +'&key='+process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}}
-                    style={{
-                        width:100,
-                        height:100,
-                        borderRadius:15 }}/>
+             <Image source={{ uri:
+        `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${encodeURIComponent(photoRef)}&key=${googleApiKey}`
+                     }}
+           style={{
+             width:100,
+             height:100,
+            borderRadius:15 }}
+            onError={(e) => console.log("Image Load Error:", e.nativeEvent)}
+            /> 
+           
         <View>
             <Text style={{
                 fontFamily:'outfit-medium',
