@@ -6,7 +6,8 @@ import StartNewTripCard from '../../components/MyTrips/StartnewTripCard';
 import { db ,auth} from '../../configs/FirebaseConfig';
 import { query } from 'firebase/firestore';
 import { getDocs, collection, where } from 'firebase/firestore';
-import { ActivityIndicator } from 'react-native-web';
+import { ActivityIndicator } from 'react-native';
+import UserTripList from '../../components/MyTrips/UserTripList';
 
 export default function MyTrip() {
     const [userTrips,setUserTrips]=useState([]);
@@ -26,7 +27,7 @@ export default function MyTrip() {
         querySnapshot.forEach((doc) => {
             //setUserTrips([...userTrips,doc.data()]);
             console.log(doc.id, " => ", doc.data());
-            setUserTrips(prev=>[...prev,doc.doc()])
+            setUserTrips(prev=>[...prev,doc.data()])
         });
       setLoading(false);
      }
@@ -51,13 +52,15 @@ export default function MyTrip() {
       }}>MyTrip</Text>
       <Ionicons name="add" size={24} color="black" />
     </View> 
+  {/* Show loading indicator when 'loading' is true */}
+    {loading&&<ActivityIndicator size={'large'} color="black"/>}
 
-    {loading&&<ActivityIndicator size={'large'} color={Colors.black}/>}
-
-    {/*condition to run the StartNewTripCard component if userTrips is empty*/}
+    {/* Show 'StartNewTripCard' if userTrips is empty */}
     {userTrips?.length==0?
     <StartNewTripCard/>
-    :null
+    :
+    <UserTripList userTrips={userTrips}/>
+    //userTrips={userTrips} passing data to usertriplist
     }
    </View>
   )
