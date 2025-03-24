@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import React, { useEffect } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react';
@@ -33,7 +33,7 @@ export default function MyTrip() {
      }
 
   return (
-    <View style={{
+    <ScrollView style={{
         padding:25,
         paddingTop:55,
         backgroundColor:"white",
@@ -52,16 +52,16 @@ export default function MyTrip() {
       }}>MyTrip</Text>
       <Ionicons name="add" size={24} color="black" />
     </View> 
-  {/* Show loading indicator when 'loading' is true */}
+    {/* Show loading indicator when 'loading' is true */}
     {loading&&<ActivityIndicator size={'large'} color="black"/>}
 
     {/* Show 'StartNewTripCard' if userTrips is empty */}
     {userTrips?.length==0?
     <StartNewTripCard/>
     :
-    <UserTripList userTrips={userTrips}/>
     //userTrips={userTrips} passing data to usertriplist
-    }
-   </View>
+    <UserTripList userTrips={userTrips}/>
+     }
+   </ScrollView>
   )
 }

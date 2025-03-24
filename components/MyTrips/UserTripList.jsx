@@ -9,12 +9,22 @@ export default function UserTripList({userTrips}) {
   return userTrips&&(
     <View>
       <View style={{marginTop:20}}>
+        {LatestTrip?.locationInfo?.photoRef?
+        <Image source={{uri:'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='
+            +LatestTrip.locationInfo?.photoRef
+            +'&key='+process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}}
+            style={{
+                width:'100%',
+                height:240,
+                objectFit:'cover',
+                borderRadius:15 }}/>
+        :
         <Image source={require('../../assets/images/login.jpeg')}
         style={{
             width:'100%',
             height:240,
             objectFit:'cover',
-            borderRadius:15 }}/>
+            borderRadius:15 }}/>}
 
         <View style={{marginTop:10}}>
              {/*Showing Location*/}
