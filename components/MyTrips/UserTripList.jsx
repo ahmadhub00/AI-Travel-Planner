@@ -52,7 +52,9 @@ export default function UserTripList({userTrips}) {
             🚌 {LatestTrip?.traveler?.title || "Unknown Traveler"}</Text>
          </View>
          <TouchableOpacity 
-         onPress={() => router.push('/trip-details')}
+         onPress={() => router.push({pathname:'/trip-details',params:{
+          trip:JSON.stringify(userTrips[0])
+         }})}
          style={{
                 borderRadius:15,
                 marginTop:10,
