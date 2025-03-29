@@ -18,15 +18,23 @@ export default function HotelList({hotelList}) {
       data={hotelList}
       horizontal={true}
       renderItem={({item,index})=>(
-        <View>
+        <View style={{
+            marginRight:15,
+            Width:180
+        }}>
             <Image source={require('./../../assets/images/login.jpeg')}
             style={{
                 width:180,
                 height:120,
                 borderRadius:15
             }}/>
-
-     <Text>{item.hotelName}</Text>
+       <View>
+          <Text style={{
+            fontFamily:'outfit',
+            fontSize:17
+           }}>{item.hotelName}</Text>
+         </View>
+    
         </View>
       )}
       />
