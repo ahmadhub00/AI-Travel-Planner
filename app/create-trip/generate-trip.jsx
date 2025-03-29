@@ -59,7 +59,11 @@ export default function GenerateTrip () {
       const result_=await setDoc(doc(db,"UserTrips",docId),{
         userEmail:user.email,
         tripPlan:tripResp, // AI result
-        tripData:JSON.stringify(tripData),// user selection data
+        //tripData:JSON.stringify(tripData),// user selection data
+        tripData: JSON.stringify({ 
+          ...tripData, 
+          tripPlan: tripResp // Merge AI-generated tripPlan
+      }), // Store merged tripData
         dpcId:docId
       });
         console.warn('Data Saved in Database');

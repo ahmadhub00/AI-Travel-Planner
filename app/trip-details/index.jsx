@@ -41,12 +41,14 @@ export default function TripDetails() {
       </View>
     </View>
   );
-}
+}*/
 
- */import { View, Text, TouchableOpacity, Image } from 'react-native';
+ /* import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import moment from 'moment'
+import FlightInfo from '../../components/TripDetails/FlightInfo';
 
 export default function TripDetails() {
   const router = useRouter();
@@ -72,11 +74,12 @@ export default function TripDetails() {
     console.warn("Trip data is missing!");
   }
  const TripData = LatestTrip;
-  console.log("Trip Plan:", ParsedTripData.tripPlan);
-console.log("Trip Details:", ParsedTripData.tripPlan?.tripDetails);
-console.log("Location:", ParsedTripData.tripPlan?.tripDetails?.location);console.log("Full ParsedTripData:", JSON.stringify(ParsedTripData, null, 2));
+  console.log("Start Date :", ParsedTripData?.startDate);
+  console.log("End Date :", ParsedTripData?.endDate);
+  console.log("Flight Details:", LatestTrip?.tripPlan?.flightDetails);
+
   return (
-   <View>
+   <ScrollView>
      <View style={{ position: 'relative' }}>
     
     <View >
@@ -89,7 +92,9 @@ console.log("Location:", ParsedTripData.tripPlan?.tripDetails?.location);console
           }}
           style={{
             width: '100%',
-            height: 300
+            height: 300,
+            borderTopLeftRadius:20,
+            borderTopRightRadius:20
           }}
         />
       ) : (
@@ -99,24 +104,171 @@ console.log("Location:", ParsedTripData.tripPlan?.tripDetails?.location);console
         borderRadius: 50,
          position: 'absolute',
          top:35,
-         left:2
-         }}>
-              <TouchableOpacity onPress={() => router.back()} style={{ padding: 10 }} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
+         left:2}}>
+      <TouchableOpacity onPress={() => router.back()} style={{ padding: 10 }} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
         <Ionicons name="arrow-back" size={30} color="white" />
       </TouchableOpacity></View>
-</View>
+    </View>
 
       <View style={{
-        pading:15,
+        padding:2,
         backgroundColor:'white',
-        height:'100%',
+        height:'200%',
         marginTop:-30,
-        borderTopLeftRadius:30,
-        borderTopRightRadius:30
-      }}>
-        <Text style={{padding:10}}>{LatestTrip?.tripPlan?.tripDetails?.location || "Location Not Available"}</Text>
-      </View>
+        borderTopLeftRadius:20,
+        borderTopRightRadius:20  }}>
+        <Text style={{
+          padding:10,
+          fontSize:25,
+          fontFamily:'outfit-bold'}}>
+         {LatestTrip?.tripPlan?.tripDetails?.location || "Location Not Available"}</Text>
+        
+        <View style={{
+          marginLeft:15,
+          display:'flex',
+          flexDirection:'row',
+          gap:10,
+          marginTop:-5
+        }}>
+        <Text style={{
+          fontFamily:'outfit',
+          fontSize:16,
+          color:'grey'}}>
+         <Text>{moment(ParsedTripData?.startDate).format('DD MMM yyyy')} - </Text>
+         <Text>{moment(ParsedTripData?.endDate).format('DD MMM yyyy')}</Text>
+        </Text>
+        </View> 
+         <Text style={{
+            fontFamily:'outfit',
+            fontSize:17,
+            color:'grey',
+            marginLeft:14}}>
+          🚌 {LatestTrip?.tripPlan?.tripDetails?.travelers || "Unknown Traveler"}</Text>
       
-    </View>
+      {/* Flight Info */
+     /*  <FlightInfo flightData={LatestTrip?.tripPlan?.flightDetails?.flights}/>
+      </View>
+      </ScrollView>
+  );
+}
+ */ 
+import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { useRouter, useLocalSearchParams } from 'expo-router';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import moment from 'moment';
+import FlightInfo from '../../components/TripDetails/FlightInfo';
+import HotelList from '../../components/TripDetails/HotelList';
+
+export default function TripDetails() {
+  const router = useRouter();
+  const { trip } = useLocalSearchParams();
+  console.log("Received trip data:", trip); 
+
+  const [latestTrip, setLatestTrip] = useState(null);
+  const [parsedTripData, setParsedTripData] = useState(null); // Initialize state
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (trip) {
+      console.log("Raw Trip Data:", trip);
+  
+      try {
+        const tripObject = typeof trip === "string" ? JSON.parse(trip) : trip;
+        console.log("Parsed Trip Object:", tripObject);
+  
+        setLatestTrip(tripObject);  // <-- Set state before using it
+      } catch (error) {
+        console.error("Error parsing trip data:", error);
+      }
+    }
+  }, [trip]);
+
+  console.log("Trip Object Before Usage:", latestTrip); // Use latestTrip instead of undefined tripObject
+  console.log("Latest Trip" ,latestTrip)
+  return (
+    <ScrollView>
+      {/* Image Section */}
+      <View style={{ position: 'relative' }}>
+        {latestTrip?.locationInfo?.photoRef ? (
+          <Image
+            source={{
+              uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${latestTrip.locationInfo.photoRef}&key=${process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}`,
+            }}
+            style={{
+              width: '100%',
+              height: 300,
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+            }}
+          />
+        ) : (
+          <Text style={{ textAlign: 'center', padding: 20 }}>No Image Available</Text>
+        )}
+
+        {/* Back Button */}
+        <View style={{ position: 'absolute', top: 40, left: 10 }}>
+          <TouchableOpacity onPress={() => router.back()} style={{ padding: 10 }} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
+            <Ionicons name="arrow-back" size={30} color="white" />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      {/* Trip Details */}
+      <View style={{
+        padding: 15,
+        backgroundColor: 'white',
+        minHeight: '100%',
+        marginTop: -30,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20
+      }}>
+        {/* Location */}
+        <Text style={{
+          fontSize: 25,
+          fontFamily: 'outfit-bold'
+        }}>
+          {latestTrip?.locationInfo?.name || "Location Not Available"}
+        </Text>
+
+        {/* Dates */}
+        <View style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginTop: 5
+        }}>
+          <Text style={{
+            fontFamily: 'outfit',
+            fontSize: 16,
+            color: 'grey'
+          }}>
+            {moment(latestTrip?.startDate).format('DD MMM yyyy')} - {moment(latestTrip?.endDate).format('DD MMM yyyy')}
+          </Text>
+        </View>
+
+        {/* Traveler Info */}
+        <Text style={{
+          fontFamily: 'outfit',
+          fontSize: 17,
+          color: 'grey',
+          marginTop: 5
+        }}>
+          {latestTrip?.traveler?.icon} {latestTrip?.traveler?.title || "Unknown Traveler"}
+        </Text>
+
+        {/* Flight Info (if available) */}
+        
+        {latestTrip?.tripPlan?.flightDetails?.flights ? (
+          <FlightInfo flightData={latestTrip.tripPlan.flightDetails.flights} />
+        ) : (
+          <Text style={{ fontSize: 16, color: 'grey', marginTop: 10 }}>
+            ✈️ No flight details available
+          </Text>
+        )}
+       {/*  Hotel Info */}
+       <HotelList hotelList={latestTrip?.tripPlan?.hotelOptions}/>
+
+      </View>
+    </ScrollView>
   );
 }
