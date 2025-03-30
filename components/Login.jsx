@@ -1,4 +1,4 @@
-import { View, Text ,Image, StyleSheet,TouchableOpacity} from 'react-native'
+import { View, Text ,Image, StyleSheet,TouchableOpacity, ScrollView} from 'react-native'
 import React from 'react'
 import { useRouter} from 'expo-router'
 
@@ -7,10 +7,11 @@ export default function Login() {
   
   
   return (
-    <View>
+    <ScrollView>
      <Image style={{
       width:'140%',
-      height:500}}
+      height:550
+    }}
      source={require('./../assets/images/login.jpeg')}/>
 
       <View style={styles.container}>
@@ -37,11 +38,17 @@ export default function Login() {
         color:'white',
         fontFamily:'outfit',
         textAlign:'center',
-        fontSize:17
+        fontSize:17,
+        borderRadius:15
+       /*  ,
+        padding:20,
+        backgroundColor:'black',
+        borderRadius:15,
+        marginTop:50 */
         }}> Get Started</Text>
         </TouchableOpacity>
   
-    </View>
+    </ScrollView>
   )
 }
 
@@ -56,9 +63,12 @@ const styles = StyleSheet.create({
  button:{
   padding :15,
   backgroundColor:'black',
-  borderRadius:99,
+  borderRadius:15,
   marginTop:'20%',
-  alignItems:'center'
+  alignItems:'center',
+  marginLeft:15,
+  marginRight:15
+       
  }
 
 })

@@ -1,4 +1,4 @@
-import { View, Text,StyleSheet, TextInput,TouchableOpacity, ToastAndroid ,Platform, Alert,  } from 'react-native'
+import { View, Text,StyleSheet, TextInput,TouchableOpacity, ToastAndroid ,Platform, Alert, ScrollView,  } from 'react-native'
 import React, { useEffect,useState } from 'react'
 import { useNavigation ,useRouter} from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -53,15 +53,19 @@ export default function SignIn() {
     });}
 
   return (
-    <View style={{
+    
+    <ScrollView keyboardShouldPersistTaps="handled"
+    style={{
       padding:25,
       paddingTop:40,
       backgroundColor:'white',
       height:'100%'
     }}>
-<TouchableOpacity onPress={()=>router.back()}>
-              <Ionicons name="arrow-back" size={24} color="black" />
+      <View >
+       <TouchableOpacity onPress={()=>router.back()} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
+              <Ionicons name="arrow-back" size={30} color="black" />
           </TouchableOpacity>
+          </View>
       <Text style={{
       fontFamily:'outfit-bold',
       fontSize:30
@@ -136,7 +140,8 @@ export default function SignIn() {
       </TouchableOpacity>
      
 
-    </View>
+    
+    </ScrollView>
   )
 }
 

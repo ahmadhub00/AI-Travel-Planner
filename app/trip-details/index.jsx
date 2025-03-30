@@ -5,6 +5,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import moment from 'moment';
 import FlightInfo from '../../components/TripDetails/FlightInfo';
 import HotelList from '../../components/TripDetails/HotelList';
+import PlannerTrip from '../../components/TripDetails/PlannerTrip';
 
 export default function TripDetails() {
   const router = useRouter();
@@ -116,6 +117,9 @@ export default function TripDetails() {
           🏨 No Hotel details available
         </Text>
       )}
+
+       {/* Trip Day Planner Info */}
+       <PlannedTrip details={latestTrip?.tripPlan?.dailyItinerary}/>
 
       </View>
     </ScrollView>

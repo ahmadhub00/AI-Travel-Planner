@@ -20,10 +20,13 @@ export default function FlightInfo({ flightData = [] }) {
       renderItem={({item,index})=>(
 
      <View style={{
-            marginRight:15,
+            marginRight:5,
             Width:180,
-            width: 250, // Adjust width as needed
-            flexWrap: 'wrap'}}>
+            width: 250, 
+            flexWrap: 'wrap',
+            borderWidth:1,
+            borderRadius:16,
+            borderColor:'grey'}}>
             {/* <Image source={require('./../../assets/images/login.jpeg')}
             style={{
                 width:180,
@@ -35,7 +38,8 @@ export default function FlightInfo({ flightData = [] }) {
         <Text style={{ fontFamily: 'outfit', fontSize: 17 }}>
             Airline: {item?.airline || "Unknown"}
            </Text>
-        <Text style={{ fontFamily: 'outfit', fontSize: 17 }}>
+        <Text style={{ fontFamily: 'outfit', fontSize: 17,width:200 }}
+        numberOfLines={2} ellipsizeMode="tail">
           Price: {item?.estimatedPrice || "N/A"}
            </Text>
 
