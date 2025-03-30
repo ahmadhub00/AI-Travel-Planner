@@ -177,7 +177,8 @@ export default function UserTripList({userTrips}) {
                         const parsedTripData = JSON.parse(trip.tripData);
                         setSelectedTrip({ ...parsedTripData
                             ,tripPlan: { ...parsedTripData.tripPlan, 
-                            tripDetails: trip.tripPlan?.tripDetails // Ensure tripDetails is included
+                                // Ensure tripDetails is included
+                            tripDetails: trip.tripPlan?.tripDetails 
                         } });
                     }} />
                   ))}

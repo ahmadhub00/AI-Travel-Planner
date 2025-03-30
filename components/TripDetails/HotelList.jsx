@@ -7,7 +7,9 @@ export default function HotelList({hotelList}) {
         marginTop:20,
         borderWidth:1,
         borderRadius:16,
-        borderColor:'grey'
+        borderColor:'lightgrey',
+        padding:10,
+        backgroundColor: '#fafafa' 
     }}>
       <Text style={{
         fontFamily:'outfit-bold',

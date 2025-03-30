@@ -1,5 +1,6 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function PlannedTrip({details= {}}) {
   return (
@@ -22,6 +23,7 @@ export default function PlannedTrip({details= {}}) {
         {dayDetails.schedule?.map((place,index)=>(
         <View  style={{
           borderWidth:1,
+          backgroundColor: '#fafafa' ,
           padding:8,
           borderRadius:15,
           borderColor:'lightgrey',
@@ -44,17 +46,33 @@ export default function PlannedTrip({details= {}}) {
             fontFamily:'outfit',
             fontSize:15
           }}><Text>{place?.placeDetails || place?.details || "No details available"}</Text></Text>
+        
+         <View style={{
+             display:'flex',
+             flexDirection:'row',
+             alignItems:'center',
+             justifyContent:'space-between',
+             width: '100%'
+         }}>
+          <View style={{flexShrink: 1, 
+             flexDirection:'column'}}>
           <Text style={{
              fontFamily:'outfit',
              fontSize:15,
              marginTop:5
-          }}>🎟️Ticket Price:  {place?.ticketPricing || "No Price available"} </Text>
+          }}>🎟️Ticket Price:  
+          <Text style={{fontFamily:'outfit-medium'}}>{place?.ticketPricing || "No Price available"}</Text> </Text>
            <Text style={{
              fontFamily:'outfit',
              fontSize:15,
              marginTop:5
-          }}>⏱️Time Required:  {place?.duration || place?.timeRequired} </Text>
-        
+          }}>⏱️Time Required:  
+            <Text style={{fontFamily:'outfit-medium'}}>{place?.duration || place?.timeRequired}</Text> </Text>
+        </View>
+            <TouchableOpacity style={{marginRight:5,}}>
+            <Ionicons name="navigate" size={24} color="black" />
+            </TouchableOpacity>
+            </View>
             </View>
 
             </View>

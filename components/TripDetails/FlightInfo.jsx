@@ -4,7 +4,12 @@ import React from 'react'
 export default function FlightInfo({ flightData = [] }) {
   return (
     <View style={{
-        marginTop:20
+        marginTop:20,
+        borderWidth:1,
+        borderRadius:16,
+        borderColor:'lightgrey',
+        backgroundColor: '#fafafa',
+        padding:10
     }}>
       <Text style={{
         fontFamily:'outfit-bold',
@@ -23,10 +28,7 @@ export default function FlightInfo({ flightData = [] }) {
             marginRight:5,
             Width:180,
             width: 250, 
-            flexWrap: 'wrap',
-            borderWidth:1,
-            borderRadius:16,
-            borderColor:'grey'}}>
+            flexWrap: 'wrap'}}>
             {/* <Image source={require('./../../assets/images/login.jpeg')}
             style={{
                 width:180,
