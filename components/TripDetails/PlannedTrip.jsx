@@ -1,8 +1,32 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { GetPhotoRef } from '../../Services/GooglePlaceApi';
+import PlannedCard from './PlannedCard';
 
 export default function PlannedTrip({details= {}}) {
+   const [photoRef,setPhotoRef]=useState()
+       useEffect(()=>{
+          getGooglePhotoRef();
+      },[])
+  
+      const getGooglePhotoRef = async () => {
+          try {
+            const result = await GetPhotoRef(details);
+         //   console.log(result?.results[0]?.photos[0]?.photo_reference);
+        const photo=result?.results[0]?.photos[0]?.photo_reference
+         setPhotoRef(photo);
+  
+              // Check if results exist
+              if (!result || !result.results || result.results.length === 0) {
+                console.warn("No places found for this location.");
+                return;
+              }
+      
+          } catch (error) {
+            console.error("Error fetching Google Photo Reference:", error);
+          }
+        }; 
   return (
     <View style={{
         marginTop:20
@@ -11,8 +35,17 @@ export default function PlannedTrip({details= {}}) {
         fontSize:20,
         fontFamily:'outfit-bold'
       }}>⛺Plan Details</Text>
-
-      {Object.entries(details).map(([day,dayDetails])=>(
+{/* <FlatList
+      style={{
+        marginTop:10
+      }}
+      data={details || []}
+      //horizontal={true}
+      renderItem={({item,index})=>(
+     <PlannedCard item={item}/>
+      )}
+      /> */}
+       {Object.entries(details).map(([day,dayDetails])=>(
         <View  key={day}>
             <Text style={{
               fontFamily:'outfit-medium',
@@ -31,7 +64,10 @@ export default function PlannedTrip({details= {}}) {
           borderColor:'lightgrey',
           marginTop:20
         }}>
-          <Image source={require('./../../assets/images/login.jpeg')}
+          <Image source={{
+                uri: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='
+                + photoRef
+                +'&key='+process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}}
           style={{
             width:'100%',
             height:120,
@@ -81,8 +117,9 @@ export default function PlannedTrip({details= {}}) {
             </View>
         ))}
         </View>
-      ))}
+      ))} 
       
     </View>
   )
-}
+} 
+ 

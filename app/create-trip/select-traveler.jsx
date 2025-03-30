@@ -47,7 +47,7 @@ export default function SelectTraveler() {
     <View  style={{ 
       marginTop: 20
        }}>
-        <Text  style={{ 
+      <Text  style={{ 
        fontSize: 23, 
        fontFamily: 'outfit-bold'
        }}> Choose your traveles</Text>

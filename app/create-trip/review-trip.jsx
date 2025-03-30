@@ -51,7 +51,7 @@ export default function ReviewTrip() {
       }}>
    <Text style={{
          fontSize: 30
-    }}>📍</Text>
+    }} >📍</Text>
    <View>
     <Text style={{
          fontSize: 20, 
@@ -60,7 +60,8 @@ export default function ReviewTrip() {
     }}>Destination</Text>
     <Text style={{ 
       fontFamily: 'outfit-medium',
-      fontSize: 20
+      fontSize: 20,
+      width:'75%'
     }}>{tripData?.locationInfo?.name}</Text>
     </View>
    </View>
@@ -144,6 +145,7 @@ export default function ReviewTrip() {
     
     </View>
    </View>
+   
 
    </View>
    <TouchableOpacity 

@@ -102,6 +102,9 @@ export default function TripDetails() {
         {latestTrip?.tripPlan?.flightDetails && (
         <FlightInfo flightData={latestTrip.tripPlan.flightDetails} />
         )}
+        {latestTrip?.tripPlan?.flightDetails?.flights && (
+        <FlightInfo flightData={latestTrip.tripPlan.flightDetails.flights} />
+        )}
         {latestTrip?.tripPlan?.flightOptions?.flights && (
         <FlightInfo flightData={latestTrip.tripPlan.flightOptions.flights} />
         )}

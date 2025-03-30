@@ -98,9 +98,13 @@ export default function SelectDates() {
                fontFamily: 'outfit-bold', 
                marginTop: 20
                 }}>Travel Dates</Text>
+
             <View style={{
                marginTop: 30,
-                padding: 20 }}>
+                padding: 20,
+                borderWidth:2,
+                borderColor:'black',
+                borderRadius:15 }}>
                 <Text style={{ 
                   fontSize: 20,
                    fontWeight: 'bold',
@@ -119,6 +123,7 @@ export default function SelectDates() {
                     }}
                 />
             </View>
+
             <TouchableOpacity
              onPress={OnDateSectionContinue} 
              style={{ 

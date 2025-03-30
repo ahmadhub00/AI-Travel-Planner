@@ -19,7 +19,7 @@
       const result = await response.json();
       
       // Log the result for debugging
-     // console.log('Google Places API result:', result);
+      //console.log('Google Places API result:', result);
       
       // Check if the result has the expected structure
       if (!result || !result.results || result.results.length === 0) {
