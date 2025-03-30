@@ -3,7 +3,7 @@ export const SelectTravelesList=[
         id:1,
         title:'Just Me',
         desc:'A sole traveles in expoloration',
-        icon:'✈️',
+        icon:'🧍🏻',
         people:'1 People'
     },
     {
@@ -32,7 +32,7 @@ export const SelectTravelesList=[
 export const SelectBudgetOptions=[
     {
         id:1,
-        title:'Cheap',
+        title:'Economy',
         desc:'Stay concious of costs',
         icon:' 💵',
         
@@ -40,17 +40,17 @@ export const SelectBudgetOptions=[
     {
         id:2,
         title:'Moderate',
-        desc:'TKeep cost on the average side',
+        desc:'Keep cost on the average side',
         icon:'💰',
        
     },
     {
         id:3,
         title:'Luxury',
-        desc:'Dont worr about cost',
+        desc:'Dont worry about cost',
         icon:' 💸',
         
     }
 ]
 
-export const AI_PROMPT='Generate Travel Plan for location :{location},for {totalDays} Days and {totalNights} Night for {traveler} with a {budget} budget with hotels options list with geo coordinates, rating, descriptions with  Flights options list similar to hotels list, Flight Price with Booking url and places to visit nearby with placeName, Place Details, Place Image url, Geo Coordinates, ticket Pricing, Time to Travel each of the location for {totalDays} days and {totalNights} night with each day plan with best time to visit in JSON format.'
+export const AI_PROMPT='Generate Travel Plan for location :{location},for {totalDays} Days and {totalNights} Night for {traveler} with a {budget} budget with hotels options list with geo coordinates, rating, descriptions with  Flights options list similar to hotels list, Flight Price with Booking url and places to visit nearby our location with placeName, Place Details, Place Image url, Geo Coordinates, ticket Pricing, Time required for each of the place from for {totalDays} days and {totalNights} night with each day plan with best time to visit in JSON format.'

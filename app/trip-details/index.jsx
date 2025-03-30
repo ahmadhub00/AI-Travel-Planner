@@ -5,7 +5,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import moment from 'moment';
 import FlightInfo from '../../components/TripDetails/FlightInfo';
 import HotelList from '../../components/TripDetails/HotelList';
-import PlannerTrip from '../../components/TripDetails/PlannerTrip';
+import PlannedTrip from '../../components/TripDetails/PlannedTrip';
 
 export default function TripDetails() {
   const router = useRouter();
@@ -101,8 +101,8 @@ export default function TripDetails() {
         </Text>
 
         {/* Flight Info */}
-        {latestTrip?.tripPlan?.flightDetails?.flights ? (
-          <FlightInfo flightData={latestTrip.tripPlan.flightDetails.flights} />
+        {latestTrip?.tripPlan?.flightOptions ? (
+          <FlightInfo flightData={latestTrip.tripPlan.flightOptions} />
         ) : (
           <Text style={{ fontSize: 16, color: 'grey', marginTop: 10 }}>
             ✈️ No flight details available

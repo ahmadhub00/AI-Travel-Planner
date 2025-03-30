@@ -28,12 +28,12 @@ export default function GenerateTrip () {
     //Sending our Data by replacing the placeholders in AI_PROMPT
          const FINAL_PROMPT=AI_PROMPT
          .replace('{location}',tripData?.locationInfo?.name)
-         .replace('{totalDays}',tripData.totalNoOfDays)
-         .replace('{totalNights}',tripData.totalNoOfDays-1)
-         .replace('{traveler}',tripData.traveler?.title)
-         .replace('{budget}',tripData.budget)
-         .replace('{totalDays}',tripData.totalNoOfDays)
-         .replace('{totalNights}',tripData.totalNoOfDays-1);
+         .replace('{totalDays}', tripData?.totalNoOfDays?.toString() )
+         .replace('{totalNights}',(tripData?.totalNoOfDays - 1)?.toString() )
+         .replace('{traveler}',tripData?.traveler?.title)
+         .replace('{budget}',tripData?.budget)
+        // .replace('{totalDays}',tripData?.totalNoOfDays)
+        // .replace('{totalNights}',tripData?.totalNoOfDays-1);
        
          //Showing Genarated Final Prompt
          console.warn(FINAL_PROMPT);
@@ -48,7 +48,13 @@ export default function GenerateTrip () {
           console.log(responseText);
           // converting response into JSON
         //const tripResp = JSON.parse(result.response.text()); 
-        tripResp = JSON.parse(responseText);
+         // Validate and Parse JSON
+         try {
+          tripResp = JSON.parse(responseText.trim());
+      } catch (error) {
+          console.error("JSON Parsing Error:", error.message);
+          return; // Stop execution if JSON is invalid
+      }
         } else {
           console.warn("No response received from AI.");
         } 
@@ -57,7 +63,7 @@ export default function GenerateTrip () {
       if (tripResp) {
       const docId= (Date.now()).toString();
       const result_=await setDoc(doc(db,"UserTrips",docId),{
-        userEmail:user.email,
+        userEmail:user?.email,
         tripPlan:tripResp, // AI result
         //tripData:JSON.stringify(tripData),// user selection data
         tripData: JSON.stringify({ 
