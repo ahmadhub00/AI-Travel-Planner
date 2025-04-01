@@ -91,7 +91,7 @@ export default function UserTripList({userTrips}) {
         const parsedTripData = JSON.parse(userTrips[0].tripData); // Parse tripData (string)
         return { ...parsedTripData, tripDetails: userTrips[0].tripDetails }; // Merge tripDetails
     });
-      console.log("Selected Trip Data:", selectedTrip);
+     // console.log("Selected Trip Data:", selectedTrip);
       return userTrips && (
           <View>
               <View style={{ marginTop: 20 }}>

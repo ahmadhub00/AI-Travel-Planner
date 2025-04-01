@@ -36,7 +36,7 @@ export default function GenerateTrip () {
         // .replace('{totalNights}',tripData?.totalNoOfDays-1);
        
          //Showing Genarated Final Prompt
-         console.warn(FINAL_PROMPT);
+        // console.warn(FINAL_PROMPT);
         //Sending Data to AI
          const result = await chatSession.sendMessage(FINAL_PROMPT);
          
@@ -45,9 +45,8 @@ export default function GenerateTrip () {
          //Showing Response
          if (result.response) {
           const responseText = await result.response.text();
-          console.log(responseText);
-          // converting response into JSON
-        //const tripResp = JSON.parse(result.response.text()); 
+         //console.log(responseText);
+          
          // Validate and Parse JSON
          try {
           tripResp = JSON.parse(responseText.trim());
@@ -72,7 +71,7 @@ export default function GenerateTrip () {
       }), // Store merged tripData
         dpcId:docId
       });
-        console.warn('Data Saved in Database');
+       console.warn('Data Saved in Database');
         router.push('(tabs)/mytrip');
       } else {
         console.warn("Trip response is empty, skipping database save.");

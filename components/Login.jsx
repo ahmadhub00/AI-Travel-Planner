@@ -7,7 +7,7 @@ export default function Login() {
   
   
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
      <Image style={{
       width:'140%',
       height:550
@@ -29,30 +29,22 @@ export default function Login() {
                color:'#7d7d7d',
                marginTop:20
           }}>Discover your next adventure effortlessly</Text>
-          </View>
-   
-   
+         
     <TouchableOpacity style={styles.button} 
     onPress={()=>router.push('auth/sign-in')}>
-      <Text style={{
-        color:'white',
-        fontFamily:'outfit',
-        textAlign:'center',
-        fontSize:17,
-        borderRadius:15
-       /*  ,
-        padding:20,
-        backgroundColor:'black',
-        borderRadius:15,
-        marginTop:50 */
-        }}> Get Started</Text>
+      <Text style={styles.buttonText} >
+         Get Started</Text>
         </TouchableOpacity>
-  
+        </View>
     </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    backgroundColor: '#fff',
+    flexGrow: 1, 
+  },
  container:{
   backgroundColor:'#fff',
   marginTop:-20,
@@ -66,9 +58,14 @@ const styles = StyleSheet.create({
   borderRadius:15,
   marginTop:'20%',
   alignItems:'center',
-  marginLeft:15,
-  marginRight:15
-       
- }
+  justifyContent: 'center',
+  marginHorizontal: 15
+ },
+ buttonText: {
+  color: 'white',
+  fontFamily: 'outfit',
+  textAlign: 'center',
+  fontSize: 17
+}
 
 })

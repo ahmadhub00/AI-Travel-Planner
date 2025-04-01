@@ -18,7 +18,7 @@ export default function FlightInfo({ flightData = [] }) {
 
       <FlatList
       style={{
-        marginTop:10
+        marginTop:9
       }}
       data={flightData }
       horizontal={true}
@@ -37,19 +37,27 @@ export default function FlightInfo({ flightData = [] }) {
             }}/> */}
         
      <View style={{ marginBottom: 10 }}>
-        <Text style={{ fontFamily: 'outfit', fontSize: 17 }}>
-            Airline: {item?.airline || "Unknown"}
-           </Text>
-        <Text style={{ fontFamily: 'outfit', fontSize: 17,width:200 }}
-        numberOfLines={2} ellipsizeMode="tail">
-          Price: {item?.estimatedPrice || "N/A"}
-           </Text>
+        <Text style={{ fontFamily: 'outfit-medium', fontSize: 18 }}>
+            Airline: 
+            <Text style={{ fontFamily: 'outfit', fontSize: 15 }}> {item?.airline ||  "N/A"}
+           </Text></Text>
+
+           <Text style={{ fontFamily: 'outfit-medium', fontSize: 18 ,width:200 }}
+             numberOfLines={2} ellipsizeMode="tail">
+            Price:
+            <Text style={{ fontFamily: 'outfit', fontSize: 15 }}> {item?.estimatedPrice || "N/A"}
+           </Text></Text>
+
 
         {item?.bookingURL && (
         <TouchableOpacity
             style={{ backgroundColor: 'black', padding: 7, width: 110, borderRadius: 7, marginTop: 5 }}
            onPress={() => Linking.openURL(item?.bookingURL)}>
-           <Text style={{ textAlign: 'center', color: 'white', fontFamily: 'outfit' }}>
+            {/* onPress={() => {
+           const urls = item.bookingURL.split(",").map(url => url.trim()); // Split and trim spaces
+           if (urls.length > 0) {
+           Linking.openURL(`https://${urls[0]}`); }}}> */}
+        <Text style={{ textAlign: 'center', color: 'white', fontFamily: 'outfit' }}>
            Book Here
            </Text>
           </TouchableOpacity>)}

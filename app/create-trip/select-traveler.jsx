@@ -25,10 +25,6 @@ export default function SelectTraveler() {
       setTripData({...tripData,traveler:selectedTraveler})
      },[selectedTraveler])
     
-    {/*useEffect (()=>{ 
-      console.log(tripData);
-      },[tripData])*/}
-
   return (
     <View   style={{ 
       padding: 25, 

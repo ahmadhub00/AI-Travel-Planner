@@ -27,8 +27,6 @@ export default function TripDetails() {
           //console.error("Error parsing trip data:", error);
         }}}, [trip]);
 
- // console.log("Trip Object Before Usage:", latestTrip); // Use latestTrip instead of undefined tripObject
- //console.log("Latest Trip" ,latestTrip)
   return (
     <ScrollView>
       {/* Image Section */}
@@ -97,26 +95,33 @@ export default function TripDetails() {
           color: 'grey',
           marginTop: 5
         }}>
-          {latestTrip?.traveler?.icon} {latestTrip?.traveler?.title || "Unknown Traveler"}
+          {latestTrip?.traveler?.icon} {latestTrip?.tripPlan?.tripDetails?.travelers || "Unknown Traveler"}
         </Text>
-
+     
         {/* Flight Info */}
-        {latestTrip?.tripPlan?.flightOptions ? (
-          <FlightInfo flightData={latestTrip.tripPlan.flightOptions} />
-        ) : (
-          <Text style={{ fontSize: 16, color: 'grey', marginTop: 10 }}>
-            ✈️ No flight details available
-          </Text>
+        {latestTrip?.tripPlan?.flightDetails && (
+        <FlightInfo flightData={latestTrip.tripPlan.flightDetails} />
+        )}
+        {latestTrip?.tripPlan?.flightOptions?.flights && (
+        <FlightInfo flightData={latestTrip.tripPlan.flightOptions.flights} />
+        )}
+        {latestTrip?.tripPlan?.flightOptions && (
+        <FlightInfo flightData={latestTrip.tripPlan.flightOptions} />
         )}
 
-       {/*  Hotel Info */}
-       {latestTrip?.tripPlan?.hotelOptions? (
-       <HotelList hotelList={latestTrip?.tripPlan?.hotelOptions}/>
-        ) : (
+        {/*  Hotel Info */}
+        {latestTrip?.tripPlan?.hotelOptions?.hotels && (
+        <HotelList hotelList={latestTrip?.tripPlan?.hotelOptions.hotels}/>
+        )}
+        {latestTrip?.tripPlan?.hotelOptions && (
+        <HotelList hotelList={latestTrip?.tripPlan?.hotelOptions}/>
+        )}
+       
+        {/*  ) : (
         <Text style={{ fontSize: 16, color: 'grey', marginTop: 10 }}>
           🏨 No Hotel details available
         </Text>
-      )}
+      ) */}
 
        {/* Trip Day Planner Info */}
        <PlannedTrip details={latestTrip?.tripPlan?.dailyItinerary}/>

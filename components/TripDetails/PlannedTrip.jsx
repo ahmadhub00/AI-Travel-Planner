@@ -13,15 +13,17 @@ export default function PlannedTrip({details= {}}) {
       }}>⛺Plan Details</Text>
 
       {Object.entries(details).map(([day,dayDetails])=>(
-        <View>
+        <View  key={day}>
             <Text style={{
               fontFamily:'outfit-medium',
               fontSize:20,
               marginTop:20
             }}>
         {day.charAt(0).toUpperCase()+day.slice(1)}</Text>
+       
         {dayDetails.schedule?.map((place,index)=>(
-        <View  style={{
+        <View key={place?.id || index} 
+         style={{
           borderWidth:1,
           backgroundColor: '#fafafa' ,
           padding:8,
@@ -35,6 +37,7 @@ export default function PlannedTrip({details= {}}) {
             height:120,
             borderRadius:15
           }}/>
+
           <View style={{
             marginTop:5
           }}>
@@ -61,13 +64,13 @@ export default function PlannedTrip({details= {}}) {
              fontSize:15,
              marginTop:5
           }}>🎟️Ticket Price:  
-          <Text style={{fontFamily:'outfit-medium'}}>{place?.ticketPricing || "No Price available"}</Text> </Text>
+          <Text style={{fontFamily:'outfit-medium'}}>{place?.ticketPricing || "N/A"}</Text> </Text>
            <Text style={{
              fontFamily:'outfit',
              fontSize:15,
              marginTop:5
           }}>⏱️Time Required:  
-            <Text style={{fontFamily:'outfit-medium'}}>{place?.duration || place?.timeRequired}</Text> </Text>
+            <Text style={{fontFamily:'outfit-medium'}}>{place?.duration || place?.timeRequired || "N/A"}</Text> </Text>
         </View>
             <TouchableOpacity style={{marginRight:5,}}>
             <Ionicons name="navigate" size={24} color="black" />
