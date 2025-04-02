@@ -28,9 +28,18 @@ export default function TripDetails() {
         }}}, [trip]);
 
   return (
+    <View style={{ flex: 1 }}>
+       {/* Back Button */}
+      <View style={{ position: 'absolute', top: 40, left: 10, zIndex: 10 }}>
+        <TouchableOpacity onPress={() => router.back()} 
+        style={{ padding: 5,backgroundColor: 'white',  borderWidth: 1,borderColor: 'black', borderRadius: 10 }} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
+          <Ionicons name="arrow-back" size={30} color="black" />
+        </TouchableOpacity>
+      </View>
+
     <ScrollView>
       {/* Image Section */}
-      <View style={{ position: 'relative' }}>
+      <View>
         {latestTrip?.locationInfo?.photoRef ? (
           <Image
             source={{
@@ -46,13 +55,6 @@ export default function TripDetails() {
         ) : (
           <Text style={{ textAlign: 'center', padding: 20 }}>No Image Available</Text>
         )}
-
-        {/* Back Button */}
-        <View style={{ position: 'absolute', top: 40, left: 10 }}>
-          <TouchableOpacity onPress={() => router.back()} style={{ padding: 10 }} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
-            <Ionicons name="arrow-back" size={30} color="white" />
-          </TouchableOpacity>
-        </View>
       </View>
 
       {/* Trip Details */}
@@ -131,5 +133,6 @@ export default function TripDetails() {
 
       </View>
     </ScrollView>
+    </View>
   );
 }

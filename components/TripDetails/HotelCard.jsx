@@ -3,10 +3,10 @@ import { View,Text, Image, TouchableOpacity, Linking } from 'react-native';
 import { GetPhotoRef } from '../../Services/GooglePlaceApi';
 
 export default function HotelCard ({item}){
-    const [photoRef,setPhotoRef]=useState()
+    const [photoRef,setPhotoRef]=useState(null)
     useEffect(()=>{
         getGooglePhotoRef();
-    },[])
+    },[item.hotelName])
 
     const getGooglePhotoRef = async () => {
         try {
