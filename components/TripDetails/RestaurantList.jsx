@@ -2,7 +2,7 @@ import { View, Text, FlatList, Image } from 'react-native'
 import React, { useEffect } from 'react'
 import RestaurantCard from './RestaurantCard'
 
-export default function HotelList(/*  hotelList}*/) {
+export default function RestaurantList({restaurantList}) {
   
   return (
     <View style={{
@@ -22,10 +22,10 @@ export default function HotelList(/*  hotelList}*/) {
       style={{
         marginTop:10
       }}
-      data={hotelList || []}
+      data={restaurantList || []}
       horizontal={true}
       renderItem={({item,index})=>(
-     <HotelCard item={item}/>
+     <RestaurantCard item={item}/>
       )}
       />
     </View>

@@ -6,11 +6,11 @@ export default function RestaurantCard ({item}){
     const [photoRef,setPhotoRef]=useState(null)
     useEffect(()=>{
         getGooglePhotoRef();
-    },[item.hotelName])
+    },[item.restaurantName])
 
     const getGooglePhotoRef = async () => {
         try {
-          const result = await GetPhotoRef(item.hotelName);
+          const result = await GetPhotoRef(item.restaurantName);
        //   console.log(result?.results[0]?.photos[0]?.photo_reference);
       const photo=result?.results[0]?.photos[0]?.photo_reference
        setPhotoRef(photo);
@@ -46,7 +46,7 @@ export default function RestaurantCard ({item}){
                    fontFamily:'outfit',
                    fontSize:17,
                    width: 200}}>
-                 {item?.hotelName}</Text>
+                 {item?.restaurantName}</Text>
 
             <View style={{
                  display:'flex',
@@ -63,20 +63,25 @@ export default function RestaurantCard ({item}){
                   width:200,
                   marginLeft: 20}}
                   numberOfLines={1} ellipsizeMode="tail">
-                 💰{item.estimatedPricePerNight}</Text>
+                 💰{item.estimatedPricePerMeal}</Text>
                  </View>
-               
-        {item?.bookingURL && (
+
+                 <View>
+                 <Text style={{ fontFamily:'outfit'}}>
+                 🍴{item.cuisine}</Text>
+                 </View>
+
+        {/* {item?.bookingURL && (
            <TouchableOpacity
                style={{ backgroundColor: 'black', padding: 7, width: 110, borderRadius: 7, marginTop: 5 }}
-               onPress={() => Linking.openURL(item?.bookingURL)}>
+               onPress={() => Linking.openURL(item?.bookingURL)}> */}
              {/* onPress={() => {
                        const urls = item.bookingURL.split(",").map(url => url.trim()); // Split and trim spaces
                        if (urls.length > 0) {
                        Linking.openURL(`https://${urls[0]}`); }}}>  */}
-            <Text style={{ textAlign: 'center', color: 'white', fontFamily: 'outfit' }}>
+            {/* <Text style={{ textAlign: 'center', color: 'white', fontFamily: 'outfit' }}>
             Book Here </Text>
-            </TouchableOpacity>)}
+            </TouchableOpacity>)} */}
 
                 </View>
                </View>

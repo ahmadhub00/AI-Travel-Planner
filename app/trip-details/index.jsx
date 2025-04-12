@@ -6,6 +6,7 @@ import moment from 'moment';
 import FlightInfo from '../../components/TripDetails/FlightInfo';
 import HotelList from '../../components/TripDetails/HotelList';
 import PlannedTrip from '../../components/TripDetails/PlannedTrip';
+import RestaurantList from '../../components/TripDetails/RestaurantList';
 
 export default function TripDetails() {
   const router = useRouter();
@@ -127,6 +128,14 @@ export default function TripDetails() {
           🏨 No Hotel details available
         </Text>
       ) */}
+
+      {/*  Restaurant Info */}
+        {latestTrip?.tripPlan?.restautantOptions?.hotels && (
+        <HotelList hotelList={latestTrip?.tripPlan?.hotelOptions.hotels}/>
+        )}
+        {latestTrip?.tripPlan?.restaurantOptions && (
+        <RestaurantList restaurantList={latestTrip?.tripPlan?.restaurantOptions}/>
+        )}
 
        {/* Trip Day Planner Info */}
        <PlannedTrip details={latestTrip?.tripPlan?.dailyItinerary}/>
