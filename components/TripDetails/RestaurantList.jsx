@@ -1,6 +1,6 @@
 import { View, Text, FlatList, Image } from 'react-native'
 import React, { useEffect } from 'react'
-import RestaurantCard from './RestaurantCard';
+import RestaurantCard from './RestaurantCard'
 
 export default function HotelList(/*  hotelList}*/) {
   
