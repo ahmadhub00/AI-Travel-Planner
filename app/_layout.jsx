@@ -1,9 +1,9 @@
 import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
-import {CreateTripContext }from './../context/CreateTripContext'
+import {CreateTripContext }from './../constants/context/CreateTripContext';
 import { useState } from "react";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-
+import { ThemeProvider } from '../constants/context/ThemeContext';
 export default function RootLayout() {
  
   useFonts({
@@ -16,6 +16,7 @@ export default function RootLayout() {
 
   
   return (
+    <ThemeProvider>
     <GestureHandlerRootView style={{ flex: 1 }}>
     <CreateTripContext.Provider value={{tripData,setTripData}}>
   <Stack screenOptions={{
@@ -27,5 +28,6 @@ export default function RootLayout() {
     </Stack>
     </CreateTripContext.Provider>
      </GestureHandlerRootView>
+       </ThemeProvider>
   );
 }

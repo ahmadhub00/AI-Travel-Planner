@@ -2,7 +2,7 @@ import { View, Text, FlatList,TouchableOpacity } from 'react-native'
 import React, { useEffect, useContext ,useState}  from 'react'
 import { useNavigation ,useRouter} from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { CreateTripContext } from '../../context/CreateTripContext';
+import {CreateTripContext }from './../../constants/context/CreateTripContext';
 import moment
  from 'moment';
 export default function ReviewTrip() {

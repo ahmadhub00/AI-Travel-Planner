@@ -4,7 +4,7 @@ import { useRouter, useNavigation } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Calendar } from 'react-native-calendars';
 import moment from 'moment';
-import { CreateTripContext } from '../../context/CreateTripContext';
+import {CreateTripContext }from './../../constants/context/CreateTripContext';
 
 export default function SelectDates() {
     const router = useRouter();

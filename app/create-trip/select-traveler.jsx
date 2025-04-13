@@ -2,7 +2,7 @@ import { View, Text, FlatList,TouchableOpacity } from 'react-native'
 import React, { useEffect, useContext ,useState}  from 'react'
 import { Link, useNavigation ,useRouter} from 'expo-router';
 import { SelectTravelesList } from '../../constants/Options';
-import {CreateTripContext} from '../../context/CreateTripContext';
+import {CreateTripContext }from './../../constants/context/CreateTripContext';
 import OptionCard from '../../components/CreateTrip/OptionCard';
 import Ionicons from '@expo/vector-icons/Ionicons';
 

@@ -4,7 +4,7 @@ import { useNavigation ,useRouter} from 'expo-router';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import 'react-native-get-random-values';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { CreateTripContext } from '../../context/CreateTripContext';
+import {CreateTripContext }from './../../constants/context/CreateTripContext';
 
 export default function SearchPlace() {
 

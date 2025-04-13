@@ -4,7 +4,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import OptionCard from '../../components/CreateTrip/OptionCard';
 import { useRouter, useNavigation } from 'expo-router';
 import { SelectBudgetOptions } from '../../constants/Options';
-import {CreateTripContext} from '../../context/CreateTripContext';
+import {CreateTripContext }from './../../constants/context/CreateTripContext';
 
 
 export default function SelectBudget() {
