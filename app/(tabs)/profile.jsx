@@ -1,6 +1,6 @@
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image,Alert, ScrollView, Platform, ToastAndroid} from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { getAuth, updateEmail, updatePassword } from 'firebase/auth';
+import { getAuth, signOut, updateEmail, updatePassword } from 'firebase/auth';
 import * as ImagePicker from 'expo-image-picker';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
@@ -29,7 +29,7 @@ export default function UserProfile() {
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: [ImagePicker.MediaType.IMAGE],
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
@@ -43,7 +43,7 @@ export default function UserProfile() {
     if (Platform.OS === 'android') {
       ToastAndroid.show(message, ToastAndroid.SHORT);
     } else {
-      Alert.alert('Notice', message);
+      Alert.alert( message);
     }
   };
 
@@ -92,7 +92,9 @@ export default function UserProfile() {
             source={{ uri: imageUri || 'https://i.pravatar.cc/150?img=12' }}
             style={styles.profileImage(isDark)}
           />
-          <Text style={styles.changePhotoText}>Edit</Text>
+          <Text style={[styles.changePhotoText, {color: isDark ? 'white' : 'black',
+        }]}>Edit</Text>
+          
         </TouchableOpacity>
       </View>
 
@@ -126,6 +128,20 @@ export default function UserProfile() {
      
         <Text style={styles.saveText}>Save Changes</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+  style={[styles.logoutBtn, { borderColor: isDark ? 'grey' : 'black' }]}
+  onPress={async () => {
+    try {
+      await signOut(auth);
+      showToast('👋 Logged out');
+      router.push('/auth/sign-in'); 
+    } catch (error) {
+      showToast('❌ Logout failed');
+      console.error(error);
+    }}}>
+  <Text style={styles.logoutText}>Log Out</Text>
+</TouchableOpacity>
     </ScrollView>
   );
 }
@@ -150,19 +166,19 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     borderWidth: 2,
     borderColor: isDark ? 'grey' : 'white',
-    marginBottom: 5,
+    /* marginBottom: 1, */
   }),
   changePhotoText: {
-    fontSize: 12,
+    fontSize: 14,
     textAlign: 'center',
     alignSelf: 'center',
-    marginBottom: 2,
+    marginBottom: 10,
     fontFamily: 'outfit-medium',
-    borderRadius: 10,
     paddingHorizontal: 10,
     paddingVertical: 4,
-    backgroundColor: 'black',
+   /*  backgroundColor: 'black',
     color: 'white',
+    borderRadius: 10, */
   },
   label: {
     alignSelf: 'flex-start',
@@ -190,6 +206,22 @@ const styles = StyleSheet.create({
   },
   saveText: {
     color: 'white',
+    textAlign: 'center',
+    fontFamily: 'outfit-medium',
+    fontSize: 16,
+  },
+  logoutBtn: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 15,
+    width: '100%',
+    alignSelf: 'center',
+    
+  },
+  logoutText: {
+    color: 'red',
     textAlign: 'center',
     fontFamily: 'outfit-medium',
     fontSize: 16,

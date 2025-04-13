@@ -61,7 +61,7 @@ export default function MyTrip() {
     <ScrollView style={{
         padding:25,
         paddingTop:55,
-        backgroundColor: isDark ? '#121212' : '#fff',
+        backgroundColor: isDark ? '#121212' : 'white',
         height:'100%'
     }}>
 
