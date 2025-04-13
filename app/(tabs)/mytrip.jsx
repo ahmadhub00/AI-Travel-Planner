@@ -9,6 +9,7 @@ import { getDocs, collection, where, orderBy} from 'firebase/firestore';
 import { ActivityIndicator } from 'react-native';
 import UserTripList from '../../components/MyTrips/UserTripList';
 import { useRouter, useNavigation } from 'expo-router';
+import { useTheme } from '../../constants/context/ThemeContext'; 
 
 export default function MyTrip() {
     const [userTrips,setUserTrips]=useState([]);
@@ -16,6 +17,9 @@ export default function MyTrip() {
     const [loading,setLoading]=useState(false)
     const router = useRouter();
     
+    const { theme } = useTheme();
+    const isDark = theme === 'dark';
+
     useEffect(()=>{
       user&&GetMyTrip(); //The condition user && GetMyTrip(); ensures that GetMyTrip() only runs if user is truthy.  
     },[user]);
@@ -57,7 +61,7 @@ export default function MyTrip() {
     <ScrollView style={{
         padding:25,
         paddingTop:55,
-        backgroundColor:"white",
+        backgroundColor: isDark ? '#121212' : '#fff',
         height:'100%'
     }}>
 
@@ -69,11 +73,12 @@ export default function MyTrip() {
       }}>
         <Text style={{
         fontFamily:'outfit-bold',
-        fontSize:35
+        fontSize:35,
+        color: isDark ? '#fff' : '#000',
       }}>MyTrip</Text>
       <TouchableOpacity onPress={() => router.push('/create-trip/search-place')} 
                   style={{ padding: 10 }}>
-                      <Ionicons name="add" size={24} color="black" />
+                      <Ionicons name="add" size={24} color={isDark ? 'white' : 'black'} />
                   </TouchableOpacity>
       
     </View> 

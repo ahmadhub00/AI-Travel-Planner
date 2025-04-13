@@ -4,9 +4,12 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import UserTripCard from './UserTripCard';
 import { useRouter } from 'expo-router';
+import { useTheme } from '../../constants/context/ThemeContext'; // Adjust the import path as necessary
 
 export default function UserTripList({ userTrips }) {
     const router = useRouter();
+    const { theme } = useTheme();
+    const isDark = theme === 'dark';
    //const [selectedTrip, setSelectedTrip] = useState(JSON.parse(userTrips[0].tripData)); // Default to the first trip
     const [selectedTrip, setSelectedTrip] = useState(() => {
       const parsedTripData = JSON.parse(userTrips[0].tripData); // Parse tripData (string)
@@ -27,8 +30,9 @@ export default function UserTripList({ userTrips }) {
                           width: '100%',
                           height: 240,
                           objectFit: 'cover',
-                          borderRadius: 15
-                      }} />
+                    
+                          borderRadius: 15,
+                          }} />
                   :
                   <Image source={require('../../assets/images/login.jpeg')}
                       style={{
@@ -43,7 +47,8 @@ export default function UserTripList({ userTrips }) {
               <View style={{ marginTop: 10 }}>
                   <Text style={{
                       fontFamily: 'outfit-medium',
-                      fontSize: 20
+                      fontSize: 20,
+                      color: isDark ? '#fff' : '#000'
                   }}>
                       {selectedTrip?.tripPlan?.tripDetails?.location || "No Location Found"}
                   </Text>
@@ -55,7 +60,8 @@ export default function UserTripList({ userTrips }) {
                   }}>
                       <Text style={{
                           fontFamily: 'outfit',
-                          fontSize: 17
+                          fontSize: 17,
+                          color: isDark ? '#fff' : '#000'
                       }}>
                           {moment(selectedTrip.startDate).format('DD MMM yyyy')}
                       </Text>
@@ -75,16 +81,19 @@ export default function UserTripList({ userTrips }) {
                           params: { trip: JSON.stringify(selectedTrip) }
                       })}
                       style={{
-                          borderRadius: 15,
+    
                           marginTop: 10,
                           backgroundColor: 'black',
-                          padding: 15
+                          padding: 15,
+                          borderWidth: 1,
+                          borderRadius: 15,
+                          borderColor: isDark ? 'grey' : '#000',
                       }}>
                       <Text style={{
                           fontFamily: 'outfit-medium',
                           fontSize: 15,
                           textAlign: 'center',
-                          color: 'white'
+                          color: 'white',
                       }}>
                           See your plan
                       </Text>
