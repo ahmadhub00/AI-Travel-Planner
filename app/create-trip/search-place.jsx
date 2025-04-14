@@ -5,9 +5,12 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import 'react-native-get-random-values';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import {CreateTripContext }from './../../constants/context/CreateTripContext';
+import { useTheme } from './../../constants/context/ThemeContext';
 
 export default function SearchPlace() {
-
+      const { theme } = useTheme();
+      const isDark = theme === 'dark';
+        
     const navigation=useNavigation(); 
     const router=useRouter();
     const {tripData,setTripData}=useContext(CreateTripContext)
@@ -26,8 +29,9 @@ export default function SearchPlace() {
     <View style={{
       padding:25,
       paddingTop:75,
-      backgroundColor:"white",
-      height:'100%'
+      borderColor: isDark ? 'black' : 'white',
+      height:'100%',
+      backgroundColor: isDark ? '#121212' : '#FAFAFA'
     }}>
         <View style={{
                 flexDirection: 'row',
@@ -41,19 +45,21 @@ export default function SearchPlace() {
                     onPress={() => router.push('mytrip')}
                     style={{ padding: 10 }}>
                 
-                    <Ionicons name="arrow-back" size={28} color="black" />
+                    <Ionicons name="arrow-back" size={28} color={isDark ? 'white' : 'black'} />
                 </TouchableOpacity>
                 <Text style={{
                     fontSize: 20,
                     fontFamily: 'outfit-bold',
-                    marginLeft: 50, 
+                    marginLeft: 20, 
+                   color: isDark ? '#FFFFFF' : '#333'
                 }}>
                     Search
                 </Text>
             </View>
 
     <GooglePlacesAutocomplete
-      placeholder='Search Place'
+      placeholder='Search Place ...'
+      
       fetchDetails={true}
       onPress={(data, details = null) => {
         // 'details' is provided when fetchDetails = true
@@ -77,8 +83,39 @@ export default function SearchPlace() {
        textInputContainer:{
        borderWidth:1,
        borderRadius:5,
-       marginTop:25} }}
+       marginTop:25,
+       backgroundColor: isDark ? '#1e1e1e' : '#fff',
+       borderColor: isDark ? '#555' : 'black',}, 
+       
+       textInput: {
+       backgroundColor: isDark ? '#1e1e1e' : 'white',
+       color: isDark ? 'white' : 'black',},
+       
+       listView: {
+       backgroundColor: isDark ? '#1e1e1e' : '#fff',},
+        
+       row: {
+       backgroundColor: isDark ? '#1e1e1e' : '#fff',
+       flexDirection: 'row',},
 
+       description: {
+       color: isDark ? 'lightgrey' : 'black',},
+
+       poweredContainer: {
+        backgroundColor: isDark ? '#1e1e1e' : '#fff',
+        borderTopWidth: 0.2,
+        borderColor: isDark ? 'grey' : 'black',
+        alignItems: 'center',
+        
+      },
+      poweredText: {
+      color: isDark ? '#888' : '#666',
+      
+    },
+      }}
+      textInputProps={{
+        placeholderTextColor: isDark ? 'white' : 'black', // ✅ Real fix
+      }}
     /> 
     </View>
   )

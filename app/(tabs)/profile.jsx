@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
   logoutText: {
     color: 'red',
     textAlign: 'center',
-    fontFamily: 'outfit-medium',
+    fontFamily: 'outfit',
     fontSize: 16,
   },
 });
