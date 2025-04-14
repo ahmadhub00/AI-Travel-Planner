@@ -76,14 +76,22 @@ export default function MyTrip() {
         fontSize:35,
         color: isDark ? '#fff' : '#000',
       }}>MyTrip</Text>
-      <TouchableOpacity onPress={() => router.push('/create-trip/search-place')} 
-                  style={{ padding: 10 }}>
-                      <Ionicons name="add" size={24} color={isDark ? 'white' : 'black'} />
-                  </TouchableOpacity>
+
+    <View style={{ flexDirection: 'row', gap: 8}}>
+    {/* Calculator Icon */}
+    <TouchableOpacity onPress={() => router.push('/expenses/expense-tracker')} style={{ padding: 10 }}>
+      <Ionicons name="calculator-outline" size={24} color={isDark ? 'white' : 'black'} />
+    </TouchableOpacity>
+
+    {/* Add Trip Icon */}
+    <TouchableOpacity onPress={() => router.push('/create-trip/search-place')} style={{ padding: 10 }}>
+      <Ionicons name="add" size={24} color={isDark ? 'white' : 'black'} />
+    </TouchableOpacity>
+    </View>
       
     </View> 
     {/* Show loading indicator when 'loading' is true */}
-    {loading&&<ActivityIndicator size={'large'} color="black"/>}
+    {loading&&<ActivityIndicator size={'large'} color={isDark ? 'white' : 'black'}/>}
 
     {/* Show 'StartNewTripCard' if userTrips is empty */}
     {userTrips?.length==0?
