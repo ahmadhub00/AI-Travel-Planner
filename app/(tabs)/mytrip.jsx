@@ -10,6 +10,7 @@ import { ActivityIndicator } from 'react-native';
 import UserTripList from '../../components/MyTrips/UserTripList';
 import { useRouter, useNavigation } from 'expo-router';
 import { useTheme } from '../../constants/context/ThemeContext'; 
+import ExpenseTraker from '../Calculator';
 
 export default function MyTrip() {
     const [userTrips,setUserTrips]=useState([]);
@@ -79,7 +80,7 @@ export default function MyTrip() {
 
     <View style={{ flexDirection: 'row', gap: 8}}>
     {/* Calculator Icon */}
-    <TouchableOpacity onPress={() => router.push('/expenses/expense-tracker')} style={{ padding: 10 }}>
+    <TouchableOpacity onPress={() => router.push('/Calculator')} style={{ padding: 10 }}>
       <Ionicons name="calculator-outline" size={24} color={isDark ? 'white' : 'black'} />
     </TouchableOpacity>
 

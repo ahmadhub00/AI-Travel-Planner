@@ -47,16 +47,16 @@ const handleSearchChange = (text) => {
             <View style={{ marginTop: 20, marginBottom: 10 }}>
   <TextInput
     placeholder="Search ..."
-    placeholderTextColor={isDark ? '#ccc' : '#888'}
+    placeholderTextColor={isDark ? 'white' : '#888'}
     style={{
-      backgroundColor: isDark ? '#1e1e1e' : '#f2f2f2',
-      color: isDark ? '#fff' : '#000',
+      backgroundColor: isDark ? '#1e1e1e' : '#EEE',
+      color: isDark ? 'grey' : '#000',
       borderRadius: 10,
       paddingHorizontal: 15,
       paddingVertical: 10,
       fontFamily: 'outfit',
       fontSize: 16,
-      borderColor: '#ccc',
+      borderColor: isDark ? 'grey' : 'black',
       borderWidth: 1,
     }}
     value={search}
@@ -130,7 +130,7 @@ const handleSearchChange = (text) => {
                         })}
                         style={{
                             marginTop: 10,
-                            backgroundColor: 'black',
+                            backgroundColor: isDark ? '#1e1e1e' : '#000',
                             padding: 15,
                             borderWidth: 1,
                             borderRadius: 15,
