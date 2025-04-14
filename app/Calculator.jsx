@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {View,Text,TextInput,TouchableOpacity,ScrollView,StyleSheet,KeyboardAvoidingView,Platform,Modal,Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTheme } from '../constants/context/ThemeContext'
 
 export default function ExpenseTracker() {
+      const { theme } = useTheme();
+      const isDark = theme === 'dark';
+  
   const [budget, setBudget] = useState('');
   const [expenseInput, setExpenseInput] = useState('');
   const [categoryInput, setCategoryInput] = useState('');
@@ -273,7 +277,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: isDark ? '#121212' : '#FAFAFA',
   },
   /* For each section */
   sectionTitle: {
@@ -281,7 +285,7 @@ const styles = StyleSheet.create({
     fontFamily: 'outfit-medium',
     marginBottom: 8,
     marginTop: 16,
-    color: 'black',
+    color: isDark ? '#FFFFFF' : 'black',
   },
 
   /* Header with Reset Button */
@@ -293,12 +297,12 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     paddingBottom: 10,
     borderBottomWidth: 1,
-    borderBottomColor: 'lightgrey',
+    borderBottomColor: isDark ? '#444444' : 'lightgrey',
   },
   headerTitle: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: '#333',
+    color: isDark ? '#FFFFFF' : '#333',
   },
   resetButton: {
     backgroundColor: '#FF6B6B',
@@ -311,26 +315,27 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 
-
-/* Add Expense */
+  /* Add Expense */
   expenseInputContainer: {
     flexDirection: 'row',
     gap: 10,
     marginBottom: 10,
   },
   categoryInput: {
-    borderColor: 'grey',
+    borderColor: isDark ? '#555555' : 'grey',
     borderWidth: 1,
     padding: 10,
     borderRadius: 8,
-    backgroundColor: '#FFF',
+    backgroundColor: isDark ? '#2A2A2A' : '#FFF',
+    color: isDark ? '#FFFFFF' : 'black',
   },
   amountInput: {
-    borderColor: 'grey',
+    borderColor: isDark ? '#555555' : 'grey',
     borderWidth: 1,
     padding: 10,
     borderRadius: 8,
-    backgroundColor: '#FFF',
+    backgroundColor: isDark ? '#2A2A2A' : '#FFF',
+    color: isDark ? '#FFFFFF' : 'black',
   },
   amountInputRow: {
     flexDirection: 'column',
@@ -338,7 +343,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   button: {
-    backgroundColor: 'black',
+    backgroundColor: isDark ? '#444444' : 'black',
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 8,
@@ -357,25 +362,26 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   symbolBox: {
-    backgroundColor: '#EEE',
+    backgroundColor: isDark ? '#333333' : '#EEE',
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: 'grey',
+    borderColor: isDark ? '#555555' : 'grey',
   },
   symbolText: {
     fontSize: 18,
     fontWeight: '600',
-    color: 'black',
+    color: isDark ? '#FFFFFF' : 'black',
   },
   input: {
     flex: 1,
-    borderColor: 'grey',
+    borderColor: isDark ? '#555555' : 'grey',
     borderWidth: 1,
     padding: 10,
     borderRadius: 8,
-    backgroundColor: '#FFF',
+    backgroundColor: isDark ? '#2A2A2A' : '#FFF',
+    color: isDark ? '#FFFFFF' : 'black',
   },
   availableBudgetContainer: {
     flexDirection: 'row',
@@ -383,65 +389,64 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     paddingVertical: 10,
     borderRadius: 8,
-    backgroundColor: '#EEE',
+    backgroundColor: isDark ? '#333333' : '#EEE',
     borderWidth: 1,
-    borderColor: 'grey',
+    borderColor: isDark ? '#555555' : 'grey',
   },
   availableBudgetLabel: {
     fontSize: 14,
     marginRight: 4,
-    color: 'black',
+    color: isDark ? '#FFFFFF' : 'black',
   },
   availableBudgetValue: {
     fontSize: 14,
     fontWeight: 'bold',
   },
   positiveAmount: {
-    color: '#2E7D32',
+    color: isDark ? '#81C784' : '#2E7D32', // Lighter green in dark mode
   },
   negativeAmount: {
-    color: '#D32F2F',
+    color: isDark ? '#EF5350' : '#D32F2F', // Lighter red in dark mode
   },
-  
 
-/* Expenses */
+  /* Expenses */
   expenseBox: {
     maxHeight: 180,
     marginBottom: 10,
     paddingVertical: 4,
     borderWidth: 1,
-    borderColor: 'lightgrey',
+    borderColor: isDark ? '#444444' : 'lightgrey',
     borderRadius: 8,
-    backgroundColor: '#FFF',
+    backgroundColor: isDark ? '#2A2A2A' : '#FFF',
   },
   noExpensesText: {
     textAlign: 'center',
     padding: 20,
-    color: '#999',
+    color: isDark ? '#777777' : '#999',
     fontStyle: 'italic',
   },
   expenseItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderBottomColor: '#DDD',
+    borderBottomColor: isDark ? '#444444' : '#DDD',
     borderBottomWidth: 1,
     paddingVertical: 8,
     paddingHorizontal: 10,
   },
   expenseText: {
     fontSize: 16,
-    color: 'black',
+    color: isDark ? '#FFFFFF' : 'black',
   },
- 
+
   /* Reset Confirmation Modal */
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(0,0,0,0.7)',
     justifyContent: 'center',
     alignItems: 'center',
   },
   modalContent: {
-    backgroundColor: 'white',
+    backgroundColor: isDark ? '#1E1E1E' : 'white',
     borderRadius: 12,
     padding: 20,
     width: '80%',
@@ -452,42 +457,41 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 15,
     textAlign: 'center',
-    color: 'black',
+    color: isDark ? '#FFFFFF' : 'black',
   },
   modalText: {
     fontSize: 16,
     marginBottom: 20,
     textAlign: 'center',
-    color: '#555',
+    color: isDark ? '#BBBBBB' : '#555',
   },
   modalScroll: {
     maxHeight: 300,
   },
 
-
-  
   currencyOption: {
     paddingVertical: 12,
     paddingHorizontal: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#EEE',
+    borderBottomColor: isDark ? '#333333' : '#EEE',
   },
   selectedCurrency: {
-    backgroundColor: '#F2F2F2',
+    backgroundColor: isDark ? '#333333' : '#F2F2F2',
   },
   currencyOptionText: {
     fontSize: 16,
+    color: isDark ? '#FFFFFF' : 'black',
   },
   cancelButton: {
     marginTop: 15,
     padding: 12,
-    backgroundColor: '#F2F2F2',
+    backgroundColor: isDark ? '#333333' : '#F2F2F2',
     borderRadius: 8,
     alignItems: 'center',
   },
   cancelButtonText: {
     fontSize: 16,
-    color: 'black',
+    color: isDark ? '#FFFFFF' : 'black',
     fontFamily: 'outfit-medium',
   },
   modalButtons: {
@@ -502,7 +506,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   cancelModalButton: {
-    backgroundColor: '#F2F2F2',
+    backgroundColor: isDark ? '#333333' : '#F2F2F2',
   },
   confirmModalButton: {
     backgroundColor: '#FF6B6B',
@@ -512,6 +516,4 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '600',
   },
- 
-  
 });
