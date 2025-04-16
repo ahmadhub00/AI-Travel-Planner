@@ -79,6 +79,11 @@ export default function MyTrip() {
       }}>MyTrip</Text>
 
     <View style={{ flexDirection: 'row', gap: 8}}>
+      {/* Currency Exchange Icon */}
+    <TouchableOpacity onPress={() => router.push('/CurrencyExchange')} style={{ padding: 10 }}>
+       <Ionicons name="cash-outline" // or use "swap-horizontal-outline"
+        size={24} color={isDark ? 'white' : 'black'}/>
+    </TouchableOpacity>
     {/* Calculator Icon */}
     <TouchableOpacity onPress={() => router.push('/Calculator')} style={{ padding: 10 }}>
       <Ionicons name="calculator-outline" size={24} color={isDark ? 'white' : 'black'} />

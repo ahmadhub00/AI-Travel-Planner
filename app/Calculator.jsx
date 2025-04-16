@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { View,Text,TextInput, TouchableOpacity,ScrollView,StyleSheet,KeyboardAvoidingView,Platform,Modal,Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../constants/context/ThemeContext';
+import { useRouter} from 'expo-router';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 export default function ExpenseTracker() {
       const { theme } = useTheme();
       const isDark = theme === 'dark';
         
+      const router=useRouter();
         const [budget, setBudget] = useState('');
         const [expenseInput, setExpenseInput] = useState('');
         const [categoryInput, setCategoryInput] = useState('');
@@ -119,21 +123,43 @@ export default function ExpenseTracker() {
             }}
           >
             {/* Header with Reset Button */}
-            <View style={{
-              ...styles.header,
-              borderBottomColor: isDark ? '#444444' : 'lightgrey',
-            }}>
-              <Text style={{
-                ...styles.headerTitle,
-                color: isDark ? '#FFFFFF' : '#333',
-              }}>Expense Tracker</Text>
-              <TouchableOpacity 
-                style={styles.resetButton}
-                onPress={() => setShowResetModal(true)}
-              >
-                <Text style={styles.resetButtonText}>Reset</Text>
-              </TouchableOpacity>
-            </View>
+            <View
+  style={{
+    ...styles.header,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderBottomColor: isDark ? '#444444' : 'lightgrey',
+  }}
+>
+  {/* Back Button */}
+  <TouchableOpacity
+    onPress={() => router.back()}
+    style={{ padding: 8 }}
+  >
+    <Ionicons name="arrow-back" size={28} color={isDark ? '#fff' : '#000'} />
+  </TouchableOpacity>
+
+  {/* Title */}
+  <Text
+    style={{
+      ...styles.headerTitle,
+      flex: 1,
+      textAlign: 'center',
+      color: isDark ? '#FFFFFF' : '#333',
+    }}
+  >
+    Expense Tracker
+  </Text>
+
+  {/* Reset Button */}
+  <TouchableOpacity
+    style={styles.resetButton}
+    onPress={() => setShowResetModal(true)}
+  >
+    <Text style={styles.resetButtonText}>Reset</Text>
+  </TouchableOpacity>
+</View>
       
             {/* Total Budget */}
             <Text style={{
