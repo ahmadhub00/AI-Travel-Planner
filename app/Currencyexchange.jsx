@@ -151,9 +151,58 @@ export default function CurrencyExchange() {
   const [amount, setAmount] = useState("1");
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("EUR");
-  const [currencies, setCurrencies] = useState(["USD", "EUR", "GBP", "JPY", "CAD", "AUD", "CHF", "CNY", "INR", "RUB"]);
-  const [result, setResult] = useState(null);
+  const [currencies, setCurrencies] = useState([
+    "USD", // United States Dollar
+    "EUR", // Euro
+    "GBP", // British Pound
+    "JPY", // Japanese Yen
+    "CAD", // Canadian Dollar
+    "AUD", // Australian Dollar
+    "CHF", // Swiss Franc
+    "CNY", // Chinese Yuan
+    "INR", // Indian Rupee
+    "RUB", // Russian Ruble
+    "SGD", // Singapore Dollar
+    "NZD", // New Zealand Dollar
+    "MXN", // Mexican Peso
+    "HKD", // Hong Kong Dollar
+    "SEK", // Swedish Krona
+    "NOK", // Norwegian Krone
+    "KRW", // South Korean Won
+    "TRY", // Turkish Lira
+    "BRL", // Brazilian Real
+    "ZAR", // South African Rand
+    "DKK", // Danish Krone
+    "PLN", // Polish Zloty
+    "THB", // Thai Baht
+    "AED", // United Arab Emirates Dirham
+    "SAR", // Saudi Riyal
+    "MYR", // Malaysian Ringgit
+    "IDR", // Indonesian Rupiah
+    "PHP", // Philippine Peso
+    "CZK", // Czech Koruna
+    "PKR", // Pakistani Ruppe
+    "ARS", // Argentine Peso
+    "CLP", // Chilean Peso
+    "EGP", // Egyptian Pound
+    "UAH", // Ukrainian Hryvnia
+    "HUF", // Hungarian Forint
+    "KWD", // Kuwaiti Dinar
+    "VND", // Vietnamese Dong
+    "RON", // Romanian Leu
+    "QAR", // Qatari Riyal
+    "COP"  // Colombian Peso
+  ]);const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  // Convert currency whenever input values change
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      convertCurrency();
+    }, 500); // Add a small delay to avoid too many API calls while typing
+    
+    return () => clearTimeout(timer);
+  }, [amount, fromCurrency, toCurrency]);
 
   // We'll use a free alternative API that doesn't require an API key
   const convertCurrency = () => {
@@ -204,6 +253,53 @@ export default function CurrencyExchange() {
     );
     setLoading(false);
   };
+    // Function to get currency name with code
+    const getCurrencyLabel = (code) => {
+        const currencyNames = {
+          "USD": "USD - US Dollar",
+          "EUR": "EUR - Euro",
+          "GBP": "GBP - British Pound",
+          "JPY": "JPY - Japanese Yen",
+          "CAD": "CAD - Canadian Dollar",
+          "AUD": "AUD - Australian Dollar",
+          "CHF": "CHF - Swiss Franc",
+          "CNY": "CNY - Chinese Yuan",
+          "INR": "INR - Indian Rupee",
+          "RUB": "RUB - Russian Ruble",
+          "SGD": "SGD - Singapore Dollar",
+          "NZD": "NZD - New Zealand Dollar",
+          "MXN": "MXN - Mexican Peso",
+          "HKD": "HKD - Hong Kong Dollar",
+          "SEK": "SEK - Swedish Krona",
+          "NOK": "NOK - Norwegian Krone",
+          "KRW": "KRW - South Korean Won",
+          "TRY": "TRY - Turkish Lira",
+          "BRL": "BRL - Brazilian Real",
+          "ZAR": "ZAR - South African Rand",
+          "DKK": "DKK - Danish Krone",
+          "PLN": "PLN - Polish Zloty",
+          "THB": "THB - Thai Baht",
+          "AED": "AED - UAE Dirham",
+          "SAR": "SAR - Saudi Riyal",
+          "MYR": "MYR - Malaysian Ringgit",
+          "IDR": "IDR - Indonesian Rupiah",
+          "PHP": "PHP - Philippine Peso",
+          "CZK": "CZK - Czech Koruna",
+          "PKR": "PKR - Pakistani Ruppe",
+          "ARS": "ARS - Argentine Peso",
+          "CLP": "CLP - Chilean Peso",
+          "EGP": "EGP - Egyptian Pound",
+          "UAH": "UAH - Ukrainian Hryvnia",
+          "HUF": "HUF - Hungarian Forint",
+          "KWD": "KWD - Kuwaiti Dinar",
+          "VND": "VND - Vietnamese Dong",
+          "RON": "RON - Romanian Leu",
+          "QAR": "QAR - Qatari Riyal",
+          "COP": "COP - Colombian Peso"
+        };
+        
+        return currencyNames[code] || code;
+      };
 
   return (
     <View style={styles.container}>
@@ -227,11 +323,11 @@ export default function CurrencyExchange() {
         >
           {currencies.map((currency) => (
             <Picker.Item
-             label={currency}
+            label={getCurrencyLabel(currency)}
               value={currency}
               key={`from-${currency}`}
                color="grey" 
-                style={{color: 'grey'}} />
+                 />
           ))}
         </Picker>
 
@@ -244,7 +340,7 @@ export default function CurrencyExchange() {
         >
           {currencies.map((currency) => (
             <Picker.Item 
-            label={currency}
+            label={getCurrencyLabel(currency)}
             value={currency}
              key={`to-${currency}`}
               color="grey"/>
@@ -252,10 +348,6 @@ export default function CurrencyExchange() {
         </Picker>
       </View>
 
-      <Button 
-        title="Convert Currency" 
-        onPress={convertCurrency} 
-      />
 
       {loading ? (
         <ActivityIndicator size="large" color="#2c6bed"  style={{ marginTop: 20 }} />
