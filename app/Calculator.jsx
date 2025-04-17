@@ -123,8 +123,7 @@ export default function ExpenseTracker() {
             }}
           >
             {/* Header with Reset Button */}
-            <View
-  style={{
+  <View style={{
     ...styles.header,
     flexDirection: 'row',
     alignItems: 'center',
@@ -135,8 +134,7 @@ export default function ExpenseTracker() {
   {/* Back Button */}
   <TouchableOpacity
     onPress={() => router.back()}
-    style={{ padding: 8 }}
-  >
+    style={{ padding: 8 }}>
     <Ionicons name="arrow-back" size={28} color={isDark ? '#fff' : '#000'} />
   </TouchableOpacity>
 
@@ -167,6 +165,7 @@ export default function ExpenseTracker() {
               color: isDark ? '#FFFFFF' : 'black',
             }}>Total Budget</Text>
             <View style={styles.budgetRow}>
+              
               <TouchableOpacity 
                 style={{
                   ...styles.symbolBox,
@@ -311,6 +310,7 @@ export default function ExpenseTracker() {
                     ...styles.modalTitle,
                     color: isDark ? '#FFFFFF' : 'black',
                   }}>Select Budget Currency</Text>
+
                   <ScrollView style={styles.modalScroll}>
                     {currencies.map((currency) => (
                       <TouchableOpacity
@@ -594,8 +594,7 @@ export default function ExpenseTracker() {
           alignItems: 'center',
           marginHorizontal: 5,
         },
-        cancelModalButton: {
-        },
+        cancelModalButton: {},
         confirmModalButton: {
           backgroundColor: '#FF6B6B',
         },
@@ -604,4 +603,5 @@ export default function ExpenseTracker() {
           color: 'white',
           fontWeight: '600',
         },
+        
       });
