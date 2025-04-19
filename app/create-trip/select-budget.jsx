@@ -5,10 +5,14 @@ import OptionCard from '../../components/CreateTrip/OptionCard';
 import { useRouter, useNavigation } from 'expo-router';
 import { SelectBudgetOptions } from '../../constants/Options';
 import {CreateTripContext }from './../../constants/context/CreateTripContext';
+import { useTheme } from '../../constants/context/ThemeContext';
 
 
 export default function SelectBudget() {
     const router = useRouter();
+          const { theme } = useTheme();
+          const isDark = theme === 'dark';
+    
     const navigation=useNavigation();
     const [selectedOption, setSelectedOption] = useState(null);
     const {tripData,setTripData}=useContext(CreateTripContext);
@@ -40,13 +44,13 @@ useEffect (()=>{
   return (
     <View style={{
         padding: 25,
-        paddingTop: 75, 
-        backgroundColor: isDark ? '#fff' : '#000',
+        paddingTop: 75,
+        backgroundColor: isDark ? '#121212' : '#FAFAFA',
         height:'100%'}}>
 
       <TouchableOpacity onPress={() => router.push('/create-trip/select-dates')} 
        style={{ padding: 10 }}>
-        <Ionicons name="arrow-back" size={28} color="black" />
+        <Ionicons name="arrow-back" size={28} color= {isDark ? '#fff' : '#000' }/>
         </TouchableOpacity>        
       
       <Text
@@ -54,7 +58,7 @@ useEffect (()=>{
         fontSize: 35, 
         fontFamily: 'outfit-bold', 
         marginTop: 20, 
-        color: isDark ? '#000' : '#fff'
+        color:isDark ? '#fff' : '#000'
       }}>Budget</Text>
 
       <View style={{
@@ -63,7 +67,7 @@ useEffect (()=>{
         <Text style={{
             fontSize: 20, 
             fontFamily: 'outfit-bold',
-            color: isDark ? '#000' : '#fff'
+            color:'lightgrey'
         }}> Choose sepending habits for your trip </Text>
       
       <FlatList
@@ -80,12 +84,14 @@ useEffect (()=>{
          onPress={ onClickContinue}
          style={{
           padding:15,
-          backgroundColor:isDark ? '#fff' : '#000',
+          backgroundColor: isDark ? '#1e1e1e' : '#000',
+          borderWidth:1,
           borderRadius:15,
-          marginTop:20
+          marginTop:20,
+          borderColor: isDark ? 'grey' : '#000',
          }}>
           <Text style={{
-            color:isDark ? '#fff' : '#000',
+            color:"white",
             textAlign:"center",
             fontSize:20,
             fontFamily:'outfit-medium'

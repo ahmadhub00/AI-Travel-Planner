@@ -68,7 +68,8 @@ export default function SignIn() {
           </View>
       <Text style={{
       fontFamily:'outfit-bold',
-      fontSize:30
+      fontSize:30,
+      marginTop:10,
     }}> Let's Sign You In</Text>
 
      <Text style={{
@@ -87,14 +88,15 @@ export default function SignIn() {
 
       {/*Email*/}
     <View style={{
-      marginTop:50
+      marginTop:30
     }}>
       <Text style={{
         fontFamily:'outfit'
       }}>Email</Text>
       <TextInput style={styles.input}
         onChangeText={(value)=>setEmail(value)}
-         placeholder='Enter Email'/>
+         placeholder='Enter Email'
+         placeholderTextColor="lightgrey"/>
      </View>
 
       {/*Password*/}
@@ -107,7 +109,8 @@ export default function SignIn() {
       <TextInput secureTextEntry={true}
       style={styles.input}
       onChangeText={(value)=>setPassword(value)}
-         placeholder='Enter Password'/>
+         placeholder='Enter Password'
+         placeholderTextColor="lightgrey"/>
      </View>
 
       {/*Sign In Button*/}
@@ -151,7 +154,8 @@ input:{
   borderWidth:1,
   borderRadius:15,
   borderColor:'grey',
-  fontFamily:'outfit'
+  fontFamily:'outfit',
+  color:'black',
 
 }
 })
