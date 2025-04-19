@@ -16,7 +16,7 @@ export default function OptionCard({option,selectedOption}) {
         backgroundColor: isDark ? '#1E1E1E' : '#F0F0F0' ,
         borderRadius:15,
         borderColor: isDark ? '#555555' : 'grey'
-    },selectedOption?.id==option?.id&&{borderWidth:1,borderColor: isDark ? 'white' : 'black'}]}>
+    },selectedOption?.id==option?.id&&{borderWidth:2,borderColor: isDark ? 'white' : 'black'}]}>
         <View>
             <Text style={{
                 fontSize:20,

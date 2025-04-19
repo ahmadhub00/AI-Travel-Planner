@@ -62,12 +62,13 @@ useEffect (()=>{
       }}>Budget</Text>
 
       <View style={{
-           marginTop:20
+           marginTop:12,
         }}>
         <Text style={{
             fontSize: 20, 
             fontFamily: 'outfit-bold',
-            color:'lightgrey'
+            color:'grey',
+            marginBottom:15
         }}> Choose sepending habits for your trip </Text>
       
       <FlatList
