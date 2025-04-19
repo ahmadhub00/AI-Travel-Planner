@@ -40,8 +40,8 @@ useEffect (()=>{
   return (
     <View style={{
         padding: 25,
-        paddingTop: 75,
-        backgroundColor:"white",
+        paddingTop: 75, 
+        backgroundColor: isDark ? '#fff' : '#000',
         height:'100%'}}>
 
       <TouchableOpacity onPress={() => router.push('/create-trip/select-dates')} 
@@ -54,6 +54,7 @@ useEffect (()=>{
         fontSize: 35, 
         fontFamily: 'outfit-bold', 
         marginTop: 20, 
+        color: isDark ? '#000' : '#fff'
       }}>Budget</Text>
 
       <View style={{
@@ -61,7 +62,8 @@ useEffect (()=>{
         }}>
         <Text style={{
             fontSize: 20, 
-            fontFamily: 'outfit-bold'
+            fontFamily: 'outfit-bold',
+            color: isDark ? '#000' : '#fff'
         }}> Choose sepending habits for your trip </Text>
       
       <FlatList
@@ -78,12 +80,12 @@ useEffect (()=>{
          onPress={ onClickContinue}
          style={{
           padding:15,
-          backgroundColor:"black",
+          backgroundColor:isDark ? '#fff' : '#000',
           borderRadius:15,
           marginTop:20
          }}>
           <Text style={{
-            color:"white",
+            color:isDark ? '#fff' : '#000',
             textAlign:"center",
             fontSize:20,
             fontFamily:'outfit-medium'
