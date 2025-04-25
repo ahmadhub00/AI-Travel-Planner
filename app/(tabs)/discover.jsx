@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Dimensions, Alert } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker/* , PROVIDER_GOOGLE */} from 'react-native-maps';
 import * as Location from 'expo-location';
 
 export default function MapScreen() {
@@ -42,17 +42,24 @@ export default function MapScreen() {
     <View style={styles.container}>
       {region && (
         <MapView
+          showsCompass={true}
+          showsScale={true}
+          rotateEnabled={true}
+          pitchEnabled={true}
+          scrollEnabled={true}
+        /* scaleBarEnabled={true} */
           style={styles.map}
           region={region}
           showsUserLocation={true}
           onPress={handleMapPress}
+          
         >
           {droppedPin && (
             <Marker
               coordinate={droppedPin}
-              title="Custom Pin"
+              /* title="Custom Pin"
               description={`Lat: ${droppedPin.latitude}, Lng: ${droppedPin.longitude}`}
-            />
+            */ />
           )}
         </MapView>
       )}

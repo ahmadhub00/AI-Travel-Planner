@@ -57,13 +57,24 @@ export default function SearchPlace() {
                 </Text>
             </View>
 
+          <View style={{
+            flexDirection:'row',
+            borderWidth:1,
+            borderRadius:5,
+            marginTop:25,
+            backgroundColor: isDark ? '#1e1e1e' : '#fff',
+            borderColor: isDark ? '#555' : 'black',
+            }}>
+<Ionicons name="location-outline"
+ size={24} color={isDark ? 'white' : 'black'} 
+ style={{paddingTop:10, paddingLeft:8}}/>
+{/* <Text style={{fontSize:20,fontFamily:'outfit-bold',marginLeft:60,marginTop:-30,color:isDark?'#FFFFFF':'#333'}}>Search Place</Text> */}
     <GooglePlacesAutocomplete
-      placeholder='Search Place ...'
-      
+      placeholder='Search Place Here...'
+      enablePoweredByContainer={false}
+      // 'details' is provided when fetchDetails = true
       fetchDetails={true}
       onPress={(data, details = null) => {
-        // 'details' is provided when fetchDetails = true
-        
         setTripData({
           locationInfo:{
             name:data.description,
@@ -75,21 +86,22 @@ export default function SearchPlace() {
         router.push('/create-trip/select-traveler')
       }}
       query={{
-
         key: process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY,     
         language: 'en',
       }}
       styles={{
-       textInputContainer:{
+       /* textInputContainer:{
        borderWidth:1,
        borderRadius:5,
        marginTop:25,
        backgroundColor: isDark ? '#1e1e1e' : '#fff',
-       borderColor: isDark ? '#555' : 'black',}, 
+       borderColor: isDark ? '#555' : 'black',},  */
        
        textInput: {
-       backgroundColor: isDark ? '#1e1e1e' : 'white',
-       color: isDark ? 'white' : 'black',},
+        fontFamily: 'outfit-medium',
+        fontSize: 16,
+        backgroundColor: isDark ? '#1e1e1e' : 'white',
+        color: isDark ? 'white' : 'black',},
        
        listView: {
        backgroundColor: isDark ? '#1e1e1e' : '#fff',},
@@ -116,7 +128,8 @@ export default function SearchPlace() {
       textInputProps={{
         placeholderTextColor: isDark ? 'white' : 'black', // ✅ Real fix
       }}
-    /> 
+    />
+     </View>
     </View>
   )
 }
