@@ -6,7 +6,10 @@ import SearchBar from '../SearchBar';
 export default function Discover() {
   return (
     <View>
+      <View style={{position: 'absolute', zIndex:20}}>
       <SearchBar />
+      </View>
+      
       <GoogleMapViewFull /> 
     </View>
   )}

@@ -35,12 +35,12 @@ export default function GoogleMapViewFull() {
              width: Dimensions.get('screen').width,
              height: Dimensions.get('screen').height
              }}
-            /*  provider={PROVIDER_GOOGLE}  */// remove if not using Google Maps
-          region={mapRegion}
+        /* provider={PROVIDER_GOOGLE} */  // remove if not using Google Maps
+          region={region}
           showsUserLocation={true}
         >
             <Marker
-              coordinate={mapRegion}
+              coordinate={region}
               title="you"
               /* description="This is a custom pin" */
             />
