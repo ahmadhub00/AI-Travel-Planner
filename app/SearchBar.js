@@ -1,11 +1,18 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { TextInput } from "react-native-paper";
 
-export default function SearchBar() {
+export default function SearchBar({ onSearch }) {
+  const [searchInput, setSearchInput] = useState('');
+  const handleSubmit = () => {
+    if (searchInput.trim()) {
+        onSearch(searchInput);
+    }
+};
+
      return (
     <View>
       {/* <LinearGradient
@@ -33,8 +40,7 @@ export default function SearchBar() {
       <View
         style={{
           marginHorizontal:18,
-         
-          display: "flex",
+          marginTop: 10,
           flexDirection: "row",
           paddingHorizontal:10 ,
           gap: 8,
@@ -57,8 +63,9 @@ export default function SearchBar() {
             backgroundColor:'white',
            width:"85%"
           }}
-          onChangeText={(value) => console.log(value)}
-          onSubmitEditing={(value) => console.log(searchInput)}
+          value={searchInput}
+          onChangeText={(value) => setSearchInput(value)}
+          onSubmitEditing={handleSubmit}
         />
       </View>
     </View>

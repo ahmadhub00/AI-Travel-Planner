@@ -8,6 +8,7 @@ export default function DataList({placeList}) {
     <View>
       <FlatList
       data={placeList}
+      horizontal={true}
       renderItem={({item})=>(
           <DataItem place={item}/>
       )}
