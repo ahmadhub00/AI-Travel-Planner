@@ -6,7 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { TextInput } from "react-native-paper";
 
 export default function SearchBar() {
-  return (
+     return (
     <View>
       {/* <LinearGradient
   colors={['grey', 'transparent']} 

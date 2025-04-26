@@ -34,3 +34,8 @@
       throw error;
     }
   };
+  /* const Base_Url="https://maps.googleapis.com/maps/api/place"
+  const API_KEY="EXPO_PUBLIC_GOOGLE_MAP_KEY" */
+   /* /textsearch/json
+  ?query=123%20main%20street
+  &key=YOUR_API_KEY */

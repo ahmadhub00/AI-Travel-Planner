@@ -7,6 +7,7 @@ import { useTheme } from '../../constants/context/ThemeContext';
 export default function TabLayout() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+  
   return (
     <Tabs screenOptions={{
       headerShown:false,

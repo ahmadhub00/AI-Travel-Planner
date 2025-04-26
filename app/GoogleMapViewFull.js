@@ -1,11 +1,12 @@
 import {View, Text, Dimensions, Alert, StyleSheet } from 'react-native';
-import React, { useState, useEffect }from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import MapView, { Marker/* , PROVIDER_GOOGLE */} from 'react-native-maps';
 import * as Location from 'expo-location';
+import { UserLocationContext } from '../constants/context/UserLocationContext';
 
 export default function GoogleMapViewFull() {
     const [region, setRegion] = useState([]);
-    const [userLocation, setUserLocation] = useState(null);
+    const {userLocation, setUserLocation} = useContext(UserLocationContext);
 
     useEffect(() => {
      (async () => {

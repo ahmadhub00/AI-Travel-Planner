@@ -4,6 +4,8 @@ import {CreateTripContext }from './../constants/context/CreateTripContext';
 import { useState } from "react";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ThemeProvider } from '../constants/context/ThemeContext';
+import { UserLocationContext } from '../constants/context/UserLocationContext'; // 👈 import this
+
 export default function RootLayout() {
  
   useFonts({
@@ -13,11 +15,11 @@ export default function RootLayout() {
   })
 
   const[tripData,setTripData]=useState({});
-
+  const [userLocation, setUserLocation] = useState(null);
   
   return (
     <ThemeProvider>
-    <GestureHandlerRootView style={{ flex: 1 }}>
+   <UserLocationContext.Provider value={{ userLocation, setUserLocation }}>
     <CreateTripContext.Provider value={{tripData,setTripData}}>
   <Stack screenOptions={{
     headerShown:false}}>
@@ -27,7 +29,7 @@ export default function RootLayout() {
     <Stack.Screen name="(tabs)"/>
     </Stack>
     </CreateTripContext.Provider>
-     </GestureHandlerRootView>
+    </UserLocationContext.Provider>
        </ThemeProvider>
   );
 }
