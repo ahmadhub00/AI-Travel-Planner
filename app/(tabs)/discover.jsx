@@ -1,10 +1,11 @@
 import React, { useState, useEffect,  useContext} from 'react';
 import { StyleSheet, View, Dimensions, Alert } from 'react-native';
-import GoogleMapViewFull from '../GoogleMapViewFull';
-import SearchBar from '../SearchBar';
 import { UserLocationContext } from '../../constants/context/UserLocationContext';
 import * as Location from 'expo-location';
 import DataList from '../DataList';
+import GoogleMapViewFull from '../GoogleMapViewFull';
+import SearchBar from '../SearchBar';
+
 
 export default function Discover() {
     const {userLocation, setUserLocation} = useContext(UserLocationContext);

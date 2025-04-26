@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Dimensions } from "react-native";
@@ -15,7 +15,7 @@ export default function SearchBar({ onSearch }) {
 
      return (
     <View>
-      {/* <LinearGradient
+       {/* <LinearGradient
   colors={['grey', 'transparent']} 
   style={{
     padding: 20,
@@ -24,7 +24,7 @@ export default function SearchBar({ onSearch }) {
 >
   <Text style={{ color: 'white', fontWeight: 'bold',padding:40, fontSize: 20}}>
    Discover</Text>
-</LinearGradient> */}
+</LinearGradient>  */}
 
       <Text
         style={{
@@ -57,16 +57,28 @@ export default function SearchBar({ onSearch }) {
       >
         <Ionicons name="search" size={24} color="grey" />
         <TextInput
-          placeholder="Search"
+          placeholder="Search Place Here"
           placeholderTextColor="grey"
           style={{
             backgroundColor:'white',
-           width:"85%"
+           width:"75%"
           }}
           value={searchInput}
           onChangeText={(value) => setSearchInput(value)}
           onSubmitEditing={handleSubmit}
         />
+        <TouchableOpacity 
+          onPress={handleSubmit}
+          style={{
+            backgroundColor: '#4285F4',
+            borderRadius: 8,
+            padding: 8,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Ionicons name="arrow-forward" size={20} color="white" />
+        </TouchableOpacity>
       </View>
     </View>
   );

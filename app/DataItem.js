@@ -1,9 +1,10 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 
-export default function DataItem({ place }) {
+export default function DataItem({ place, onPress }) {
   return (
+    <TouchableOpacity onPress={onPress}>
     <View
       style={{
         width: 240,
@@ -11,6 +12,11 @@ export default function DataItem({ place }) {
         borderRadius: 10,
         padding: 10,
         margin: 5,
+        elevation: 3,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
       }}
     >
       {place?.photos ? (
@@ -29,7 +35,9 @@ export default function DataItem({ place }) {
           }}
         />
       ) : (
-        <Text>no image</Text>
+        <View style={{ width: 220, height: 120, borderRadius: 15, backgroundColor: "#f0f0f0", justifyContent: "center", alignItems: "center" }}>
+        <Text style={{ color: "#888" }}>No image</Text>
+      </View>
       )}
       <Text
         numberOfLines={2}
@@ -63,9 +71,10 @@ export default function DataItem({ place }) {
           marginBottom: -5,
         }}
       >
-        <AntDesign name="star" size={20} color="yellow" />
+        <AntDesign name="star" size={20} color="orange" />
         <Text>{place.rating}</Text>
       </View>
     </View>
+    </TouchableOpacity>
   );
 }
