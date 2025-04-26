@@ -60,12 +60,13 @@ export default function SearchPlace() {
           <View style={{
             flexDirection:'row',
             borderWidth:1,
-            borderRadius:5,
+            borderRadius:10,
             marginTop:25,
+            overflow: 'hidden',
             backgroundColor: isDark ? '#1e1e1e' : '#fff',
             borderColor: isDark ? '#555' : 'black',
             }}>
-<Ionicons name="location-outline"
+<Ionicons name="location-sharp"
  size={24} color={isDark ? 'white' : 'black'} 
  style={{paddingTop:10, paddingLeft:8}}/>
 {/* <Text style={{fontSize:20,fontFamily:'outfit-bold',marginLeft:60,marginTop:-30,color:isDark?'#FFFFFF':'#333'}}>Search Place</Text> */}
@@ -103,6 +104,10 @@ export default function SearchPlace() {
         backgroundColor: isDark ? '#1e1e1e' : 'white',
         color: isDark ? 'white' : 'black',},
        
+        clearButton: {
+          color: 'red', 
+        },
+
        listView: {
        backgroundColor: isDark ? '#1e1e1e' : '#fff',},
         

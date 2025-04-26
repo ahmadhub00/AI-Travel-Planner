@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View,Text,TextInput, TouchableOpacity,ScrollView,StyleSheet,KeyboardAvoidingView,Platform,Modal,Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useTheme } from '../constants/context/ThemeContext';
+import { useTheme } from '../../constants/context/ThemeContext';
 import { useRouter} from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
