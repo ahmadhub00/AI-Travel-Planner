@@ -4,10 +4,12 @@ import GoogleMapViewFull from '../GoogleMapViewFull';
 import SearchBar from '../SearchBar';
 import { UserLocationContext } from '../../constants/context/UserLocationContext';
 import * as Location from 'expo-location';
+import DataList from '../DataList';
 
 export default function Discover() {
     const {userLocation, setUserLocation} = useContext(UserLocationContext);
-    const [placeList, setPlaceList] = useState([]);
+    const [placeList, setPlaceList] = useState([discov]);
+
    useEffect(() => {
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
@@ -44,10 +46,14 @@ export default function Discover() {
   return (
     <View>
       <View style={{position: 'absolute', zIndex:20}}>
-      <SearchBar />
+       <SearchBar />
       </View>
       
-      <GoogleMapViewFull /> 
+       <GoogleMapViewFull /> 
+      <View style={{position: 'absolute', zIndex:20, bottom:0}}>
+       <DataList placeList={placeList} />
+      </View>
+
     </View>
   )
 }
