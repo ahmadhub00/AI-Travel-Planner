@@ -128,3 +128,24 @@ const selectAlternative = (alternative) => {
       ...tripData.locationInfo,
       name: alternative.destination,
     },
+    totalNoOfDays: alternative.days,
+    budget: alternative.budgetCategory,
+  });
+
+  // Navigate to generate trip
+  router.push("/create-trip/generate-trip");
+};
+
+const continueWithOriginal = () => {
+  router.push("/create-trip/generate-trip");
+};
+
+return (
+  <View
+    style={{
+      padding: 25,
+      paddingTop: 40,
+      backgroundColor: isDark ? "#121212" : "#FAFAFA",
+      height: "100%",
+    }}
+  >
