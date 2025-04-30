@@ -149,3 +149,24 @@ return (
       height: "100%",
     }}
   >
+    <TouchableOpacity
+        onPress={() => router.push("/create-trip/review-trip")}
+        style={{ padding: 10 }}
+      >
+        <Ionicons
+          name="arrow-back"
+          size={28}
+          color={isDark ? "#fff" : "#000"}
+        />
+      </TouchableOpacity>
+
+      <Text
+        style={{
+          fontSize: 35,
+          fontFamily: "outfit-bold",
+          marginTop: 5,
+          color: isDark ? "#fff" : "#000",
+        }}
+      >
+        Alternative Options
+      </Text>
