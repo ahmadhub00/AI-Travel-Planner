@@ -84,3 +84,24 @@ setAlternatives(getSampleAlternatives());
 setLoading(false);
 }
 };
+// Sample alternatives in case API fails
+const getSampleAlternatives = () => {
+  return [
+    {
+      destination: "Thailand",
+      days: tripData?.totalNoOfDays + 2,
+      budgetCategory: "moderate",
+      mainAttraction: "Tropical Beaches",
+      description:
+        "Enjoy beautiful beaches and rich culture for less than your original budget",
+      costComparison: "20% cheaper",
+    },
+    {
+      destination: "Vietnam",
+      days: tripData?.totalNoOfDays + 4,
+      budgetCategory: tripData?.budget === "basic" ? "moderate" : "luxury",
+      mainAttraction: "Cultural Experience",
+      description:
+        "Get more luxury amenities while experiencing amazing food and culture",
+      costComparison: "Same budget, higher category",
+    },
