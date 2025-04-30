@@ -21,3 +21,44 @@ export default function AlternativeTrips() {
   const navigation = useNavigation();
   const [alternatives, setAlternatives] = useState([]);
   const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+    fetchAlternatives();
+  }, []);
+
+  const fetchAlternatives = async () => {
+    try {
+      setLoading(true);
+
+      // Prompt to get alternative trips based on the user's selection
+      const ALTERNATIVE_PROMPT = `Based on the selected trip to ${tripData?.locationInfo?.name} for ${tripData?.totalNoOfDays} days with a ${tripData?.budget} budget for ${tripData?.traveler?.title},
+       suggest 3 alternative destinations that would offer:
+      
+      1. Similar experiences but at a lower cost
+      2. Better value or luxury options for the same budget
+      3. Longer possible stay duration for the same budget
+      
+      For each alternative, provide:
+      - Destination name
+      - Number of possible days
+      - Budget category (basic, moderate, luxury)
+      - Main attraction or benefit
+      - A brief description of why it's a good alternative
+      - Estimated cost comparison (% cheaper or same cost but more value)
+      
+      Format the response as JSON with this structure:
+{
+  "alternatives": [
+    {
+      "destination": "destination name",
+      "days": number of days (integer),
+      "budgetCategory": "budget category (basic/moderate/luxury)",
+      "mainAttraction": "main attraction",
+      "description": "brief description",
+      "costComparison": "cost comparison text"
+    },
+    ...
+  ]
+}`;
