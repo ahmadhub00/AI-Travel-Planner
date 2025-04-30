@@ -1,6 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
+import { Ionicons } from '@expo/vector-icons';
 
 export default function DataItem({ place, onPress }) {
   return (
@@ -40,7 +41,7 @@ export default function DataItem({ place, onPress }) {
       </View>
       )}
       <Text
-        numberOfLines={2}
+        numberOfLines={1}
         style={{
           fontFamily: "outfit",
           fontSize: 16,
@@ -67,12 +68,13 @@ export default function DataItem({ place, onPress }) {
           flexDirection: "row",
           alignItems: "center",
           gap: 5,
-          marginTop: 5,
+         
           marginBottom: -5,
         }}
       >
         <AntDesign name="star" size={20} color="orange" />
         <Text>{place.rating}</Text>
+        <Ionicons name="ellipsis-vertical" size={30} style={{marginLeft:"62%"}} color="black" />
       </View>
     </View>
     </TouchableOpacity>

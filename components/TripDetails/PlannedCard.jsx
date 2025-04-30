@@ -77,7 +77,7 @@ return (
              fontSize:15,
              marginTop:5
           }}>⏱️Best Time To Visit:  
-            <Text style={{fontFamily:'outfit-medium'}}>{place?.bestTimeToVisit || "N/A"}</Text> </Text>
+            <Text style={{fontFamily:'outfit-medium'}}>{place?.time || "N/A"}</Text> </Text>
         </View>
             <TouchableOpacity style={{marginRight:5,}}>
             <Ionicons name="navigate" size={24} color="black" />

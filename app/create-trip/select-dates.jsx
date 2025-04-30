@@ -109,7 +109,7 @@ export default function SelectDates() {
                 borderWidth:1,
                 borderColor:isDark ? 'grey' : 'black',
                 borderRadius:15,
-                backgroundColor:'white' }}>
+                backgroundColor:isDark ? '#121212' : '#ffffff' }}>
                 <Text style={{ 
                   fontSize: 20,
                    fontWeight: 'bold',
@@ -133,7 +133,7 @@ export default function SelectDates() {
                         textDisabledColor: isDark ? '#555555' : '#d9e1e8',
                         dotColor: isDark ? '#FF6B6B' : '#00adf5',
                         selectedDotColor: '#ffffff',
-                        arrowColor: isDark ? '#CCCCCC' : '#000000',
+                        arrowColor: isDark ? 'white' : '#000000',
                         monthTextColor: isDark ? '#FFFFFF' : '#000000',
                         indicatorColor: isDark ? '#FF6B6B' : '#000000',
                         textDayFontFamily: 'outfit',

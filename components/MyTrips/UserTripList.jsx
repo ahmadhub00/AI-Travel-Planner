@@ -1,11 +1,11 @@
 import { View, Text, Image, TouchableOpacity, TextInput } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import UserTripCard from './UserTripCard';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../constants/context/ThemeContext';
 
-export default function UserTripList({ userTrips }) {
+export default function UserTripList({ userTrips, onDeleteTrip }) {
     const router = useRouter();
     const { theme } = useTheme();
     const isDark = theme === 'dark';
@@ -40,6 +40,27 @@ const handleSearchChange = (text) => {
     setSelectedTrip({ ...parsed, tripDetails: filtered[0].tripDetails });
   }
 };
+useEffect(() => {
+    setFilteredTrips(userTrips);
+  
+    const selectedStillExists = userTrips.some(trip => {
+      const parsed = JSON.parse(trip.tripData);
+      return (
+        parsed.tripPlan?.tripDetails?.location === selectedTrip?.tripPlan?.tripDetails?.location &&
+        moment(parsed.startDate).isSame(selectedTrip?.startDate)
+      );
+    });
+  
+    if (!selectedStillExists) {
+      if (userTrips.length > 0) {
+        const firstTrip = JSON.parse(userTrips[0].tripData);
+        setSelectedTrip({ ...firstTrip, tripDetails: userTrips[0].tripDetails });
+      } else {
+        setSelectedTrip(null);
+      }
+    }
+  }, [userTrips]);
+  
 
     return userTrips && (
         <View >
@@ -162,6 +183,7 @@ const handleSearchChange = (text) => {
                                 }
                             });
                         }}
+                        onDeleteTrip={onDeleteTrip}
                     />
                 ))}
             </View>

@@ -31,7 +31,8 @@ export default function HotelCard ({item}){
                    marginRight:20,
                    Width:180
                   }}>
-            <Image  source={{
+            {photoRef ? (
+              <Image  source={{
                 uri: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='
                 + photoRef
                 +'&key='+process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}}
@@ -40,6 +41,18 @@ export default function HotelCard ({item}){
                        height:120,
                        borderRadius:15
                    }}/>
+                  ) : (
+                    <View style={{
+                      width: 220,
+                      height: 120,
+                      borderRadius: 15,
+                      backgroundColor: 'lightgrey',
+                      justifyContent: 'center',
+                      alignItems: 'center'
+                    }}>
+                      <Text style={{ color: '#555', fontFamily: 'outfit-medium' }}>No image available</Text>
+                    </View>
+                  )}
        
     <View style={{padding:5}}>
             <Text style={{
@@ -50,7 +63,7 @@ export default function HotelCard ({item}){
 
             <View style={{
                  display:'flex',
-                 flexDirection:'row'
+                 flexDirection:'column'
                 }}>
 
                  <Text style={{
@@ -60,13 +73,14 @@ export default function HotelCard ({item}){
 
                  <Text style={{
                   fontFamily:'outfit',
-                  width:200,
-                  marginLeft: 20}}
-                  numberOfLines={1} ellipsizeMode="tail">
-                 💰{item.estimatedPricePerNight}</Text>
+                  width: 215,
+                  /* marginLeft: 15 */}}
+                  numberOfLines={2} ellipsizeMode="tail">
+                 💰{item.price ? item.price : item.pricePerNight}
+                 </Text>
                  </View>
                
-        {item?.bookingURL && (
+        {item?.bookingURL.startsWith('http') && (
            <TouchableOpacity
                style={{ backgroundColor: 'black', padding: 7, width: 110, borderRadius: 7, marginTop: 5 }}
                onPress={() => Linking.openURL(item?.bookingURL)}>

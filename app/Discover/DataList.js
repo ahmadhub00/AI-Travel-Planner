@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { FlatList } from 'react-native'
 import DataItem from './DataItem'
 import PlaceDetailModal from './PlaceDetailModal';
+import { LinearGradient } from "expo-linear-gradient";
+import { Dimensions } from 'react-native';
 
 export default function DataList({placeList}) {
     const [selectedPlace, setSelectedPlace] = useState(null);
@@ -18,6 +20,16 @@ export default function DataList({placeList}) {
       };
   return (
     <View>
+         {/*  <LinearGradient
+  colors={[ 'transparent','rgba(0, 0, 0, 0.7)']} 
+  style={{
+    padding: 20,
+    width: Dimensions.get('screen').width ,
+     height:200, 
+    bottom: 0,
+    position: 'absolute',
+    }}
+/> */}
       <FlatList
       data={placeList}
       horizontal={true}

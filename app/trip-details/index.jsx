@@ -102,9 +102,9 @@ export default function TripDetails() {
         </Text>
      
         {/* Flight Info */}
-        {latestTrip?.tripPlan?.flightDetails && (
-        <FlightInfo flightData={latestTrip.tripPlan.flightDetails} />
-        )}
+        {latestTrip?.tripPlan?.flights && (
+        <FlightInfo flightData={latestTrip.tripPlan.flights} />
+        )} 
         {latestTrip?.tripPlan?.flightDetails?.flights && (
         <FlightInfo flightData={latestTrip.tripPlan.flightDetails.flights} />
         )}

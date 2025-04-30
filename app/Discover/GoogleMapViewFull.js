@@ -1,7 +1,7 @@
 import {View, Text, Dimensions, Alert, StyleSheet } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react'
 import MapView, { Marker/* , PROVIDER_GOOGLE */} from 'react-native-maps';
-import { UserLocationContext } from '../constants/context/UserLocationContext';
+import { UserLocationContext } from '../../constants/context/UserLocationContext';
 
 export default function GoogleMapViewFull({ placeList = [] }) {
   const [mapRegion, setMapRegion] = useState(null);

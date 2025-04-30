@@ -156,22 +156,22 @@ export default function ReviewTrip() {
 
    </View>
    <TouchableOpacity 
-        onPress={() => router.push('/create-trip/generate-trip')}
-        style={{
-         padding:15,
-         backgroundColor: isDark ? '#1e1e1e' : '#000',
-         borderRadius:15,
-         marginTop:40,
-         borderWidth:1,
-         borderColor: isDark ? 'grey' : '#000',
-        }}>
-         <Text style={{
-           color:"white",
-           textAlign:"center",
-           fontSize:20,
-           fontFamily:'outfit-medium'
-         }}>Build My Trip</Text>
-        </TouchableOpacity>
+  onPress={() => router.push('/create-trip/alternative-trips')} // Changed from 'generate-trip' to 'alternative-trips'
+  style={{
+    padding:15,
+    backgroundColor: isDark ? '#1e1e1e' : '#000',
+    borderRadius:15,
+    marginTop:40,
+    borderWidth:1,
+    borderColor: isDark ? 'grey' : '#000',
+  }}>
+  <Text style={{
+    color:"white",
+    textAlign:"center",
+    fontSize:20,
+    fontFamily:'outfit-medium'
+  }}>Build My Trip</Text>
+</TouchableOpacity>
          
     </View>
    

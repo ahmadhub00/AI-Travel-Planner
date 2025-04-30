@@ -80,7 +80,7 @@ export default function UserProfile() {
         <TouchableOpacity onPress={toggleTheme}>
           <Ionicons
             name={isDark ? 'sunny-outline' : 'moon-outline'}
-            size={30}
+            size={35}
             color={isDark ? 'white' : 'black'}
           />
         </TouchableOpacity>
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     paddingBottom: 10,
     paddingRight: 10,
-    paddingTop: 20,
+    paddingTop: 30,
   },
   profileContainer: { alignItems: 'center', marginTop: 20 },
   profileImage:(isDark) => ({

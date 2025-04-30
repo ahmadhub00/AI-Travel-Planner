@@ -2,9 +2,9 @@ import React, { useState, useEffect,  useContext} from 'react';
 import { StyleSheet, View, Dimensions, Alert } from 'react-native';
 import { UserLocationContext } from '../../constants/context/UserLocationContext';
 import * as Location from 'expo-location';
-import DataList from '../DataList';
-import GoogleMapViewFull from '../GoogleMapViewFull';
-import SearchBar from '../SearchBar';
+import DataList from '../Discover/DataList';
+import GoogleMapViewFull from '../Discover/GoogleMapViewFull';
+import SearchBar from '../Discover/SearchBar';
 
 
 export default function Discover() {

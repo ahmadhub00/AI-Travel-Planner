@@ -4,6 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { TextInput } from "react-native-paper";
+import { BlurView } from 'expo-blur';
 
 export default function SearchBar({ onSearch }) {
   const [searchInput, setSearchInput] = useState('');
@@ -15,16 +16,18 @@ export default function SearchBar({ onSearch }) {
 
      return (
     <View>
-       {/* <LinearGradient
-  colors={['grey', 'transparent']} 
+      
+       {/*  <LinearGradient
+  colors={['rgba(156, 155, 155, 0.7)', 'transparent']} 
   style={{
     padding: 20,
     width: Dimensions.get('screen').width ,
+    height:100,
+    position: 'absolute',
     }}
->
-  <Text style={{ color: 'white', fontWeight: 'bold',padding:40, fontSize: 20}}>
-   Discover</Text>
-</LinearGradient>  */}
+/> */}
+  
+
 
       <Text
         style={{
@@ -80,6 +83,7 @@ export default function SearchBar({ onSearch }) {
           <Ionicons name="arrow-forward" size={20} color="white" />
         </TouchableOpacity>
       </View>
+    
     </View>
   );
 }

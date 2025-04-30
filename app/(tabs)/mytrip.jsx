@@ -4,12 +4,12 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react';
 import StartNewTripCard from '../../components/MyTrips/StartnewTripCard';
 import { db ,auth} from '../../configs/FirebaseConfig';
-import { query } from 'firebase/firestore';
-import { getDocs, collection, where, orderBy} from 'firebase/firestore';
+import { getDocs, query, collection, where, orderBy} from 'firebase/firestore';
 import { ActivityIndicator } from 'react-native';
 import UserTripList from '../../components/MyTrips/UserTripList';
 import { useRouter, useNavigation } from 'expo-router';
 import { useTheme } from '../../constants/context/ThemeContext'; 
+import { deleteDoc, doc } from 'firebase/firestore';
 
 
 export default function MyTrip() {
@@ -45,10 +45,13 @@ export default function MyTrip() {
         setLoading(true);
         
         try {
-          const q = query(collection(db, "UserTrips"), where("userEmail", "==", user?.email));
+          const q = query(collection(db, "UserTrips"),
+           where("userEmail", "==", user?.email),
+           orderBy("createdAt", "desc") );
           const querySnapshot = await getDocs(q);
           
-          const trips = querySnapshot.docs.map(doc => doc.data()); // Ensures a fresh list without duplicates
+          const trips = querySnapshot.docs.map(doc => ({
+            id: doc.id,...doc.data()})); // Ensures a fresh list without duplicates
           
           setUserTrips(trips); // Set the new list directly instead of appending
         } catch (error) {
@@ -57,7 +60,15 @@ export default function MyTrip() {
           setLoading(false);
         }
       };
-
+      // Function to delete a trip
+const handleDeleteTrip = async (tripId) => {
+  try {
+    await deleteDoc(doc(db, 'UserTrips', tripId));
+    setUserTrips(prev => prev.filter(trip => trip.id !== tripId));
+  } catch (error) {
+    console.error("Error deleting trip:", error);
+  }
+};
   return (
     <ScrollView style={{
         padding:25,
@@ -106,7 +117,7 @@ export default function MyTrip() {
     <StartNewTripCard/>
     :
     //userTrips={userTrips} passing data to usertriplist
-    <UserTripList userTrips={userTrips}/>
+    <UserTripList userTrips={userTrips} onDeleteTrip={handleDeleteTrip}/>
      }
    </ScrollView>
   )
