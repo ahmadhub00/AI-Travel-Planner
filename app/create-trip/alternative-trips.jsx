@@ -220,3 +220,51 @@ return (
                   elevation: 2,
                 }}
               ></TouchableOpacity>
+              <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 22,
+                  fontFamily: "outfit-bold",
+                  color: isDark ? "#fff" : "#000",
+                }}
+              >
+                {item.destination}
+              </Text>
+            </View>
+
+            <View style={{ marginTop: 10 }}>
+              <View
+                style={{ flexDirection: "row", gap: 10, marginBottom: 8 }}
+              >
+                <View
+                  style={{
+                    backgroundColor: isDark ? "#2d2d2d" : "#f5f5f5",
+                    paddingHorizontal: 10,
+                    paddingVertical: 5,
+                    borderRadius: 8,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: isDark ? "#fff" : "#000",
+                      fontFamily: "outfit-medium",
+                    }}
+                  >
+                    {item.days} days
+                  </Text>
+                </View>
+                {/* Budget Category Tag */}
+                <View
+                  style={{
+                    backgroundColor: isDark ? "#2d2d2d" : "#f5f5f5",
+                    paddingHorizontal: 10,
+                    paddingVertical: 5,
+                    borderRadius: 8,
+                  }}
+                >
