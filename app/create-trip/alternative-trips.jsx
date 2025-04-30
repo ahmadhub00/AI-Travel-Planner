@@ -170,3 +170,53 @@ return (
       >
         Alternative Options
       </Text>
+      <Text
+        style={{
+          fontSize: 18,
+          fontFamily: "outfit-medium",
+          marginTop: 10,
+          marginBottom: 20,
+          color: isDark ? "lightgrey" : "grey",
+        }}
+      >
+        Check out these alternative trips that might offer better value for your
+        budget
+      </Text>
+
+      {loading ? (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <ActivityIndicator size="large" color={isDark ? "#fff" : "#000"} />
+          <Text
+            style={{
+              marginTop: 20,
+              fontFamily: "outfit-medium",
+              color: isDark ? "#fff" : "#000",
+            }}
+          >
+            Finding alternatives...
+          </Text>
+        </View>
+      ) : (
+        <>
+          <FlatList
+            data={alternatives}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() => selectAlternative(item)}
+                style={{
+                  backgroundColor: isDark ? "#1e1e1e" : "#fff",
+                  borderRadius: 15,
+                  padding: 20,
+                  marginBottom: 15,
+                  borderWidth: 1,
+                  borderColor: isDark ? "#333" : "#eee",
+                  shadowColor: "#000",
+                  shadowOffset: { width: 0, height: 1 },
+                  shadowOpacity: 0.1,
+                  shadowRadius: 2,
+                  elevation: 2,
+                }}
+              ></TouchableOpacity>
