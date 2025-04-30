@@ -62,3 +62,25 @@ export default function AlternativeTrips() {
     ...
   ]
 }`;
+const result = await chatSession.sendMessage(ALTERNATIVE_PROMPT);
+
+if (result.response) {
+  const responseText = await result.response.text();
+
+  try {
+    const alternativesData = JSON.parse(responseText.trim());
+    setAlternatives(alternativesData.alternatives || []);
+  } catch (error) {
+    console.error("JSON Parsing Error:", error.message);
+    // Fallback to sample data if parsing fails
+    setAlternatives(getSampleAlternatives());
+  }
+}
+} catch (error) {
+console.error("Error fetching alternatives:", error);
+// Fallback to sample data on error
+setAlternatives(getSampleAlternatives());
+} finally {
+setLoading(false);
+}
+};
