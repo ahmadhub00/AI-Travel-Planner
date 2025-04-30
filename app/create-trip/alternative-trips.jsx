@@ -21,6 +21,7 @@ export default function AlternativeTrips() {
   const navigation = useNavigation();
   const [alternatives, setAlternatives] = useState([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     navigation.setOptions({
       headerShown: false,
@@ -62,94 +63,95 @@ export default function AlternativeTrips() {
     ...
   ]
 }`;
-const result = await chatSession.sendMessage(ALTERNATIVE_PROMPT);
 
-if (result.response) {
-  const responseText = await result.response.text();
+      const result = await chatSession.sendMessage(ALTERNATIVE_PROMPT);
 
-  try {
-    const alternativesData = JSON.parse(responseText.trim());
-    setAlternatives(alternativesData.alternatives || []);
-  } catch (error) {
-    console.error("JSON Parsing Error:", error.message);
-    // Fallback to sample data if parsing fails
-    setAlternatives(getSampleAlternatives());
-  }
-}
-} catch (error) {
-console.error("Error fetching alternatives:", error);
-// Fallback to sample data on error
-setAlternatives(getSampleAlternatives());
-} finally {
-setLoading(false);
-}
-};
-// Sample alternatives in case API fails
-const getSampleAlternatives = () => {
-  return [
-    {
-      destination: "Thailand",
-      days: tripData?.totalNoOfDays + 2,
-      budgetCategory: "moderate",
-      mainAttraction: "Tropical Beaches",
-      description:
-        "Enjoy beautiful beaches and rich culture for less than your original budget",
-      costComparison: "20% cheaper",
-    },
-    {
-      destination: "Vietnam",
-      days: tripData?.totalNoOfDays + 4,
-      budgetCategory: tripData?.budget === "basic" ? "moderate" : "luxury",
-      mainAttraction: "Cultural Experience",
-      description:
-        "Get more luxury amenities while experiencing amazing food and culture",
-      costComparison: "Same budget, higher category",
-    },
-    
-    {
-      destination: "Portugal",
-      days: tripData?.totalNoOfDays,
-      budgetCategory: tripData?.budget,
-      mainAttraction: "European Charm",
-      description:
-        "Similar experience to your original destination but more affordable",
-      costComparison: "15% cheaper",
-    },
-  ];
-};
+      if (result.response) {
+        const responseText = await result.response.text();
 
-const selectAlternative = (alternative) => {
-  // Update the trip data with the selected alternative
-  setTripData({
-    ...tripData,
-    alternativeSelected: true,
-    originalDestination: tripData?.locationInfo?.name,
-    locationInfo: {
-      ...tripData.locationInfo,
-      name: alternative.destination,
-    },
-    totalNoOfDays: alternative.days,
-    budget: alternative.budgetCategory,
-  });
+        try {
+          const alternativesData = JSON.parse(responseText.trim());
+          setAlternatives(alternativesData.alternatives || []);
+        } catch (error) {
+          console.error("JSON Parsing Error:", error.message);
+          // Fallback to sample data if parsing fails
+          setAlternatives(getSampleAlternatives());
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching alternatives:", error);
+      // Fallback to sample data on error
+      setAlternatives(getSampleAlternatives());
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  // Navigate to generate trip
-  router.push("/create-trip/generate-trip");
-};
+  // Sample alternatives in case API fails
+  const getSampleAlternatives = () => {
+    return [
+      {
+        destination: "Thailand",
+        days: tripData?.totalNoOfDays + 2,
+        budgetCategory: "moderate",
+        mainAttraction: "Tropical Beaches",
+        description:
+          "Enjoy beautiful beaches and rich culture for less than your original budget",
+        costComparison: "20% cheaper",
+      },
+      {
+        destination: "Vietnam",
+        days: tripData?.totalNoOfDays + 4,
+        budgetCategory: tripData?.budget === "basic" ? "moderate" : "luxury",
+        mainAttraction: "Cultural Experience",
+        description:
+          "Get more luxury amenities while experiencing amazing food and culture",
+        costComparison: "Same budget, higher category",
+      },
+      {
+        destination: "Portugal",
+        days: tripData?.totalNoOfDays,
+        budgetCategory: tripData?.budget,
+        mainAttraction: "European Charm",
+        description:
+          "Similar experience to your original destination but more affordable",
+        costComparison: "15% cheaper",
+      },
+    ];
+  };
 
-const continueWithOriginal = () => {
-  router.push("/create-trip/generate-trip");
-};
+  const selectAlternative = (alternative) => {
+    // Update the trip data with the selected alternative
+    setTripData({
+      ...tripData,
+      alternativeSelected: true,
+      originalDestination: tripData?.locationInfo?.name,
+      locationInfo: {
+        ...tripData.locationInfo,
+        name: alternative.destination,
+      },
+      totalNoOfDays: alternative.days,
+      budget: alternative.budgetCategory,
+    });
 
-return (
-  <View
-    style={{
-      padding: 25,
-      paddingTop: 40,
-      backgroundColor: isDark ? "#121212" : "#FAFAFA",
-      height: "100%",
-    }}
-  >
-    <TouchableOpacity
+    // Navigate to generate trip
+    router.push("/create-trip/generate-trip");
+  };
+
+  const continueWithOriginal = () => {
+    router.push("/create-trip/generate-trip");
+  };
+
+  return (
+    <View
+      style={{
+        padding: 25,
+        paddingTop: 40,
+        backgroundColor: isDark ? "#121212" : "#FAFAFA",
+        height: "100%",
+      }}
+    >
+      <TouchableOpacity
         onPress={() => router.push("/create-trip/review-trip")}
         style={{ padding: 10 }}
       >
@@ -170,6 +172,7 @@ return (
       >
         Alternative Options
       </Text>
+
       <Text
         style={{
           fontSize: 18,
@@ -219,52 +222,135 @@ return (
                   shadowRadius: 2,
                   elevation: 2,
                 }}
-              ></TouchableOpacity>
-              <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 22,
-                  fontFamily: "outfit-bold",
-                  color: isDark ? "#fff" : "#000",
-                }}
-              >
-                {item.destination}
-              </Text>
-            </View>
-
-            <View style={{ marginTop: 10 }}>
-              <View
-                style={{ flexDirection: "row", gap: 10, marginBottom: 8 }}
               >
                 <View
                   style={{
-                    backgroundColor: isDark ? "#2d2d2d" : "#f5f5f5",
-                    paddingHorizontal: 10,
-                    paddingVertical: 5,
-                    borderRadius: 8,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
                   }}
                 >
                   <Text
                     style={{
+                      fontSize: 22,
+                      fontFamily: "outfit-bold",
                       color: isDark ? "#fff" : "#000",
-                      fontFamily: "outfit-medium",
                     }}
                   >
-                    {item.days} days
+                    {item.destination}
                   </Text>
                 </View>
-                {/* Budget Category Tag */}
-                <View
+
+                <View style={{ marginTop: 10 }}>
+                  <View
+                    style={{ flexDirection: "row", gap: 10, marginBottom: 8 }}
+                  >
+                    <View
+                      style={{
+                        backgroundColor: isDark ? "#2d2d2d" : "#f5f5f5",
+                        paddingHorizontal: 10,
+                        paddingVertical: 5,
+                        borderRadius: 8,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: isDark ? "#fff" : "#000",
+                          fontFamily: "outfit-medium",
+                        }}
+                      >
+                        {item.days} days
+                      </Text>
+                    </View>
+                    {/* Budget Category Tag */}
+                    <View
+                      style={{
+                        backgroundColor: isDark ? "#2d2d2d" : "#f5f5f5",
+                        paddingHorizontal: 10,
+                        paddingVertical: 5,
+                        borderRadius: 8,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: isDark ? "#fff" : "#000",
+                          fontFamily: "outfit-medium",
+                        }}
+                      >
+                        {item.budgetCategory}
+                      </Text>
+                    </View>
+                  </View>
+                  <View
+                    style={{
+                      backgroundColor: isDark ? "#2d2d2d" : "#f5f5f5",
+                      paddingHorizontal: 10,
+                      paddingVertical: 5,
+                      borderRadius: 8,
+                      marginRight: 10,
+                      alignSelf: "flex-start",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: isDark ? "#fff" : "#000",
+                        fontFamily: "outfit-medium",
+                      }}
+                    >
+                      {item.costComparison}
+                    </Text>
+                  </View>
+                </View>
+
+                <Text
                   style={{
-                    backgroundColor: isDark ? "#2d2d2d" : "#f5f5f5",
-                    paddingHorizontal: 10,
-                    paddingVertical: 5,
-                    borderRadius: 8,
+                    fontFamily: "outfit-medium",
+                    fontSize: 16,
+                    marginTop: 10,
+                    color: isDark ? "#ccc" : "#444",
                   }}
                 >
+                  {item.description}
+                </Text>
+
+                <Text
+                  style={{
+                    fontFamily: "outfit-bold",
+                    fontSize: 16,
+                    marginTop: 10,
+                    color: isDark ? "#8ce3ff" : "#0078a5",
+                  }}
+                >
+                  ✨ {item.mainAttraction}
+                </Text>
+              </TouchableOpacity>
+            )}
+          />
+
+          <TouchableOpacity
+            onPress={continueWithOriginal}
+            style={{
+              padding: 15,
+              backgroundColor: isDark ? '#1e1e1e' : '#000',
+              borderRadius: 15,
+              marginTop: 10,
+              borderWidth: 1,
+              borderColor: isDark ? 'grey' : '#000',
+            }}
+          >
+            <Text
+              style={{
+                color: 'white',
+                textAlign: "center",
+                fontSize: 18,
+                fontFamily: "outfit-medium",
+              }}
+            >
+              Continue with Original Trip
+            </Text>
+          </TouchableOpacity>
+        </>
+      )}
+    </View>
+  );
+}
