@@ -105,3 +105,26 @@ const getSampleAlternatives = () => {
         "Get more luxury amenities while experiencing amazing food and culture",
       costComparison: "Same budget, higher category",
     },
+    
+    {
+      destination: "Portugal",
+      days: tripData?.totalNoOfDays,
+      budgetCategory: tripData?.budget,
+      mainAttraction: "European Charm",
+      description:
+        "Similar experience to your original destination but more affordable",
+      costComparison: "15% cheaper",
+    },
+  ];
+};
+
+const selectAlternative = (alternative) => {
+  // Update the trip data with the selected alternative
+  setTripData({
+    ...tripData,
+    alternativeSelected: true,
+    originalDestination: tripData?.locationInfo?.name,
+    locationInfo: {
+      ...tripData.locationInfo,
+      name: alternative.destination,
+    },
