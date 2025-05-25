@@ -9,6 +9,7 @@ import {
   ScrollView,
   Platform,
   ToastAndroid,
+  Modal,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { getAuth, signOut, updateEmail, updatePassword } from "firebase/auth";
@@ -32,6 +33,7 @@ export default function UserProfile() {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   const { theme, toggleTheme } = useTheme();
@@ -171,27 +173,15 @@ export default function UserProfile() {
   };
 
 const handleLogout = async () => {
-    Alert.alert(
-      "Confirm Logout",
-      "Are you sure you want to log out?",
-      [
-        { text: "Cancel", style: "cancel" },
-        {
-          text: "Logout",
-          style: "destructive",
-          onPress: async () => {
             try {
               await signOut(auth);
               showToast("👋 Logged out successfully");
               router.replace("/auth/sign-in");
+              setShowLogoutModal(false);
             } catch (error) {
               showToast("❌ Logout failed");
               console.error(error);
             }
-          }
-        }
-      ]
-    );
   };
   return (
     <ScrollView style={styles.container(isDark)}>
@@ -336,9 +326,56 @@ const handleLogout = async () => {
 
       <TouchableOpacity
         style={[styles.logoutBtn, { borderColor: isDark ? "grey" : "black" }]}
-        onPress={handleLogout}>
+        onPress={() => setShowLogoutModal(true)}>
         <Text style={styles.logoutText}>Log Out</Text>
       </TouchableOpacity>
+
+      {/* Logout Modal */}
+      <Modal
+        visible={showLogoutModal}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setShowLogoutModal(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={{
+            ...styles.modalContent,
+            backgroundColor: isDark ? '#1E1E1E' : 'white',
+          }}>
+            <Text style={{
+              ...styles.modalTitle,
+              color: isDark ? '#FFFFFF' : 'black',
+            }}>Confirm Logout</Text>
+            <Text style={{
+              ...styles.modalText,
+              color: isDark ? '#BBBBBB' : '#555',
+            }}>
+              Are you sure you want to log out?
+            </Text>
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={{
+                  ...styles.modalButton,
+                  ...styles.cancelModalButton,
+                  backgroundColor: isDark ? '#333333' : '#F2F2F2',
+                }}
+                onPress={() => setShowLogoutModal(false)}
+              >
+                <Text style={{
+                  ...styles.cancelButtonText,
+                  color: isDark ? '#FFFFFF' : 'black',
+                }}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.confirmModalButton]}
+                onPress={handleLogout}
+              >
+                <Text style={styles.confirmButtonText}>Logout</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 }
@@ -437,5 +474,72 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "outfit",
     fontSize: 16,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    margin: 20,
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    textAlign: 'center',
+    fontFamily: "outfit-medium",
+  },
+  modalText: {
+    marginBottom: 25,
+    textAlign: 'center',
+    fontSize: 16,
+    lineHeight: 24,
+    fontFamily: "outfit",
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  modalButton: {
+    borderRadius: 10,
+    padding: 12,
+    elevation: 2,
+    minWidth: 80,
+    flex: 1,
+    marginHorizontal: 5,
+  },
+  cancelModalButton: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+  },
+  confirmModalButton: {
+    backgroundColor: '#FF4444',
+  },
+  cancelButtonText: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 16,
+    fontFamily: "outfit-medium",
+  },
+  confirmButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 16,
+    fontFamily: "outfit-medium",
   },
 });
