@@ -142,15 +142,34 @@ export default function UserProfile() {
       setPassword("");
       setConfirmPassword("");
     } catch (err) {
-      console.error("Update error:", err?.message || err);
-      if (err.code === "auth/wrong-password") {
-        showToast("❌ Incorrect current password");
-      } else {
-        showToast(err.message || "Something went wrong");
+      console.error("Update error:", err);
+      
+      let errorMessage = "Something went wrong";
+      
+      switch (err.code) {
+        case "auth/wrong-password":
+        case "auth/invalid-credential":
+          errorMessage = "❌ Current password is incorrect";
+          break;
+        case "auth/email-already-in-use":
+          errorMessage = "❌ This email is already in use";
+          break;
+        case "auth/weak-password":
+          errorMessage = "❌ Password is too weak";
+          break;
+        case "auth/requires-recent-login":
+          errorMessage = "❌ Please log out and log back in to make this change";
+          break;
+        case "auth/network-request-failed":
+          errorMessage = "❌ Network error. Check your connection";
+          break;
+        default:
+          errorMessage = err.message || "❌ Update failed";
       }
+      showToast(errorMessage);
     }
   };
-  
+
 const handleLogout = async () => {
     Alert.alert(
       "Confirm Logout",
