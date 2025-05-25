@@ -39,7 +39,7 @@ useEffect(() => {
     const getNearBySearchPlace=(query)=>{
       const encodedPlaceName = encodeURIComponent(query);
       
-        const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodedPlaceName}&location=${userLocation.latitude},${userLocation.longitude}&radius=5000&key=${process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}`;
+        const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodedPlaceName}&location=${userLocation.latitude},${userLocation.longitude}&radius=2000&key=${process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}`;
         fetch(url)
           .then((response) => response.json())
           .then((data) => {
@@ -62,6 +62,7 @@ useEffect(() => {
     <View style={{
        flex: 1,
       position:'relative'}}>
+        
       <View style={{position: 'absolute', zIndex:20}}>
        <SearchBar onSearch={handleSearch} />
       </View>

@@ -2,11 +2,17 @@ import {View, Text, Dimensions, Alert, StyleSheet } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react'
 import MapView, { Marker/* , PROVIDER_GOOGLE */} from 'react-native-maps';
 import { UserLocationContext } from '../../constants/context/UserLocationContext';
+import { useTheme } from '../../constants/context/ThemeContext'; 
+import darkMapStyle from './darkMapStyle';
 
 export default function GoogleMapViewFull({ placeList = [] }) {
   const [mapRegion, setMapRegion] = useState(null);
     const {userLocation, setUserLocation} = useContext(UserLocationContext);
 
+    const { theme } = useTheme();
+        const isDark = theme === 'dark';
+
+        
     useEffect(() => {
       if (userLocation){
            setMapRegion({
@@ -39,9 +45,10 @@ export default function GoogleMapViewFull({ placeList = [] }) {
              width: Dimensions.get('screen').width,
              height: Dimensions.get('screen').height
              }}
-        /* provider={PROVIDER_GOOGLE} */  // remove if not using Google Maps
         region={mapRegion}
           showsUserLocation={true}
+          showsMyLocationButton={false}
+          customMapStyle={theme === 'dark' ? darkMapStyle : []}
         >
           {/* User's current location marker */}
             <Marker

@@ -30,11 +30,9 @@ const { theme } = useTheme();
     }}
 /> */}
   
-
-
       <Text
         style={{
-          color: isDark ? '#121212' : 'grey',
+          color: isDark ? 'white' : '#121212',
           marginTop: 40,
           marginLeft: 30,
           fontFamily: "outfit-bold",
@@ -50,14 +48,13 @@ const { theme } = useTheme();
           flexDirection: "row",
           paddingHorizontal:10 ,
           gap: 8,
-          backgroundColor: "white",
           borderRadius: 10,
           alignItems: "center",
           fontFamily: 'outfit',
           fontSize: 16,
-          borderColor: 'grey'/* isDark ? 'grey' : 'black' */,
+          borderColor: "grey"/* isDark ? 'grey' : 'black' */,
           borderWidth: 1,
-          backgroundColor:'white' /* isDark ? '#1e1e1e' : '#EEE' */,
+          backgroundColor: isDark ? '#1e1e1e' : 'white',
       
         }}
       >
@@ -66,8 +63,9 @@ const { theme } = useTheme();
           placeholder="Search Place Here"
           placeholderTextColor="grey"
           style={{
-            backgroundColor:'white',
-           width:"75%"
+            backgroundColor: isDark ? '#1e1e1e' : 'white',
+           width:"75%",
+           fontFamily: 'outfit',
           }}
           value={searchInput}
           onChangeText={(value) => setSearchInput(value)}
