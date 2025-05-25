@@ -18,6 +18,7 @@ export default function DataList({placeList}) {
       const closeModal = () => {
         setModalVisible(false);
       };
+      
   return (
     <View>
          {/*  <LinearGradient

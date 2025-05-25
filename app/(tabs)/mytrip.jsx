@@ -27,21 +27,6 @@ export default function MyTrip() {
     },[user]);
 
     //function to get data from DB
-/* const GetMyTrip=async()=>{
-      setLoading(true);
-      setUserTrips([]);
-        const q=query(collection(db,'UserTrips'),where('userEmail','==',user?.email));
-        const querySnapshot = await getDocs(q);
-        const trips = [];
-        querySnapshot.forEach((doc) => {
-            //setUserTrips([...userTrips,doc.data()]);
-           // console.log(doc.id, " => ", doc.data());
-           // setUserTrips(prev=>[...prev,doc.data()])
-            trips.push(doc.data());
-        });
-        setUserTrips(trips); // Set all trips at once to avoid duplicate re-renders
-      setLoading(false);
-     } */
       const GetMyTrip = async () => {
         setLoading(true);
         
@@ -61,6 +46,7 @@ export default function MyTrip() {
           setLoading(false);
         }
       };
+      
       // Function to delete a trip
 const handleDeleteTrip = async (tripId) => {
   try {

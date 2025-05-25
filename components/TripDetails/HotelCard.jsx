@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View,Text, Image, TouchableOpacity, Linking } from 'react-native';
 import { GetPhotoRef } from '../../Services/GooglePlaceApi';
 
-export default function HotelCard ({item}){
+export default function HotelCard ({item, onPress}){
     const [photoRef,setPhotoRef]=useState(null)
     useEffect(()=>{
         getGooglePhotoRef();
@@ -27,6 +27,7 @@ export default function HotelCard ({item}){
       };
       
     return (
+      <TouchableOpacity onPress={onPress}>
             <View style={{
                    marginRight:20,
                    Width:180
@@ -94,6 +95,7 @@ export default function HotelCard ({item}){
 
                 </View>
                </View>
+               </TouchableOpacity>
     );
 };
 

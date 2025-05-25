@@ -64,6 +64,7 @@ const { theme } = useTheme();
           placeholderTextColor="grey"
           style={{
             backgroundColor: isDark ? '#1e1e1e' : 'white',
+           color: isDark ? 'white' : 'black',
            width:"75%",
            fontFamily: 'outfit',
           }}

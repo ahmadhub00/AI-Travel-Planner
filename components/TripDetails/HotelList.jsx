@@ -1,9 +1,20 @@
 import { View, Text, FlatList, Image } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import HotelCard from './HotelCard';
+import HotelDetailModal from './HotelDetailModal';
 
 export default function HotelList({hotelList}) {
+  const [selectedPlace, setSelectedPlace] = useState(null);
+      const [modalVisible, setModalVisible] = useState(false);
   
+      const handlePlacePress = (item) => {
+          setSelectedPlace(item);
+          setModalVisible(true);
+        };
+      
+        const closeModal = () => {
+          setModalVisible(false);
+        };
   return (
     <View style={{
         marginTop:20,
@@ -25,9 +36,17 @@ export default function HotelList({hotelList}) {
       data={hotelList || []}
       horizontal={true}
       renderItem={({item,index})=>(
-     <HotelCard item={item}/>
+     <HotelCard item={item}
+     onPress={() => handlePlacePress(item)}/>
       )}
       />
+      {selectedPlace && (
+              <PlaceDetailModal 
+                place={selectedPlace}
+                visible={modalVisible}
+                onClose={closeModal}
+              />
+            )}
     </View>
   )
 } 
