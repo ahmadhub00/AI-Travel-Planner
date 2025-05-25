@@ -88,7 +88,7 @@ createUserWithEmailAndPassword(auth, email.trim(), password.trim())
          backgroundColor:'white',
          height:'100%'
       }}>
-        <TouchableOpacity onPress={()=>router.back()}>
+        <TouchableOpacity onPress={()=>router.replace('auth/sign-in')}>
               <Ionicons name="arrow-back" size={24} color="black" />
           </TouchableOpacity>
        <Text style={{
@@ -110,6 +110,7 @@ createUserWithEmailAndPassword(auth, email.trim(), password.trim())
     setFullName(onlyLetters);
   }}
                   placeholder='Enter Full Name'
+                  autoCapitalize="none"
                   value={fullName}/>
            </View>
 
@@ -122,7 +123,8 @@ createUserWithEmailAndPassword(auth, email.trim(), password.trim())
             }}>Email</Text>
             <TextInput style={styles.input}
               onChangeText={(value)=>setEmail(value.trim())}
-               placeholder='Enter Email'/>
+               placeholder='Enter Email'
+               autoCapitalize="none"/>
            </View>
       
       
