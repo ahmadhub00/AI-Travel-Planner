@@ -17,6 +17,7 @@ import * as ImagePicker from "expo-image-picker";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 import { useTheme } from "../../constants/context/ThemeContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function UserProfile() {
   const router = useRouter();
@@ -37,6 +38,18 @@ export default function UserProfile() {
   const isDark = theme === "dark";
 
   useEffect(() => {
+    const loadImage = async () => {
+      try {
+        const savedUri = await AsyncStorage.getItem("profileImageUri");
+        if (savedUri) setImageUri(savedUri);
+      } catch (error) {
+        console.error("Failed to load profile image:", error);
+      }
+    };
+    loadImage();
+  }, []);
+  // Request image picker permissions
+  useEffect(() => {
     (async () => {
       const { status } =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -50,14 +63,22 @@ export default function UserProfile() {
   }, []);
 
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    if (!result.canceled) {
-      setImageUri(result.assets[0].uri);
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+      if (!result.canceled) {
+        const uri = result.assets[0].uri;
+        setImageUri(uri);
+        await AsyncStorage.setItem("profileImageUri", uri);
+        showToast("✅ Profile picture updated");
+      }
+    } catch (error) {
+      console.error("Image picker error:", error);
+      showToast("❌ Failed to select image");
     }
   };
 
@@ -65,9 +86,10 @@ export default function UserProfile() {
     if (Platform.OS === "android") {
       ToastAndroid.show(message, ToastAndroid.SHORT);
     } else {
-      Alert.alert(message);
+      Alert.alert("Notification",message);
     }
   };
+
   const onUpdateProfile = async () => {
     try {
       if (!currentPassword) {
@@ -128,7 +150,30 @@ export default function UserProfile() {
       }
     }
   };
-
+  
+const handleLogout = async () => {
+    Alert.alert(
+      "Confirm Logout",
+      "Are you sure you want to log out?",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Logout",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await signOut(auth);
+              showToast("👋 Logged out successfully");
+              router.replace("/auth/sign-in");
+            } catch (error) {
+              showToast("❌ Logout failed");
+              console.error(error);
+            }
+          }
+        }
+      ]
+    );
+  };
   return (
     <ScrollView style={styles.container(isDark)}>
       {/* Dark mode button */}
@@ -141,63 +186,83 @@ export default function UserProfile() {
           />
         </TouchableOpacity>
       </View>
-{/* Profile Image */}
+      {/* Profile Image */}
       <View style={styles.profileContainer}>
         <TouchableOpacity onPress={pickImage}>
           <Image
             source={{ uri: imageUri || "https://i.pravatar.cc/150?img=12" }}
-            style={styles.profileImage(isDark)}/>
+            style={styles.profileImage(isDark)}
+          />
           <Text
             style={[
               styles.changePhotoText,
-              { color: isDark ? "white" : "black" },]}>
+              { color: isDark ? "white" : "black" },
+            ]}
+          >
             Edit
           </Text>
         </TouchableOpacity>
       </View>
-{/* Email */}
+      {/* Email */}
       <Text style={[styles.label, { color: isDark ? "white" : "black" }]}>
         Email
       </Text>
       <TextInput
         style={[
           styles.input,
-          {backgroundColor: isDark ? "#1e1e1e" : "white",
-            color: isDark ? "white" : "black",},]}
+          {
+            backgroundColor: isDark ? "#1e1e1e" : "white",
+            color: isDark ? "white" : "black",
+          },
+        ]}
         value={email}
         autoCapitalize="none"
+         keyboardType="email-address"
         onChangeText={setEmail}
         placeholder="Enter your email"
         placeholderTextColor={isDark ? "#ccc" : "#888"}
       />
 
-{/* Current Password */}
+      {/* Current Password */}
       <Text style={[styles.label, { color: isDark ? "white" : "black" }]}>
         Current Password
       </Text>
-      <View style={[styles.passwordContainer, {backgroundColor: isDark ? "#1e1e1e" : "white",}]}>
-       <TextInput
+      <View
+        style={[
+          styles.passwordContainer,
+          { backgroundColor: isDark ? "#1e1e1e" : "white" },
+        ]}
+      >
+        <TextInput
           style={[styles.passwordInput(isDark)]}
           value={currentPassword}
           secureTextEntry={!showCurrentPassword}
           onChangeText={setCurrentPassword}
           placeholder="Enter current password"
-          placeholderTextColor={isDark ? "#ccc" : "#888"}/>
+          placeholderTextColor={isDark ? "#ccc" : "#888"}
+        />
         <TouchableOpacity
-          onPress={() => setShowCurrentPassword(!showCurrentPassword)}>
+          onPress={() => setShowCurrentPassword(!showCurrentPassword)}
+        >
           <Ionicons
             name={showCurrentPassword ? "eye-off" : "eye"}
             size={24}
-            color={isDark ? "#ccc" : "black"}/>
+            color={isDark ? "#ccc" : "black"}
+          />
         </TouchableOpacity>
       </View>
 
-{/* new Password */}
+      {/* new Password */}
       <Text style={[styles.label, { color: isDark ? "white" : "black" }]}>
         New Password
       </Text>
-      <View style={[styles.passwordContainer, {backgroundColor: isDark ? "#1e1e1e" : "white",}]}>
-       <TextInput
+      <View
+        style={[
+          styles.passwordContainer,
+          { backgroundColor: isDark ? "#1e1e1e" : "white" },
+        ]}
+      >
+        <TextInput
           style={[styles.passwordInput(isDark)]}
           value={password}
           secureTextEntry={!showPassword}
@@ -214,45 +279,45 @@ export default function UserProfile() {
         </TouchableOpacity>
       </View>
 
-{/* Confirm new password */}
+      {/* Confirm new password */}
       <Text style={[styles.label, { color: isDark ? "white" : "black" }]}>
         Confirm New Password
       </Text>
-     <View style={[styles.passwordContainer, {backgroundColor: isDark ? "#1e1e1e" : "white",}]}>
+      <View
+        style={[
+          styles.passwordContainer,
+          { backgroundColor: isDark ? "#1e1e1e" : "white" },
+        ]}
+      >
         <TextInput
           style={[styles.passwordInput(isDark)]}
           value={confirmPassword}
           secureTextEntry={!showConfirmPassword}
           onChangeText={setConfirmPassword}
           placeholder="Confirm new password"
-          placeholderTextColor={isDark ? "#ccc" : "#888"}/>
+          placeholderTextColor={isDark ? "#ccc" : "#888"}
+        />
         <TouchableOpacity
-          onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
+          onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+        >
           <Ionicons
             name={showConfirmPassword ? "eye-off" : "eye"}
             size={24}
-            color={isDark ? "#ccc" : "black"}/>
+            color={isDark ? "#ccc" : "black"}
+          />
         </TouchableOpacity>
       </View>
+      {/* Save Button */}
       <TouchableOpacity
         style={[styles.saveBtn, { borderColor: isDark ? "grey" : "black" }]}
-        onPress={onUpdateProfile}>
+        onPress={onUpdateProfile}
+      >
         <Text style={styles.saveText}>Save Changes</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={[styles.logoutBtn, { borderColor: isDark ? "grey" : "black" }]}
-        onPress={async () => {
-          try {
-            await signOut(auth);
-            showToast("👋 Logged out");
-            router.push("/auth/sign-in");
-          } catch (error) {
-            showToast("❌ Logout failed");
-            console.error(error);
-          }
-        }}
-      >
+        onPress={handleLogout}>
         <Text style={styles.logoutText}>Log Out</Text>
       </TouchableOpacity>
     </ScrollView>
