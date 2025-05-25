@@ -1,4 +1,4 @@
-import { View, Text, ScrollView , TouchableOpacity} from 'react-native'
+import { View, Text, ScrollView , TouchableOpacity, SafeAreaView} from 'react-native'
 import React, { useEffect } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react';
@@ -10,7 +10,7 @@ import UserTripList from '../../components/MyTrips/UserTripList';
 import { useRouter, useNavigation } from 'expo-router';
 import { useTheme } from '../../constants/context/ThemeContext'; 
 import { deleteDoc, doc } from 'firebase/firestore';
-
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function MyTrip() {
     const [userTrips,setUserTrips]=useState([]);
@@ -20,6 +20,7 @@ export default function MyTrip() {
     
     const { theme } = useTheme();
     const isDark = theme === 'dark';
+     const insets = useSafeAreaInsets();
 
     useEffect(()=>{
       user&&GetMyTrip(); //The condition user && GetMyTrip(); ensures that GetMyTrip() only runs if user is truthy.  
@@ -70,11 +71,14 @@ const handleDeleteTrip = async (tripId) => {
   }
 };
   return (
+    <SafeAreaView style={{  flex: 1, backgroundColor: isDark ? "#121212" : "#ffffff" }}>
     <ScrollView style={{
         padding:25,
-        paddingTop:55,
+        paddingTop:20,
+         paddingBottom: insets.bottom + 30,
         backgroundColor: isDark ? '#121212' : 'white',
-        height:'100%'
+        
+        /* height:'100%' */
     }}>
 
       <View style={{
@@ -110,7 +114,7 @@ const handleDeleteTrip = async (tripId) => {
       
     </View> 
     {/* Show loading indicator when 'loading' is true */}
-    {loading&&<ActivityIndicator size={'large'} color={isDark ? 'white' : 'black'}/>}
+    {loading&&<ActivityIndicator size={'large'} color={isDark ? 'white' : 'black'} style={{ marginTop: 20 }}/>}
 
     {/* Show 'StartNewTripCard' if userTrips is empty */}
     {userTrips?.length==0?
@@ -120,5 +124,6 @@ const handleDeleteTrip = async (tripId) => {
     <UserTripList userTrips={userTrips} onDeleteTrip={handleDeleteTrip}/>
      }
    </ScrollView>
+    </SafeAreaView>
   )
 }

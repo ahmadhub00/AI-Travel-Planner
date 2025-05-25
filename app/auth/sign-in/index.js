@@ -40,17 +40,35 @@ export default function SignIn() {
       // ...
     })
     .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorMessage,errorCode);
-      if(errorCode=='auth/invalid-credentials')
-      { if (Platform.OS === 'android') {
-              ToastAndroid.show('Please Enter All Details', ToastAndroid.LONG);
+      console.log('Firebase Error Code:', error.code);
+      let message = 'Something went wrong';
+
+      switch (error.code) {
+        case 'auth/user-not-found':
+          message = 'No account found with this email';
+          break;
+        case 'auth/wrong-password':
+          message = 'Incorrect password';
+          break;
+        case 'auth/invalid-email':
+          message = 'Invalid email format';
+          break;
+           case 'auth/invalid-credentials':
+          message = 'Invalid email or password'; 
+          break;
+          case 'auth/too-many-requests':
+          message = 'Too many failed attempts. Try again later.';
+          break;
+        default:
+          message = error.message;
+      }
+       if (Platform.OS === 'android') {
+              ToastAndroid.show(message, ToastAndroid.LONG);
             } else {
-              Alert.alert('Error', 'Please Enter All Details');
+              Alert.alert('Sign-In Error', message);
             }
-          }
-    });}
+    });
+  };
 
   return (
     
@@ -62,7 +80,7 @@ export default function SignIn() {
       height:'100%'
     }}>
       <View >
-       <TouchableOpacity onPress={()=>router.back()} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
+       <TouchableOpacity onPress={()=>router.replace('Login')} hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}>
               <Ionicons name="arrow-back" size={30} color="black" />
           </TouchableOpacity>
           </View>

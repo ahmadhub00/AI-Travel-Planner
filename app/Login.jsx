@@ -2,6 +2,7 @@ import { View, Text ,Image, StyleSheet,TouchableOpacity, ScrollView} from 'react
 import React from 'react'
 import { useRouter} from 'expo-router'
 
+
 export default function Login() {
   const router=useRouter();
   
@@ -33,7 +34,7 @@ export default function Login() {
     <TouchableOpacity style={styles.button} 
     onPress={()=>router.push('auth/sign-in')}>
       <Text style={styles.buttonText} >
-         Get Started</Text>
+         Get Started </Text>
         </TouchableOpacity>
         </View>
     </ScrollView>

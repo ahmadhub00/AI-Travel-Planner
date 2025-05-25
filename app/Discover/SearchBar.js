@@ -5,6 +5,7 @@ import { Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { TextInput } from "react-native-paper";
 import { BlurView } from 'expo-blur';
+import { useTheme } from '../../constants/context/ThemeContext'; 
 
 export default function SearchBar({ onSearch }) {
   const [searchInput, setSearchInput] = useState('');
@@ -13,6 +14,8 @@ export default function SearchBar({ onSearch }) {
         onSearch(searchInput);
     }
 };
+const { theme } = useTheme();
+    const isDark = theme === 'dark';
 
      return (
     <View>
@@ -31,7 +34,7 @@ export default function SearchBar({ onSearch }) {
 
       <Text
         style={{
-          color: "white",
+          color: isDark ? '#121212' : 'grey',
           marginTop: 40,
           marginLeft: 30,
           fontFamily: "outfit-bold",
@@ -73,7 +76,7 @@ export default function SearchBar({ onSearch }) {
         <TouchableOpacity 
           onPress={handleSubmit}
           style={{
-            backgroundColor: '#4285F4',
+            backgroundColor: '#1e1e1e',
             borderRadius: 8,
             padding: 8,
             justifyContent: 'center',

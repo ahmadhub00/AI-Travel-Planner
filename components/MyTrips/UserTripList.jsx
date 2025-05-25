@@ -167,7 +167,8 @@ useEffect(() => {
                         </Text>
                     </TouchableOpacity>
                 </View>
-
+                  <View style={{
+                       marginBottom: 25,}}>
                 {/* Other Trips */}
                 {filteredTrips.map((trip, index) => (
                     <UserTripCard
@@ -186,6 +187,7 @@ useEffect(() => {
                         onDeleteTrip={onDeleteTrip}
                     />
                 ))}
+            </View>
             </View>
         </View>
     );

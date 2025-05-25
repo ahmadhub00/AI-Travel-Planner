@@ -50,7 +50,7 @@ export default function UserTripCard({ trip, onSelectTrip, onDeleteTrip}) {
           }
         />
 
-        <View>
+        <View style={{ flex: 1 }}>
             
           <Text
             style={{
@@ -70,6 +70,7 @@ export default function UserTripCard({ trip, onSelectTrip, onDeleteTrip}) {
               fontFamily: "outfit",
               fontSize: 14,
               color: "grey",
+              marginVertical: 2,
             }}
           >
             {moment(formattedTrip.startDate).format("DD MMM yyyy")}
@@ -80,6 +81,7 @@ export default function UserTripCard({ trip, onSelectTrip, onDeleteTrip}) {
               fontFamily: "outfit",
               fontSize: 14,
               color: "grey",
+              flexShrink: 1,
             }}
           >
             Traveling: {formattedTrip.traveler?.title}

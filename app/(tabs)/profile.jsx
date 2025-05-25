@@ -53,21 +53,42 @@ export default function UserProfile() {
         await updateEmail(user, email);
         showToast('✅ Email updated successfully');
       }
-
-      if (password && password.length >= 6) {
-        await updatePassword(user, password);
-        showToast('✅ Password updated successfully');
-      } else if (password && password.length < 6) {
-        showToast('❗Password must be at least 6 characters');
+      if (email.length < 11 || email.length > 320) {
+        showToast('Email must be between 11 and 320 characters.');
+        return;
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showToast('Enter a valid email address.');
+        return;
       }
 
-      if ((!email || email === user.email) && password.length < 6) {
-        showToast('No changes to update');
+      if (password.length > 0 && password.length < 6) {
+        showToast('Password must be at least 6 characters.');
+        return;
+      }
+
+      if (password.length > 128) {
+        showToast('Password must not exceed 128 characters.');
+        return;
+      }
+
+      if (email && email !== user.email) {
+        await updateEmail(user, email);
+        showToast('✅ Email updated successfully');
+      }
+
+      if (password && password.length >= 6 && password.length <= 128) {
+        await updatePassword(user, password);
+        showToast('✅ Password updated successfully');
       }
     } catch (err) {
       console.error('Error:', err?.message || err);
       if (err.code === 'auth/operation-not-allowed') {
         showToast('⚠️ Email update not allowed. Please verify your account.');
+      } else if (err.code === 'auth/requires-recent-login') {
+        showToast('Please log in again to update your profile.');
+        router.push('/auth/sign-in');
       } else {
         showToast(err.message || 'Something went wrong');
       }
