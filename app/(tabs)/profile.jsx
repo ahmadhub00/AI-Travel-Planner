@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image,Alert, ScrollView, Platform, ToastAndroid} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { getAuth, signOut, updateEmail, updatePassword } from 'firebase/auth';
+import { EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
 import * as ImagePicker from 'expo-image-picker';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
@@ -14,6 +15,8 @@ export default function UserProfile() {
   const [email, setEmail] = useState(user?.email || '');
   const [password, setPassword] = useState('');
   const [imageUri, setImageUri] = useState(null);
+const [currentPassword, setCurrentPassword] = useState('');
+const [confirmPassword, setConfirmPassword] = useState('');
 
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === 'dark';
@@ -46,8 +49,62 @@ export default function UserProfile() {
       Alert.alert( message);
     }
   };
+const onUpdateProfile = async () => {
+  try {
+    if (!currentPassword) {
+      return showToast('⚠️ Please enter your current password to continue');
+    }
 
-  const onUpdateProfile = async () => {
+    // Reauthenticate the user
+    const credential = EmailAuthProvider.credential(user.email, currentPassword);
+    await reauthenticateWithCredential(user, credential);
+
+    let changesMade = false;
+
+    // Update Email
+    if (email && email !== user.email) {
+      if (email.length < 11 || email.length > 320) {
+        return showToast('❗Email must be between 11 and 320 characters');
+      }
+      await updateEmail(user, email);
+      showToast('✅ Email updated successfully');
+      changesMade = true;
+    }
+
+    // Update Password
+    if (password) {
+      if (password.length < 6 || password.length > 128) {
+        return showToast('❗Password must be 6–128 characters');
+      }
+
+      if (password !== confirmPassword) {
+        return showToast('❗Passwords do not match');
+      }
+
+      await updatePassword(user, password);
+      showToast('✅ Password updated successfully');
+      changesMade = true;
+    }
+
+    if (!changesMade) {
+      showToast('No changes to update');
+    }
+
+    // Reset current password input
+    setCurrentPassword('');
+    setPassword('');
+    setConfirmPassword('');
+  } catch (err) {
+    console.error('Update error:', err?.message || err);
+    if (err.code === 'auth/wrong-password') {
+      showToast('❌ Incorrect current password');
+    } else {
+      showToast(err.message || 'Something went wrong');
+    }
+  }
+};
+
+ /*  const onUpdateProfile = async () => {
     try {
       if (email && email !== user.email) {
         await updateEmail(user, email);
@@ -83,7 +140,7 @@ export default function UserProfile() {
         showToast('✅ Password updated successfully');
       }
     } catch (err) {
-      console.error('Error:', err?.message || err);
+       console.error('Error:', err?.message || err); 
       if (err.code === 'auth/operation-not-allowed') {
         showToast('⚠️ Email update not allowed. Please verify your account.');
       } else if (err.code === 'auth/requires-recent-login') {
@@ -93,7 +150,7 @@ export default function UserProfile() {
         showToast(err.message || 'Something went wrong');
       }
     }
-  };
+  }; */
 
   return (
     <ScrollView style={styles.container(isDark)}>
@@ -132,18 +189,26 @@ export default function UserProfile() {
         placeholderTextColor={isDark? '#ccc' : '#888'}
       />
 
-      <Text style={[styles.label, { color: isDark ? 'white' : 'black' }]}>New Password</Text>
-      <TextInput
-        style={[styles.input, {
-          backgroundColor: isDark ? '#1e1e1e' : 'white',
-          color: isDark ? 'white' : 'black',
-        }]}
-        value={password}
-        secureTextEntry
-        onChangeText={setPassword}
-        placeholder="Enter new password"
-        placeholderTextColor={isDark ? '#ccc' : '#888'}
-      />
+      <Text style={[styles.label, { color: isDark ? 'white' : 'black' }]}>Current Password</Text>
+<TextInput
+  style={[styles.input, { backgroundColor: isDark ? '#1e1e1e' : 'white', color: isDark ? 'white' : 'black' }]}
+  value={currentPassword}
+  secureTextEntry
+  onChangeText={setCurrentPassword}
+  placeholder="Enter current password"
+  placeholderTextColor={isDark ? '#ccc' : '#888'}
+/>
+
+<Text style={[styles.label, { color: isDark ? 'white' : 'black' }]}>Confirm New Password</Text>
+<TextInput
+  style={[styles.input, { backgroundColor: isDark ? '#1e1e1e' : 'white', color: isDark ? 'white' : 'black' }]}
+  value={confirmPassword}
+  secureTextEntry
+  onChangeText={setConfirmPassword}
+  placeholder="Confirm new password"
+  placeholderTextColor={isDark ? '#ccc' : '#888'}
+/>
+
 
       <TouchableOpacity style={[styles.saveBtn, { borderColor: isDark ? 'grey' : 'black' }]} onPress={onUpdateProfile}>
      
