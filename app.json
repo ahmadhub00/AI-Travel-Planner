@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "travel-planner",
+    "name": "AI-travel-planner",
     "slug": "travel-planner",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -19,13 +19,9 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": [
-        "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION"
-      ],
+      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"],
       "package": "com.ahmadtaimur.travelplanner"
     },
-    
     "web": {
       "bundler": "metro",
       "output": "static",
@@ -49,6 +45,8 @@
       "typedRoutes": true
     },
     "extra": {
+      "EXPO_PUBLIC_GOOGLE_MAP_KEY": "AIzaSyDulWnG8K2VrcPFlCD1inmoqPBoYAlEQCs",
+      "EXPO_PUBLIC_GOOGLE_GEMINI_API_KEY": "AIzaSyBraJWNdX55C-riJ3DHpwUVjNpzbFF4tuw",
       "router": {
         "origin": false
       },

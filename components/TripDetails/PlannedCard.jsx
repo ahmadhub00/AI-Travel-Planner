@@ -2,10 +2,12 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons';
+import Constants from "expo-constants";
 import { GetPhotoRef } from '../../Services/GooglePlaceApi';
  
  export default function PlannedCard ({place}){
       const [photoRef,setPhotoRef]=useState(null);
+        const googleApiKey =  Constants.expoConfig.extra.EXPO_PUBLIC_GOOGLE_MAP_KEY;
      useEffect(()=>{
       if (place?.placeName) {
          getGooglePhotoRef();  }
@@ -28,9 +30,9 @@ return (
        <View>
           {photoRef && (
             <Image source={{
-                uri: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='
-                + photoRef
-                +'&key='+process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}}
+               uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${encodeURIComponent(
+              photoRef
+            )}&key=${googleApiKey}`,}}
           style={{
             width:'100%',
             height:120,

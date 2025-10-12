@@ -4,6 +4,8 @@ import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../constants/context/ThemeContext'; 
 
+import Constants from "expo-constants";
+
 export default function DataItem({ place, onPress }) {
   const { theme } = useTheme();
       const isDark = theme === 'dark';
@@ -27,10 +29,10 @@ export default function DataItem({ place, onPress }) {
         <Image
           source={{
             uri:
-              "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" +
-              place?.photos[0]?.photo_reference +
-              "&key=" +
-              process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY,
+  "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=" +
+  place?.photos[0]?.photo_reference +
+  "&key=" +
+  Constants.expoConfig.extra.EXPO_PUBLIC_GOOGLE_MAP_KEY,
           }}
           style={{
             width: 220,

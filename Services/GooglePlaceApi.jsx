@@ -1,12 +1,11 @@
-
+import Constants from "expo-constants";
   export const GetPhotoRef = async (placeName) => {
     try {
       // Properly encode the placeName to handle spaces and special characters
       const encodedPlaceName = encodeURIComponent(placeName);
-      
+        const apiKey = Constants.expoConfig.extra.EXPO_PUBLIC_GOOGLE_MAP_KEY;
       // Construct the URL with proper encoding
-      const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodedPlaceName}&key=${process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}`;
-      
+      const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodedPlaceName}&key=${apiKey}`;
       // Make the API request
       const response = await fetch(url);
       

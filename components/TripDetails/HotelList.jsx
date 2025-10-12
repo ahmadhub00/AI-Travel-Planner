@@ -41,7 +41,7 @@ export default function HotelList({hotelList}) {
       )}
       />
       {selectedPlace && (
-              <PlaceDetailModal 
+              <HotelDetailModal 
                 place={selectedPlace}
                 visible={modalVisible}
                 onClose={closeModal}

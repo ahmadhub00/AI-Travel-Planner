@@ -4,11 +4,15 @@ import moment from 'moment';
 import UserTripCard from './UserTripCard';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../constants/context/ThemeContext';
+import Constants from "expo-constants";
+
 
 export default function UserTripList({ userTrips, onDeleteTrip }) {
     const router = useRouter();
     const { theme } = useTheme();
     const isDark = theme === 'dark';
+    const googleApiKey = Constants.expoConfig.extra.EXPO_PUBLIC_GOOGLE_MAP_KEY;
+
 
     const [search, setSearch] = useState('');
 const [filteredTrips, setFilteredTrips] = useState(userTrips);
@@ -90,10 +94,9 @@ useEffect(() => {
                 {selectedTrip?.locationInfo?.photoRef ? (
                     <Image
                         source={{
-                            uri: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='
-                                + selectedTrip.locationInfo?.photoRef
-                                + '&key=' + process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY
-                        }}
+                        
+                        uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${selectedTrip.locationInfo?.photoRef}&key=${googleApiKey}`
+}}
                         style={{
                             width: '100%',
                             height: 240,

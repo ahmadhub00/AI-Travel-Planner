@@ -1,10 +1,24 @@
 import { View, Text, Modal, Image, ScrollView, TouchableOpacity, StyleSheet, Linking } from "react-native";
-import React from "react";
 import { AntDesign, Ionicons, MaterialIcons, FontAwesome } from "@expo/vector-icons";
+import { GetPhotoRef } from '../../Services/GooglePlaceApi';
+import React, { useEffect, useState } from 'react'; 
+import Constants from "expo-constants";
 
 export default function HotelDetailModal({ place, visible, onClose }) {
+    const [photoRef,setPhotoRef]=useState(null)
+    const googleApiKey =  Constants.expoConfig.extra.EXPO_PUBLIC_GOOGLE_MAP_KEY;
+    useEffect(()=>{
+            getGooglePhotoRef();
+        },[place.hotelName])
+    
+        const getGooglePhotoRef = async () => {
+              const result = await GetPhotoRef(place.hotelName);
+           //   console.log(result?.results[0]?.photos[0]?.photo_reference);
+          const photo=result?.results[0]?.photos[0]?.photo_reference
+           setPhotoRef(photo);}
+
   const openGoogleMaps = () => {
-    const url = `https://www.google.com/maps/search/?api=1&query=${place.name}&query_place_id=${place.place_id}`;
+    const url = `https://www.google.com/maps/search/?api=1&query=${place.hotelName}&query_place_id=${place.hotelName_id}`;
     Linking.openURL(url);
   };
 
@@ -28,15 +42,11 @@ export default function HotelDetailModal({ place, visible, onClose }) {
           </TouchableOpacity>
 
           <ScrollView showsVerticalScrollIndicator={false}>
-            {place?.photos ? (
-              <Image
-                source={{
-                  uri:
-                    "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=" +
-                    place?.photos[0]?.photo_reference +
-                    "&key=" +
-                    process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY,
-                }}
+            {photoRef ? (
+                          <Image  source={{
+                             uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${encodeURIComponent(
+              photoRef
+            )}&key=${googleApiKey}`,}}
                 style={styles.image}
               />
             ) : (
@@ -45,7 +55,7 @@ export default function HotelDetailModal({ place, visible, onClose }) {
               </View>
             )}
 
-            <Text style={styles.title}>{place.name}</Text>
+            <Text style={styles.title}>{place.hotelName}</Text>
             
             {place.rating && (
               <View style={styles.ratingContainer}>
@@ -56,7 +66,17 @@ export default function HotelDetailModal({ place, visible, onClose }) {
                 )}
               </View>
             )}
-
+             <View style={styles.ratingContainer}>
+               <Text>💰</Text> 
+<Text style={{
+                 fontSize: 16,
+    fontWeight: '500',
+    fontFamily: 'outfit',
+                   marginLeft: 10 }}
+                  numberOfLines={2} ellipsizeMode="tail">
+                 {place.price ? place.price : place.pricePerNight}
+                 </Text>
+</View>
             <View style={styles.infoContainer}>
               <MaterialIcons name="location-on" size={22} color="#4285F4" />
               <Text style={styles.infoText}>
@@ -92,7 +112,7 @@ export default function HotelDetailModal({ place, visible, onClose }) {
               </TouchableOpacity>
             )}
 
-            {place.price_level && (
+            {typeof place.price_level === 'number' && (
               <View style={styles.infoContainer}>
                 <FontAwesome name="dollar" size={22} color="#4285F4" />
                 <Text style={styles.infoText}>
@@ -103,6 +123,9 @@ export default function HotelDetailModal({ place, visible, onClose }) {
 
             <TouchableOpacity style={styles.directionsButton} onPress={openGoogleMaps}>
               <Text style={styles.directionsButtonText}>Get Directions</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.directionsButton}  onPress={() => Linking.openURL([pace]?.bookingURL)}>
+              <Text style={styles.directionsButtonText}>Book Here</Text>
             </TouchableOpacity>
           </ScrollView>
         </View>
@@ -198,7 +221,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline'
   },
   directionsButton: {
-    backgroundColor: '#4285F4',
+    backgroundColor: 'black',
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',

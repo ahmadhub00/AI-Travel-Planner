@@ -7,6 +7,7 @@ import FlightInfo from '../../components/TripDetails/FlightInfo';
 import HotelList from '../../components/TripDetails/HotelList';
 import PlannedTrip from '../../components/TripDetails/PlannedTrip';
 import RestaurantList from '../../components/TripDetails/RestaurantList';
+import Constants from "expo-constants";
 
 export default function TripDetails() {
   const router = useRouter();
@@ -44,7 +45,8 @@ export default function TripDetails() {
         {latestTrip?.locationInfo?.photoRef ? (
           <Image
             source={{
-              uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${latestTrip.locationInfo.photoRef}&key=${process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}`,
+             uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${latestTrip.locationInfo.photoRef}&key=${Constants.expoConfig.extra.EXPO_PUBLIC_GOOGLE_MAP_KEY}`,
+
             }}
             style={{
               width: '100%',
@@ -122,7 +124,9 @@ export default function TripDetails() {
         {latestTrip?.tripPlan?.hotelOptions && (
         <HotelList hotelList={latestTrip?.tripPlan?.hotelOptions}/>
         )}
-       
+       {latestTrip?.tripPlan?.hotels && (
+        <HotelList hotelList={latestTrip?.tripPlan?.hotels}/>
+        )}
         {/*  ) : (
         <Text style={{ fontSize: 16, color: 'grey', marginTop: 10 }}>
           🏨 No Hotel details available
@@ -136,6 +140,10 @@ export default function TripDetails() {
         {latestTrip?.tripPlan?.restaurantOptions && (
         <RestaurantList restaurantList={latestTrip?.tripPlan?.restaurantOptions}/>
         )}
+        {latestTrip?.tripPlan?.restaurants && (
+        <RestaurantList restaurantList={latestTrip?.tripPlan?.restaurants}/>
+        )}
+
 
        {/* Trip Day Planner Info */}
        <PlannedTrip details={latestTrip?.tripPlan?.dailyItinerary}/>

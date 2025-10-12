@@ -6,6 +6,7 @@ import 'react-native-get-random-values';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import {CreateTripContext }from './../../constants/context/CreateTripContext';
 import { useTheme } from './../../constants/context/ThemeContext';
+import Constants from 'expo-constants';
 
 export default function SearchPlace() {
       const { theme } = useTheme();
@@ -14,7 +15,10 @@ export default function SearchPlace() {
     const navigation=useNavigation(); 
     const router=useRouter();
     const {tripData,setTripData}=useContext(CreateTripContext)
-    
+    const GOOGLE_MAP_KEY = Constants.expoConfig?.extra?.EXPO_PUBLIC_GOOGLE_MAP_KEY 
+  || Constants.manifest?.extra?.EXPO_PUBLIC_GOOGLE_MAP_KEY;
+
+
     useEffect(()=>{
     navigation.setOptions
     ({ headerShown:false})
@@ -87,7 +91,7 @@ export default function SearchPlace() {
         router.push('/create-trip/select-traveler')
       }}
       query={{
-        key: process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY,     
+        key: GOOGLE_MAP_KEY, 
         language: 'en',
       }}
       styles={{

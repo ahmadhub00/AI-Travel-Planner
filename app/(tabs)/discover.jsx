@@ -5,6 +5,7 @@ import * as Location from 'expo-location';
 import DataList from '../../components/Discover/DataList';
 import GoogleMapViewFull from '../../components/Discover/GoogleMapViewFull';
 import SearchBar from '../../components/Discover/SearchBar';
+import Constants from "expo-constants";
 
 export default function Discover() {
     const {userLocation, setUserLocation} = useContext(UserLocationContext);
@@ -38,7 +39,9 @@ useEffect(() => {
     const getNearBySearchPlace=(query)=>{
       const encodedPlaceName = encodeURIComponent(query);
       
-        const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodedPlaceName}&location=${userLocation.latitude},${userLocation.longitude}&radius=2000&key=${process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}`;
+        const apiKey = Constants.expoConfig.extra.EXPO_PUBLIC_GOOGLE_MAP_KEY;
+
+const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodedPlaceName}&location=${userLocation.latitude},${userLocation.longitude}&radius=2000&key=${apiKey}`;
         fetch(url)
           .then((response) => response.json())
           .then((data) => {

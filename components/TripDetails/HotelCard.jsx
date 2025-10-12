@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { View,Text, Image, TouchableOpacity, Linking } from 'react-native';
 import { GetPhotoRef } from '../../Services/GooglePlaceApi';
+import Constants from "expo-constants";
 
 export default function HotelCard ({item, onPress}){
     const [photoRef,setPhotoRef]=useState(null)
+     const googleApiKey =  Constants.expoConfig.extra.EXPO_PUBLIC_GOOGLE_MAP_KEY;
+
     useEffect(()=>{
         getGooglePhotoRef();
     },[item.hotelName])
@@ -30,13 +33,13 @@ export default function HotelCard ({item, onPress}){
       <TouchableOpacity onPress={onPress}>
             <View style={{
                    marginRight:20,
-                   Width:180
+                   /* width:180 */
                   }}>
             {photoRef ? (
               <Image  source={{
-                uri: 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='
-                + photoRef
-                +'&key='+process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}}
+                uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${encodeURIComponent(
+              photoRef
+            )}&key=${googleApiKey}`,}}
                 style={{
                        width:220,
                        height:120,

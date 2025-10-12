@@ -1,8 +1,10 @@
 import { View, Text, Modal, Image, ScrollView, TouchableOpacity, StyleSheet, Linking } from "react-native";
 import React from "react";
 import { AntDesign, Ionicons, MaterialIcons, FontAwesome } from "@expo/vector-icons";
+import Constants from "expo-constants";
 
 export default function PlaceDetailModal({ place, visible, onClose }) {
+   
   const openGoogleMaps = () => {
     const url = `https://www.google.com/maps/search/?api=1&query=${place.name}&query_place_id=${place.place_id}`;
     Linking.openURL(url);
@@ -32,10 +34,10 @@ export default function PlaceDetailModal({ place, visible, onClose }) {
               <Image
                 source={{
                   uri:
-                    "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=" +
-                    place?.photos[0]?.photo_reference +
-                    "&key=" +
-                    process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY,
+  "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=" +
+  place?.photos[0]?.photo_reference +
+  "&key=" +
+  Constants.expoConfig.extra.EXPO_PUBLIC_GOOGLE_MAP_KEY,
                 }}
                 style={styles.image}
               />

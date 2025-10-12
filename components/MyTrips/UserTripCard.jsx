@@ -1,12 +1,13 @@
 import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
 import React from "react";
 import moment from "moment";
+import Constants from "expo-constants";
 import { useTheme } from "../../constants/context/ThemeContext"; // Adjust the import path as necessary
 
 export default function UserTripCard({ trip, onSelectTrip, onDeleteTrip}) {
   const formattedTrip = JSON.parse(trip.tripData);
   const photoRef = formattedTrip.locationInfo?.photoRef;
-  const googleApiKey = process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY;
+  const googleApiKey =  Constants.expoConfig.extra.EXPO_PUBLIC_GOOGLE_MAP_KEY;
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
