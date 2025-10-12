@@ -39,7 +39,15 @@
         }
       ],
       "expo-secure-store",
-      "expo-localization"
+      "expo-localization",
+      [
+        "expo-build-properties",
+    {
+      "android": {
+        "googleServicesFile": "./google-services.json"
+      }
+    }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
